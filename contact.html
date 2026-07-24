@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Doulve</title>
+  <meta name="description" content="Get in touch with Doulve about brand, web, and media projects.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <noscript>
+    <style>
+      .kicker, .hero-headline .line, .hero-foot,
+      .reveal-panel, [data-reveal-item], .about-inner > *, .about-photo,
+      .contact-intro > *, .contact-form .field, .contact-form button {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
+</head>
+<body>
+
+  <!-- ===== BLOB FIELD — fixed, decorative, behind everything ===== -->
+  <div class="blob-field" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+    <div class="blob blob-6"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header glass-panel">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="" class="logo-mark">
+        DOULVE<span class="logo-chip" aria-hidden="true"></span>
+      </a>
+      <nav class="nav">
+        <a href="services.html"><span>Services</span></a>
+        <a href="work.html"><span>Work</span></a>
+        <a href="about.html"><span>About</span></a>
+        <a href="contact.html" class="is-current"><span>Contact</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HERO ===== -->
+  <section id="top" class="page-hero glass-panel">
+    <div class="container">
+      <p class="kicker">Get in touch</p>
+      <h1 class="hero-headline">
+        <span class="line">Contact</span>
+      </h1>
+      <div class="hero-foot">
+        <p class="hero-sub">
+          Tell us what you're building — we'll get back to you shortly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT FORM ===== -->
+  <section class="contact glass-panel reveal-panel">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-intro">
+          <p class="eyebrow">Get in touch</p>
+          <h2>Let's build<br>something.</h2>
+          <p class="contact-note">
+            Ready to grow your brand? Email
+            <a class="email-link" href="mailto:hello@doulve.com">hello@doulve.com</a>
+            or send a message.
+          </p>
+        </div>
+
+        <form class="contact-form" action="#" method="POST">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer glass-panel">
+    <div class="container footer-inner">
+      <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
+      <nav class="footer-nav">
+        <a href="services.html">Services</a>
+        <a href="work.html">Work</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

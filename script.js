@@ -85,10 +85,23 @@ function initBlobDrift() {
 // ---- Scroll-triggered reveals: a section-level fade-in, then a finer ----
 // ---- stagger for the content inside it. ----
 // All use fromTo for the same reason as the hero timeline above.
+//
+// Every page now only contains a subset of these elements (a multi-page
+// site, not one long scroll with everything present at once), so the
+// singular-selector registrations below are guarded with an existence
+// check first — registering a ScrollTrigger against a trigger selector
+// that matches nothing produces a console warning. The array-based ones
+// (.reveal-panel, [data-reveal-item]) don't need a guard: gsap.utils.toArray
+// simply returns an empty array on a page that has none, and .forEach over
+// that is already a safe no-op.
 function initScrollReveals() {
   // Panel-level fade-ins — the "section transition" as the user scrolls
-  // from one section into the next.
-  gsap.utils.toArray('.services, .about-panel, .contact-inner').forEach((panel) => {
+  // from one section into the next. .reveal-panel is the explicit opt-in
+  // marker (alongside .glass-panel) added to every content section that
+  // should behave this way; .hero/.page-hero/.site-header deliberately
+  // don't carry it — their entrance is the on-load hero timeline instead,
+  // or (for the header) no entrance at all.
+  gsap.utils.toArray('.reveal-panel').forEach((panel) => {
     gsap.fromTo(panel,
       { opacity: 0, y: 40 },
       {
@@ -101,68 +114,84 @@ function initScrollReveals() {
     );
   });
 
-  // Service cards — grid stagger, landing just after the panel fade above
-  // for a "panel arrives, then its cards settle in" compound effect.
-  gsap.fromTo('[data-reveal-item]',
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.55,
-      ease: 'power2.out',
-      stagger: { each: 0.12, from: 'start' },
-      scrollTrigger: { trigger: '.service-grid', start: 'top 80%', toggleActions: 'play none none none' },
-    }
-  );
+  // Card grids (services, work, pricing) — stagger, landing just after the
+  // panel fade above for a "panel arrives, then its cards settle in" effect.
+  // Each [data-reveal-group] (a .service-grid or .pricing-grid) gets its own
+  // trigger scoped to its own children, so multiple independent grids on
+  // one page (or none at all) both work correctly without special-casing.
+  gsap.utils.toArray('[data-reveal-group]').forEach((group) => {
+    gsap.fromTo(group.querySelectorAll('[data-reveal-item]'),
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+        ease: 'power2.out',
+        stagger: { each: 0.12, from: 'start' },
+        scrollTrigger: { trigger: group, start: 'top 80%', toggleActions: 'play none none none' },
+      }
+    );
+  });
 
   // About text cluster (eyebrow, lede, body)
-  gsap.fromTo('.about-inner > *',
-    { opacity: 0, y: 24 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.08,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.about-inner', start: 'top 80%', toggleActions: 'play none none none' },
-    }
-  );
+  if (document.querySelector('.about-inner')) {
+    gsap.fromTo('.about-inner > *',
+      { opacity: 0, y: 24 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '.about-inner', start: 'top 80%', toggleActions: 'play none none none' },
+      }
+    );
+  }
 
   // About photo — a gentle settle (fade + scale down to 1) rather than a slide
-  gsap.fromTo('.about-photo',
-    { opacity: 0, scale: 1.06 },
-    {
-      opacity: 1,
-      scale: 1,
-      duration: 0.8,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.about-panel', start: 'top 80%', toggleActions: 'play none none none' },
-    }
-  );
+  if (document.querySelector('.about-photo')) {
+    gsap.fromTo('.about-photo',
+      { opacity: 0, scale: 1.06 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '.about-panel', start: 'top 80%', toggleActions: 'play none none none' },
+      }
+    );
+  }
 
-  // Contact — two staggered clusters: intro copy, then form fields.
-  gsap.fromTo('.contact-intro > *',
-    { opacity: 0, y: 24 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.08,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.contact-intro', start: 'top 85%', toggleActions: 'play none none none' },
-    }
-  );
-  gsap.fromTo('.contact-form .field, .contact-form button',
-    { opacity: 0, y: 20 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.45,
-      stagger: 0.08,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: '.contact-form', start: 'top 85%', toggleActions: 'play none none none' },
-    }
-  );
+  // Contact intro copy (appears in both the homepage teaser and the real
+  // contact page, always inside a .contact-intro wrapper either way)
+  if (document.querySelector('.contact-intro')) {
+    gsap.fromTo('.contact-intro > *',
+      { opacity: 0, y: 24 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '.contact-intro', start: 'top 85%', toggleActions: 'play none none none' },
+      }
+    );
+  }
+
+  // Contact form fields — only present on contact.html
+  if (document.querySelector('.contact-form')) {
+    gsap.fromTo('.contact-form .field, .contact-form button',
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.45,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '.contact-form', start: 'top 85%', toggleActions: 'play none none none' },
+      }
+    );
+  }
 
   // Footer is deliberately left un-animated — a copyright line has nothing
   // to gain from motion.

@@ -378,6 +378,12 @@ a {
   transform: scaleX(1);
 }
 
+/* Marks the current page in the nav — same underline mechanism as hover,
+   just permanently on instead of triggered by :hover. */
+.nav a.is-current span::after {
+  transform: scaleX(1);
+}
+
 
 /* ============================================
    5. HERO — a tall rounded glass card, nearly filling
@@ -443,6 +449,36 @@ a {
   max-width: 46ch;
   font-size: 1.08rem;
   color: var(--text-muted);
+}
+
+
+/* ============================================
+   5b. PAGE HERO — the compact title band used by every
+   inner page instead of the homepage's full-screen .hero.
+   Reuses .kicker/.hero-headline/.hero-foot verbatim (same
+   markup, same class names) so the existing on-load GSAP
+   entrance timeline in script.js animates it automatically,
+   with zero JS changes — only the container differs: a
+   normal-height glass panel instead of a 100vh one.
+   ============================================ */
+
+.page-hero {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(var(--header-h) + 28px);
+  margin-bottom: 20px;
+  padding: 64px 56px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.page-hero .hero-headline {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+
+.page-hero .hero-foot {
+  margin-top: 32px;
+  padding-top: 0;
+  border-top: none;
 }
 
 
@@ -662,6 +698,125 @@ a {
   align-self: flex-start;
 }
 
+/* Homepage contact TEASER — single-column, centered, no form (the real
+   form lives on contact.html's .contact-inner 2-col grid). Deliberately a
+   different class so .contact-inner's grid layout stays reserved for the
+   actual form page. */
+.contact-teaser {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 80px 64px;
+  text-align: center;
+}
+
+.contact-teaser .eyebrow {
+  display: block;
+}
+
+.contact-teaser h2 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  margin: 4px 0 20px;
+  color: var(--ink);
+}
+
+.contact-teaser .contact-note {
+  margin: 0 auto 32px;
+}
+
+.contact-teaser .btn-primary {
+  display: inline-block;
+}
+
+
+/* ============================================
+   8b. PRICING — tiers have a genuinely different layout
+   (price + feature list + button, no photo) from service
+   cards, so this is a small dedicated component. Same
+   light-tint-no-blur card language as .service-card —
+   the section behind it already provides the glass blur.
+   ============================================ */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 12px;
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 30px -14px rgba(58, 21, 104, 0.12);
+  padding: 32px 28px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 46px -16px rgba(58, 21, 104, 0.2);
+}
+
+.pricing-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--violet-deep);
+  margin-bottom: 4px;
+}
+
+.pricing-price span {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.pricing-note {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-grow: 1;
+}
+
+.pricing-features li {
+  font-size: 0.95rem;
+  color: var(--ink);
+  padding-left: 22px;
+  position: relative;
+}
+
+.pricing-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+.pricing-card .btn-primary {
+  align-self: flex-start;
+}
+
 
 /* ============================================
    9. FOOTER — the same glass-card language, smaller.
@@ -687,6 +842,44 @@ a {
   color: var(--text-muted);
 }
 
+/* Small sitemap row — gives every page a path to every other page
+   (including Pricing, which is deliberately not in the primary nav). */
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--ink);
+}
+
+/* Small pill flagging inner-page body content as a temporary stand-in,
+   so it's unmistakable which parts still need real copy. */
+.placeholder-note {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 24px;
+}
+
 
 /* ============================================
    10. MOTION PREFERENCES
@@ -702,9 +895,7 @@ a {
 .motion-disabled .kicker,
 .motion-disabled .hero-headline .line,
 .motion-disabled .hero-foot,
-.motion-disabled .services,
-.motion-disabled .about-panel,
-.motion-disabled .contact-inner,
+.motion-disabled .reveal-panel,
 .motion-disabled [data-reveal-item],
 .motion-disabled .about-inner > *,
 .motion-disabled .about-photo,
@@ -743,6 +934,10 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
   .about-panel {
     grid-template-columns: 1fr;
   }
@@ -775,7 +970,8 @@ a {
     border-radius: 24px;
   }
 
-  .hero {
+  .hero,
+  .page-hero {
     padding: 44px 28px;
   }
 
@@ -788,7 +984,8 @@ a {
     padding: 60px 0;
   }
 
-  .contact-inner {
+  .contact-inner,
+  .contact-teaser {
     padding: 28px;
   }
 

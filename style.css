@@ -817,6 +817,46 @@ a {
   align-self: flex-start;
 }
 
+/* The premium tier — stronger border/glow instead of a layout change, plus
+   a badge and a filled (not outline) button, so it reads as the featured
+   option without disrupting the 3-column grid the other cards sit in. */
+.pricing-card--featured {
+  position: relative;
+  border: 2px solid var(--violet-deep);
+  box-shadow: 0 20px 50px -16px rgba(109, 40, 217, 0.35), 0 8px 24px -12px rgba(58, 21, 104, 0.2);
+}
+
+.pricing-card--featured:hover {
+  box-shadow: 0 28px 64px -16px rgba(109, 40, 217, 0.45), 0 8px 24px -12px rgba(58, 21, 104, 0.25);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  right: 28px;
+  background: var(--violet-deep);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.pricing-card--featured .btn-primary {
+  background: var(--violet-deep);
+  color: #FFFFFF;
+  border-color: var(--violet-deep);
+}
+
+.pricing-card--featured .btn-primary:hover {
+  background: var(--violet-hover);
+  border-color: var(--violet-hover);
+  color: #FFFFFF;
+}
+
 
 /* ============================================
    9. FOOTER — the same glass-card language, smaller.

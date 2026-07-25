@@ -28,7 +28,9 @@
       "Bash(node wwd-zoom.js)",
       "Bash(node other-pages-check.js)",
       "Bash(node mobile-wwd.js)",
-      "Bash(node strategy-check.js)"
+      "Bash(node strategy-check.js)",
+      "Bash(git fetch *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com/repos/doulve-studios/doulve-website/pages)"
     ]
   },
   "enabledPlugins": {

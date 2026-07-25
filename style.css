@@ -612,6 +612,51 @@ a {
   text-transform: uppercase;
 }
 
+/* ---- "What We Do" only — scoped so this doesn't bleed onto the other
+   pages that reuse .services (services.html, pricing.html, work.html). ---- */
+
+/* Hand-marker heading, matching the reference's rough painted-label look,
+   with a small rotated underline stroke standing in for a marker swipe. */
+.what-we-do .eyebrow {
+  font-family: var(--font-marker);
+  font-size: 1.7rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink-text);
+  margin-bottom: 34px;
+  position: relative;
+  display: inline-block;
+}
+
+.what-we-do .eyebrow::after {
+  content: '';
+  display: block;
+  width: 92px;
+  height: 5px;
+  background: var(--ink-text);
+  border-radius: 3px;
+  margin-top: 4px;
+  transform: rotate(-1.5deg);
+}
+
+/* A second torn edge at the bottom, mirroring the existing top one
+   (.services::before, shared) but scoped only to this section so other
+   .services-using pages are unaffected. */
+.what-we-do::after {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: var(--cream);
+  clip-path: polygon(
+    0% 0%, 5% 70%, 10% 0%, 15% 70%, 20% 0%, 25% 70%, 30% 0%, 35% 70%,
+    40% 0%, 45% 70%, 50% 0%, 55% 70%, 60% 0%, 65% 70%, 70% 0%, 75% 70%,
+    80% 0%, 85% 70%, 90% 0%, 95% 70%, 100% 0%
+  );
+}
+
 .icon-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -629,14 +674,45 @@ a {
   padding-left: 0;
 }
 
+/* Rough paint-splatter silhouette (irregular clip-path, not a circle),
+   plus two small ink-fleck dots bleeding just past its edge — same
+   "decorative pseudo-elements, no extra markup" technique used for the
+   hero spray-badges' paint flecks. */
 .icon-chip {
-  width: 54px;
-  height: 54px;
-  border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+  --splatter: polygon(
+    20% 0%, 45% 5%, 62% 0%, 80% 10%, 92% 8%, 100% 25%, 96% 40%, 100% 55%,
+    90% 65%, 94% 80%, 82% 88%, 88% 100%, 68% 95%, 55% 100%, 45% 92%, 30% 100%,
+    22% 88%, 8% 92%, 0% 75%, 6% 60%, 0% 45%, 8% 30%, 2% 15%, 12% 5%
+  );
+  position: relative;
+  width: 60px;
+  height: 60px;
+  clip-path: var(--splatter);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
+}
+
+.icon-chip::before,
+.icon-chip::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+
+.icon-chip::before {
+  width: 10px;
+  height: 10px;
+  bottom: -6px;
+  right: 6%;
+}
+
+.icon-chip::after {
+  width: 6px;
+  height: 6px;
+  top: 10%;
+  right: -8px;
 }
 
 .icon-chip svg {
@@ -647,6 +723,13 @@ a {
 .icon-chip.is-mint   { background: var(--mint);   color: var(--ink-dark); }
 .icon-chip.is-orange { background: var(--orange); color: var(--white); }
 .icon-chip.is-lime   { background: var(--lime);   color: var(--ink-dark); }
+
+.icon-chip.is-mint::before,
+.icon-chip.is-mint::after   { background: var(--mint); }
+.icon-chip.is-orange::before,
+.icon-chip.is-orange::after { background: var(--orange); }
+.icon-chip.is-lime::before,
+.icon-chip.is-lime::after   { background: var(--lime); }
 
 .icon-col h3 {
   font-size: 1.05rem;

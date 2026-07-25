@@ -491,16 +491,17 @@ a {
 .badge-google-ads { bottom: 16%; left: -10%; --rot: 5deg; }
 .badge-strategy   { bottom: 2%;  right: -4%; --rot: -3deg; }
 
-/* Websites and Meta Ads now use hand-illustrated sticker PNGs instead of
-   the CSS-drawn torn-paper shape — strip the drawn chrome for just these
-   two. Position, rotation (--rot), the hover/focus transform, and the
-   transition are all inherited untouched from .spray-badge above; only
-   background/border/clip-path/shadow/padding are reset here. Compound
+/* Websites, Meta Ads, and Strategy now use hand-illustrated sticker PNGs
+   instead of the CSS-drawn torn-paper shape — strip the drawn chrome for
+   just these three. Position, rotation (--rot), the hover/focus transform,
+   and the transition are all inherited untouched from .spray-badge above;
+   only background/border/clip-path/shadow/padding are reset here. Compound
    selectors (.spray-badge.badge-websites, not a bare class) so this
    reliably wins over the mobile breakpoint's .spray-badge padding
    override regardless of source order. */
 .spray-badge.badge-websites,
-.spray-badge.badge-meta-ads {
+.spray-badge.badge-meta-ads,
+.spray-badge.badge-strategy {
   background: none;
   border: none;
   clip-path: none;
@@ -511,7 +512,9 @@ a {
 .spray-badge.badge-websites::before,
 .spray-badge.badge-websites::after,
 .spray-badge.badge-meta-ads::before,
-.spray-badge.badge-meta-ads::after {
+.spray-badge.badge-meta-ads::after,
+.spray-badge.badge-strategy::before,
+.spray-badge.badge-strategy::after {
   content: none;
 }
 
@@ -522,15 +525,17 @@ a {
 }
 
 /* .spray-badge:hover still sets background/box-shadow (the cream-badge
-   "lift" look) — without this, hovering these two would flash a white
+   "lift" look) — without this, hovering these three would flash a white
    rectangle in behind the transparent PNG. The transform (the actual
    lift/rotate/scale animation) is untouched here, so the hover motion
    stays exactly as it was; only the reappearing background/shadow shape
    is suppressed, consistent with removing it at rest above. */
 .spray-badge.badge-websites:hover,
 .spray-badge.badge-meta-ads:hover,
+.spray-badge.badge-strategy:hover,
 .spray-badge.badge-websites:focus-visible,
-.spray-badge.badge-meta-ads:focus-visible {
+.spray-badge.badge-meta-ads:focus-visible,
+.spray-badge.badge-strategy:focus-visible {
   background: none;
   box-shadow: none;
 }

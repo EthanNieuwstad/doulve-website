@@ -340,7 +340,13 @@ a {
   opacity: 0.95;
 }
 
-/* ---- Spray-paint tag badges ---- */
+/* ---- Spray-paint tag badges — real links now, not decoration, so they
+   need to visibly read as clickable. Each badge's tilt lives in a --rot
+   custom property (set per badge-* modifier below) rather than directly
+   in `transform`, so hover/focus can layer an extra rotation + scale on
+   top of that base tilt instead of overwriting it outright — the "sticker
+   being lifted off the surface" effect: it tilts further, scales up, and
+   its shadow deepens as if peeling up. */
 .spray-badge {
   position: absolute;
   display: inline-flex;
@@ -358,6 +364,22 @@ a {
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
   white-space: nowrap;
   z-index: 2;
+  cursor: pointer;
+  transform: rotate(var(--rot, 0deg)) scale(1);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background-color 0.2s ease;
+}
+
+.spray-badge:hover,
+.spray-badge:focus-visible {
+  transform: rotate(calc(var(--rot, 0deg) + 5deg)) scale(1.12);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.45);
+  background: var(--white);
+  z-index: 4;
+}
+
+.spray-badge:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
 }
 
 .badge-icon {
@@ -383,11 +405,11 @@ a {
 .badge-icon.is-mint   { background: var(--mint);   color: var(--ink-dark); }
 .badge-icon.is-lime   { background: var(--lime);   color: var(--ink-dark); }
 
-.badge-websites   { top: 4%;    left: -6%;  transform: rotate(-6deg); }
-.badge-branding   { top: -4%;   left: 38%;  transform: rotate(4deg); }
-.badge-meta-ads   { top: 24%;   right: -10%; transform: rotate(-4deg); }
-.badge-google-ads { bottom: 16%; left: -10%; transform: rotate(5deg); }
-.badge-strategy   { bottom: 2%;  right: -4%; transform: rotate(-3deg); }
+.badge-websites   { top: 4%;    left: -6%;  --rot: -6deg; }
+.badge-branding   { top: -4%;   left: 38%;  --rot: 4deg; }
+.badge-meta-ads   { top: 24%;   right: -10%; --rot: -4deg; }
+.badge-google-ads { bottom: 16%; left: -10%; --rot: 5deg; }
+.badge-strategy   { bottom: 2%;  right: -4%; --rot: -3deg; }
 
 /* ---- Scattered doodle marks (X / star / lightning) ---- */
 .doodle-mark {
@@ -1170,9 +1192,9 @@ a {
     display: none;
   }
 
-  .badge-websites   { top: 0; left: 0; bottom: auto; transform: rotate(-6deg); }
-  .badge-branding   { top: 38%; left: 30%; bottom: auto; transform: rotate(4deg); }
-  .badge-meta-ads   { top: auto; bottom: 0; right: -4%; transform: rotate(-4deg); }
+  .badge-websites   { top: 0; left: 0; bottom: auto; --rot: -6deg; }
+  .badge-branding   { top: 38%; left: 30%; bottom: auto; --rot: 4deg; }
+  .badge-meta-ads   { top: auto; bottom: 0; right: -4%; --rot: -4deg; }
 
   .icon-row {
     grid-template-columns: 1fr;

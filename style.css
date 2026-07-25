@@ -136,6 +136,48 @@ a {
   outline-offset: 3px;
 }
 
+/* Hero-only "sticker" treatment, matching the spray-badge tags around the
+   swallow mark. Scoped to .hero-actions (not the base .btn-primary/
+   .btn-secondary) so every other button on the site — pricing cards, the
+   header CTA, contact CTAs — keeps its existing pill look untouched.
+   This only overrides resting-state background/border/shadow/rotation;
+   .btn-primary:hover, .btn-secondary:hover, :focus-visible, and .btn's
+   shared `transition` above are completely unchanged, so hover/focus
+   still animate exactly as they did — the rotation just straightens out
+   as part of that same existing transform transition. */
+.hero-actions .btn-primary {
+  background: #F5A623;
+  color: #0B2B25;
+  border: 3px solid #0B2B25;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 #0B2B25;
+  transform: rotate(-2deg);
+}
+
+.hero-actions .btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 3px solid var(--white);
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 rgba(255, 255, 255, 0.15);
+  transform: rotate(1.5deg);
+}
+
+/* .hero-actions .btn-primary and .btn-primary:hover carry equal CSS
+   specificity (two class-level selectors each), so without this, the rest-
+   state rotation above — being later in the file — would silently win even
+   while hovering, killing the lift/scale animation. These two rules exist
+   only to out-specificity that collision; the values are copied verbatim
+   from the untouched .btn-primary:hover / .btn-secondary:hover rules above,
+   not new behavior. */
+.hero-actions .btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.hero-actions .btn-secondary:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
 
 /* ============================================
    3. HEADER — a plain full-width bar (not a floating

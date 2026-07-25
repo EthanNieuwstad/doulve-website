@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 
@@ -25,18 +25,8 @@
 </head>
 <body>
 
-  <!-- ===== BLOB FIELD — fixed, decorative, behind everything ===== -->
-  <div class="blob-field" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="blob blob-4"></div>
-    <div class="blob blob-5"></div>
-    <div class="blob blob-6"></div>
-  </div>
-
   <!-- ===== HEADER ===== -->
-  <header class="site-header glass-panel">
+  <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
         <img src="images/logo.png" alt="" class="logo-mark">
@@ -48,137 +38,180 @@
         <a href="about.html"><span>About</span></a>
         <a href="contact.html"><span>Contact</span></a>
       </nav>
+      <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
     </div>
   </header>
 
   <!-- ===== HERO ===== -->
-  <section id="top" class="hero glass-panel">
+  <section id="top" class="hero">
     <div class="container">
-      <p class="kicker">Brand &nbsp;/&nbsp; Web &nbsp;/&nbsp; Media Buying</p>
+      <div class="hero-copy">
+        <p class="kicker">Bold Brands. Real Results.</p>
 
-      <h1 class="hero-headline">
-        <span class="line">Look bold.</span>
-        <span class="line">Sell harder.</span>
-      </h1>
+        <h1 class="hero-headline">
+          <span class="line">We Control</span>
+          <span class="line">Your Brand</span>
+          <span class="line">Presence.</span>
+        </h1>
 
-      <div class="hero-foot">
-        <p class="hero-sub">
-          Brand strategy, web design, and Meta/Google ad management —
-          built for local shops, startups, and brands ready for their next act.
-        </p>
-        <a href="contact.html" class="btn btn-primary">Start a project →</a>
+        <div class="hero-foot">
+          <p class="hero-sub">
+            We build brand systems, design websites, and manage Meta/Google ad
+            campaigns. So you can focus on running the business.
+          </p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-primary">Our Services →</a>
+            <a href="work.html" class="btn btn-secondary">View Our Work</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img class="hero-bird" src="images/logo.png" alt="" aria-hidden="true">
+
+        <span class="spray-badge badge-websites">
+          Websites
+          <span class="badge-icon is-mint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          </span>
+        </span>
+
+        <span class="spray-badge badge-branding">
+          Branding
+          <span class="badge-icon is-orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4 3 5-6 5 6 4-3-2 10H5L3 8z"/></svg>
+          </span>
+        </span>
+
+        <span class="spray-badge badge-meta-ads">
+          Meta Ads
+          <span class="badge-icon is-orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6l-4 4H4a1 1 0 0 0-1 1z"/><path d="M15 8a3 3 0 0 1 0 8"/></svg>
+          </span>
+        </span>
+
+        <span class="spray-badge badge-google-ads">
+          Google Ads
+          <span class="badge-icon is-lime" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+          </span>
+        </span>
+
+        <span class="spray-badge badge-strategy">
+          Strategy
+          <span class="badge-icon is-mint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg>
+          </span>
+        </span>
+
+        <svg class="doodle-mark mark-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+        <svg class="doodle-mark mark-2" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9 7.4.3-5.8 4.6 2.1 7.2-6.3-4.1-6.3 4.1 2.1-7.2-5.8-4.6 7.4-.3z"/></svg>
+        <svg class="doodle-mark mark-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+        <svg class="doodle-mark mark-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
+        <svg class="doodle-mark mark-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9 7.4.3-5.8 4.6 2.1 7.2-6.3-4.1-6.3 4.1 2.1-7.2-5.8-4.6 7.4-.3z"/></svg>
       </div>
     </div>
   </section>
 
-  <!-- ===== SERVICES TEASER ===== -->
-  <section id="services" class="services glass-panel reveal-panel">
+  <!-- ===== WHAT WE DO ===== -->
+  <section class="services reveal-panel">
     <div class="container">
       <p class="eyebrow">What we do</p>
 
-      <div class="service-grid" data-reveal-group>
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-brand/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-violet" aria-hidden="true"></span>Brand Strategy</h3>
-            <p>Positioning, naming, and identity systems built to hold up across every touchpoint — not just a logo.</p>
-          </div>
+      <div class="icon-row" data-reveal-group>
+        <div class="icon-col" data-reveal-item>
+          <span class="icon-chip is-mint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          </span>
+          <h3>Web Design</h3>
+          <p>Custom, responsive websites that look amazing and convert visitors.</p>
         </div>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-web/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-lime" aria-hidden="true"></span>Website Design</h3>
-            <p>Custom, high-converting websites designed to turn visitors into customers.</p>
-          </div>
+        <div class="icon-col" data-reveal-item>
+          <span class="icon-chip is-orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4 3 5-6 5 6 4-3-2 10H5L3 8z"/></svg>
+          </span>
+          <h3>Branding</h3>
+          <p>Memorable brands that connect with your audience and stand out.</p>
         </div>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-ads/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-ink" aria-hidden="true"></span>Performance Advertising</h3>
-            <p>Meta and Google campaigns engineered to reach the right audience and prove their ROI.</p>
-          </div>
-        </div>
-      </div>
-
-      <p style="margin-top: 32px;"><a href="services.html" class="btn btn-primary">See all services →</a></p>
-    </div>
-  </section>
-
-  <!-- ===== WORK TEASER ===== -->
-  <section id="work" class="services glass-panel reveal-panel">
-    <div class="container">
-      <p class="eyebrow">Recent work</p>
-
-      <div class="service-grid" data-reveal-group>
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-kindred/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-violet" aria-hidden="true"></span>Kindred Coffee Co.</h3>
-            <p>Full rebrand and Shopify build for a 3-location specialty roaster.</p>
-          </div>
+        <div class="icon-col" data-reveal-item>
+          <span class="icon-chip is-lime" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <h3>Ad Creation</h3>
+          <p>Scroll-stopping ads designed to capture attention and drive results.</p>
         </div>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-northline/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-lime" aria-hidden="true"></span>Northline Fitness</h3>
-            <p>Meta ad campaign relaunch that cut cost-per-lead by more than half.</p>
-          </div>
+        <div class="icon-col" data-reveal-item>
+          <span class="icon-chip is-mint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6l-4 4H4a1 1 0 0 0-1 1z"/><path d="M15 8a3 3 0 0 1 0 8"/><path d="M18 5a7 7 0 0 1 0 14"/></svg>
+          </span>
+          <h3>Meta &amp; Google Ads</h3>
+          <p>We launch, manage, and optimize campaigns that get you seen.</p>
         </div>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-marlow/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-ink" aria-hidden="true"></span>Marlow &amp; Finch</h3>
-            <p>Brand identity and website for a boutique home goods label.</p>
-          </div>
-        </div>
-      </div>
-
-      <p style="margin-top: 32px;"><a href="work.html" class="btn btn-primary">View all work →</a></p>
-    </div>
-  </section>
-
-  <!-- ===== ABOUT TEASER ===== -->
-  <section id="about" class="about glass-panel reveal-panel">
-    <div class="container">
-      <div class="about-panel">
-        <div class="about-photo-wrap">
-          <img class="about-photo" src="https://picsum.photos/seed/doulve-about/800/900" alt="" loading="lazy" width="800" height="900">
-        </div>
-        <div class="about-inner">
-          <p class="eyebrow">About Doulve</p>
-          <p class="about-lede">We learned brand-building behind the camera, not behind a dashboard.</p>
-          <p class="about-body">
-            A background in media production and digital advertising, now
-            focused on building brands, websites, and campaigns that perform.
-          </p>
-          <p style="margin-top: 24px;"><a href="about.html" class="btn btn-primary">Learn more about us →</a></p>
+        <div class="icon-col" data-reveal-item>
+          <span class="icon-chip is-orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="14"/><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="6"/><polyline points="4,12 10,7 14,10 20,4"/></svg>
+          </span>
+          <h3>Strategy &amp; Growth</h3>
+          <p>Data-driven strategies to grow your brand and maximize your ROI.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== CONTACT TEASER ===== -->
-  <section id="contact" class="contact glass-panel reveal-panel">
+  <!-- ===== CLOSING STATS + CTA ===== -->
+  <section class="stats-section reveal-panel">
     <div class="container">
-      <div class="contact-teaser">
-        <div class="contact-intro">
-          <p class="eyebrow">Get in touch</p>
-          <h2>Let's build<br>something.</h2>
-          <p class="contact-note">
-            Ready to grow your brand? We'd love to hear what you're working on.
-          </p>
+      <div class="stats-inner">
+        <div class="stats-headline">
+          <h2>Creative that hits.<br><span class="accent">Results that stick.</span></h2>
+          <p>We combine creativity and strategy to deliver real impact for your business.</p>
         </div>
-        <a href="contact.html" class="btn btn-primary">Get in touch →</a>
+
+        <div class="stats-row" data-reveal-group>
+          <div class="stat-block" data-reveal-item>
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-2 5l-3 3-3-3c-1-1-2-3-2-5 0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.5" fill="currentColor"/><path d="M8 15l-3 3 1 3 3-3"/><path d="M16 15l3 3-1 3-3-3"/></svg>
+            <span>
+              <span class="stat-number">100+</span>
+              <span class="stat-label">Projects Delivered</span>
+            </span>
+          </div>
+
+          <div class="stat-block" data-reveal-item>
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
+            <span>
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Happy Clients</span>
+            </span>
+          </div>
+
+          <div class="stat-block" data-reveal-item>
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
+            <span>
+              <span class="stat-number">200M+</span>
+              <span class="stat-label">Ad Impressions Managed</span>
+            </span>
+          </div>
+
+          <div class="stat-block" data-reveal-item>
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,17 9,11 13,15 21,7"/><polyline points="15,7 21,7 21,13"/></svg>
+            <span>
+              <span class="stat-number">3.5x</span>
+              <span class="stat-label">Average ROI Increase</span>
+            </span>
+          </div>
+        </div>
+
+        <a href="contact.html" class="stats-cta">Let's build something<br><span class="accent">epic</span> together →</a>
       </div>
     </div>
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="site-footer glass-panel">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
       <nav class="footer-nav">

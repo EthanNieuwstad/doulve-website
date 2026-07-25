@@ -1,45 +1,31 @@
 /* ============================================
-   1. TOKENS — the palette and type system
+   1. TOKENS — the "street-art" direction: dark near-black
+   green base, white/lime type, orange + mint accents.
+   Replaces the earlier glassmorphism/blob palette entirely.
    ============================================ */
 
 :root {
-  --base:  #FAFAFC;  /* near-white — page background, base layer under blobs/glass */
-  --ink:   #1B1625;  /* near-black w/ faint purple undertone — body text, headings, nav */
-  --deep-purple: #3A1568;  /* headline, line 1 */
-  --soft-lavender: #8A6FC9; /* headline, line 2 — the reference's two-tone treatment */
+  --ink-dark: #10201A;   /* near-black-green — hero/stats/header/footer background */
+  --cream:    #EDE6D8;   /* "What We Do" band background */
+  --ink-text: #14231C;   /* headings/body text on cream */
+  --white:    #FFFFFF;
 
-  --violet:       #8B5CF6; /* vibrant accent — blobs + small decorative use only, never text-on-fill */
-  --violet-deep:  #6D28D9; /* button text/border — deep enough for AA contrast on --base */
-  --violet-hover: #5B21B6; /* button hover */
-  --lime:         #C3F73A; /* chartreuse accent — blobs, thin accent lines, never body text */
+  --lime:   #C3F73A;  /* headline accent, icon chips */
+  --orange: #F2941F;  /* primary CTA, kicker labels, accents */
+  --orange-hover: #DB8412;
+  --mint:   #8FEAD1;  /* secondary accent, outline buttons, icon chips */
 
-  /* Glossy-marble blob recipe (matched to a reference of wet, glossy oil-
-     droplet spheres): a big, bright specular highlight, a saturated
-     mid-tone body, and a dark, high-contrast rim shadow — lit consistently
-     from the upper-left (highlight there, shadow diagonally opposite) so
-     every blob reads as one coherent glossy 3D sphere, not a flat tint. */
-  --blob-highlight:    #FFFFFF;
-  --violet-core:       #A855F7; /* was a pale #C9A6FF — more saturated, less washed out */
-  --violet-rim:        #4C1D95;
-  --violet-rim-deep:   #2E0A5C;
-  --violet-rim-shadow: rgba(30, 8, 65, 0.8);
-  --lime-core:         #D4FF3D; /* was a pale #F0FFA0 — vivid chartreuse instead of pastel */
-  --lime-rim:          #6F9200;
-  --lime-rim-deep:     #3F5200;
-  --lime-rim-shadow:   rgba(35, 45, 5, 0.75);
-
-  --text-muted: rgba(27, 22, 37, 0.62); /* derived from --ink, for body copy */
-  --hairline:   rgba(27, 22, 37, 0.10);
-
-  --glass-bg:     rgba(255, 255, 255, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.65);
-  --glass-shadow: rgba(58, 21, 104, 0.16);
+  --text-muted-dark:  rgba(255, 255, 255, 0.68);  /* body copy on --ink-dark */
+  --text-muted-cream: rgba(20, 35, 28, 0.65);     /* body copy on --cream */
+  --hairline-dark:  rgba(255, 255, 255, 0.14);
+  --hairline-cream: rgba(20, 35, 28, 0.14);
 
   --font-display: 'Bricolage Grotesque', sans-serif;
   --font-body: 'Work Sans', sans-serif;
   --font-mono: 'Space Mono', monospace;
+  --font-marker: 'Permanent Marker', cursive; /* hand-marker accent — used sparingly */
 
-  --header-h: 78px; /* fallback estimate; corrected by script.js once the header renders */
+  --header-h: 66px; /* fallback estimate; corrected by script.js once the header renders */
 }
 
 * {
@@ -54,8 +40,8 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--ink);
-  background-color: var(--base);
+  color: var(--ink-text);
+  background-color: var(--ink-dark);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -63,7 +49,7 @@ body {
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.01em;
 }
@@ -94,173 +80,20 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--violet-deep);
+  color: var(--orange);
   margin-bottom: 22px;
 }
 
 
 /* ============================================
-   1b. BLOB FIELD — clean, high-resolution gradient shapes,
-   living behind everything. Fixed, so they never duplicate
-   per section, and free to spill outside the rounded glass
-   cards' edges (that spillover, visible in the gaps
-   around/between cards, is what sells the "lava lamp"
-   feel from the reference). Drift is tied to scroll via
-   GSAP ScrollTrigger scrub — see initBlobDrift in script.js.
-
-   Deliberately NO filter:blur() on the blobs themselves —
-   blur is exclusively a property of the glass panels'
-   backdrop-filter (see .glass-panel below), which blurs
-   whatever sits behind a given panel, blob included. That
-   means a blob reads crisp/HD wherever it's in open page
-   background, and blurred only in the exact areas where a
-   frosted panel happens to sit on top of it — the blur is a
-   property of the glass, not the blob. Each gradient fades
-   to transparent at its outer edge so the shape still reads
-   as a soft-edged blob rather than a hard-edged disc, using
-   the gradient itself (not a blur filter) to do that softening.
-   ============================================ */
-
-.blob-field {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-/* Continuous organic morph — a real-time loop, entirely independent of
-   scroll. This is what makes the shapes read as liquid rather than solid
-   discs sliding around: the outline itself keeps warping between irregular
-   states. GSAP's scroll-scrub tween (see initBlobDrift in script.js) only
-   ever touches `transform` on these elements, never border-radius, so the
-   two animations run concurrently on separate properties without conflict. */
-@keyframes blob-morph {
-  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  25%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-  50%      { border-radius: 50% 60% 30% 70% / 40% 50% 60% 50%; }
-  75%      { border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%; }
-}
-
-.blob {
-  position: absolute;
-  border-radius: 50%; /* resting/fallback shape — see .motion-disabled */
-  will-change: transform, border-radius;
-  animation: blob-morph 17s ease-in-out infinite;
-}
-
-/* Different duration + a negative delay (starts partway through its own
-   cycle) per blob, so all six warp out of sync rather than breathing
-   in unison — the same "desync" idea the old ambient shape drift used. */
-.blob-1 { animation-duration: 14s; animation-delay: -2s; }
-.blob-2 { animation-duration: 19s; animation-delay: -9s; }
-.blob-3 { animation-duration: 16s; animation-delay: -5s; }
-.blob-4 { animation-duration: 21s; animation-delay: -12s; }
-.blob-5 { animation-duration: 15s; animation-delay: -7s; }
-.blob-6 { animation-duration: 18s; animation-delay: -3s; }
-
-.blob-1 {
-  width: 140px;
-  height: 140px;
-  top: -40px;
-  left: -40px;
-  background:
-    radial-gradient(circle at 30% 26%, var(--blob-highlight) 0%, var(--blob-highlight) 9%, rgba(255, 255, 255, 0.5) 16%, transparent 28%),
-    radial-gradient(circle at 72% 78%, var(--violet-rim-shadow) 0%, var(--violet-rim-shadow) 18%, transparent 42%),
-    radial-gradient(circle at 44% 40%, var(--violet-core) 0%, var(--violet) 28%, var(--violet-rim) 52%, var(--violet-rim-deep) 78%, transparent 100%);
-  opacity: 0.92;
-}
-
-.blob-2 {
-  width: 300px;
-  height: 300px;
-  top: 90px;
-  left: -130px;
-  background:
-    radial-gradient(circle at 30% 26%, var(--blob-highlight) 0%, var(--blob-highlight) 9%, rgba(255, 255, 255, 0.5) 16%, transparent 28%),
-    radial-gradient(circle at 72% 78%, var(--lime-rim-shadow) 0%, var(--lime-rim-shadow) 18%, transparent 42%),
-    radial-gradient(circle at 44% 40%, var(--lime-core) 0%, var(--lime) 28%, var(--lime-rim) 52%, var(--lime-rim-deep) 78%, transparent 100%);
-  opacity: 0.82;
-}
-
-.blob-3 {
-  width: 380px;
-  height: 380px;
-  top: -110px;
-  right: -130px;
-  background:
-    radial-gradient(circle at 30% 26%, var(--blob-highlight) 0%, var(--blob-highlight) 9%, rgba(255, 255, 255, 0.5) 16%, transparent 28%),
-    radial-gradient(circle at 72% 78%, var(--violet-rim-shadow) 0%, var(--violet-rim-shadow) 18%, transparent 42%),
-    radial-gradient(circle at 44% 40%, var(--violet-core) 0%, var(--violet) 28%, var(--violet-rim) 52%, var(--violet-rim-deep) 78%, transparent 100%);
-  opacity: 0.88;
-}
-
-.blob-4 {
-  width: 360px;
-  height: 360px;
-  bottom: -110px;
-  left: -110px;
-  background:
-    radial-gradient(circle at 30% 26%, var(--blob-highlight) 0%, var(--blob-highlight) 9%, rgba(255, 255, 255, 0.5) 16%, transparent 28%),
-    radial-gradient(circle at 72% 78%, var(--lime-rim-shadow) 0%, var(--lime-rim-shadow) 18%, transparent 42%),
-    radial-gradient(circle at 44% 40%, var(--lime-core) 0%, var(--lime) 28%, var(--lime-rim) 52%, var(--lime-rim-deep) 78%, transparent 100%);
-  opacity: 0.82;
-}
-
-.blob-5 {
-  width: 260px;
-  height: 260px;
-  bottom: -85px;
-  right: 25px;
-  background:
-    radial-gradient(circle at 30% 26%, var(--blob-highlight) 0%, var(--blob-highlight) 9%, rgba(255, 255, 255, 0.5) 16%, transparent 28%),
-    radial-gradient(circle at 72% 78%, var(--violet-rim-shadow) 0%, var(--violet-rim-shadow) 18%, transparent 42%),
-    radial-gradient(circle at 44% 40%, var(--violet-core) 0%, var(--violet) 28%, var(--violet-rim) 52%, var(--violet-rim-deep) 78%, transparent 100%);
-  opacity: 0.88;
-}
-
-.blob-6 {
-  width: 220px;
-  height: 220px;
-  bottom: -100px;
-  right: -85px;
-  background:
-    radial-gradient(circle at 30% 26%, var(--blob-highlight) 0%, var(--blob-highlight) 9%, rgba(255, 255, 255, 0.5) 16%, transparent 28%),
-    radial-gradient(circle at 72% 78%, var(--lime-rim-shadow) 0%, var(--lime-rim-shadow) 18%, transparent 42%),
-    radial-gradient(circle at 44% 40%, var(--lime-core) 0%, var(--lime) 28%, var(--lime-rim) 52%, var(--lime-rim-deep) 78%, transparent 100%);
-  opacity: 0.82;
-}
-
-
-/* ============================================
-   2. GLASS PANEL — a contained, rounded card with a
-   visible gap around it (not edge-to-edge), so blobs
-   show through the frosted surface AND spill into view
-   around its edges. Applied to the header, hero, and
-   each content section.
-   ============================================ */
-
-.glass-panel {
-  max-width: 1320px;
-  margin-left: auto;
-  margin-right: auto;
-  background: var(--glass-bg);
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
-  border: 1px solid var(--glass-border);
-  border-radius: 36px;
-  box-shadow: 0 30px 80px -30px var(--glass-shadow), 0 8px 24px -12px rgba(27, 22, 37, 0.08);
-}
-
-
-/* ============================================
-   3. BUTTONS — outlined pill, matching the reference's
-   lighter, airier CTA treatment (not a solid block).
+   2. BUTTONS — solid orange primary (the reference's CTA
+   color), outline secondary. Inverted from the old outline-
+   only system: orange is the loud, confident default now.
    ============================================ */
 
 .btn {
   display: inline-block;
-  padding: 16px 34px;
+  padding: 16px 32px;
   font-weight: 700;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -270,46 +103,61 @@ a {
 }
 
 .btn-primary {
-  background: transparent;
-  color: var(--violet-deep);
-  border: 1.5px solid var(--violet-deep);
+  background: var(--orange);
+  color: var(--white);
+  border: 2px solid var(--orange);
 }
 
 .btn-primary:hover {
-  background: rgba(109, 40, 217, 0.08);
-  color: var(--violet-hover);
-  border-color: var(--violet-hover);
+  background: var(--orange-hover);
+  border-color: var(--orange-hover);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 10px 28px -12px rgba(109, 40, 217, 0.35);
+  box-shadow: 0 12px 26px -10px rgba(242, 148, 31, 0.55);
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid var(--violet-deep);
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--mint);
+}
+
+.btn-secondary:hover {
+  background: rgba(143, 234, 209, 0.12);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--mint);
   outline-offset: 3px;
 }
 
 
 /* ============================================
-   4. HEADER — a small floating glass pill, fixed,
-   sitting in the same visual language as the section
-   cards below it rather than a hard edge-to-edge bar.
+   3. HEADER — a plain full-width bar (not a floating
+   pill), sharing the hero's exact background color so the
+   two blend seamlessly instead of needing a scroll-state
+   background swap.
    ============================================ */
 
 .site-header {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  right: 16px;
+  position: sticky;
+  top: 0;
   z-index: 20;
-  border-radius: 28px;
-  padding: 0 12px;
+  background: var(--ink-dark);
+  border-bottom: 1px solid var(--hairline-dark);
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 18px 0;
+  gap: 24px;
 }
 
 .logo {
@@ -317,22 +165,25 @@ a {
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: 0.01em;
-  color: var(--ink);
+  color: var(--white);
   display: inline-flex;
   align-items: center;
   gap: 9px;
 }
 
+/* logo.png is a solid black silhouette — inverted to white so it reads
+   against the dark header/footer instead of disappearing into it. */
 .logo-mark {
-  height: 34px;
+  height: 30px;
   width: auto;
   display: block;
+  filter: brightness(0) invert(1);
 }
 
 .logo-chip {
   width: 12px;
   height: 12px;
-  background: var(--violet);
+  background: var(--lime);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   margin-left: 4px;
   transform: translateY(-10px) rotate(8deg);
@@ -344,7 +195,7 @@ a {
 
 .nav {
   display: flex;
-  gap: 36px;
+  gap: 32px;
 }
 
 .nav a {
@@ -353,7 +204,7 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--ink);
+  color: var(--white);
 }
 
 .nav a span {
@@ -368,7 +219,7 @@ a {
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: var(--violet);
+  background: var(--lime);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
@@ -384,24 +235,33 @@ a {
   transform: scaleX(1);
 }
 
+.header-inner .btn {
+  padding: 12px 26px;
+  font-size: 0.85rem;
+}
+
 
 /* ============================================
-   5. HERO — a tall rounded glass card, nearly filling
-   the viewport (minus the floating header + margins),
-   headline-first.
+   4. HERO — full-bleed dark section, headline + CTAs on
+   the left, the swallow mark plus scattered spray-paint
+   tag badges and doodle marks on the right. No rounded
+   floating card, no min-height:100vh — sized to its content,
+   matching the reference's proportions.
    ============================================ */
 
 .hero {
   position: relative;
   z-index: 1;
-  display: grid;
-  align-items: center;
-  margin-top: calc(var(--header-h) + 28px);
-  margin-bottom: 20px;
-  min-height: calc(100vh - var(--header-h) - 48px);
-  min-height: calc(100dvh - var(--header-h) - 48px);
-  padding: 64px 56px;
+  background: var(--ink-dark);
   overflow: hidden;
+  padding: 64px 0 90px;
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 32px;
 }
 
 .kicker {
@@ -410,90 +270,257 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--violet-deep);
-  margin-bottom: 28px;
+  color: var(--orange);
+  margin-bottom: 20px;
   opacity: 0;
 }
 
 .hero-headline {
-  font-size: clamp(3.25rem, 11vw, 8.5rem);
-  line-height: 0.94;
+  font-size: clamp(2.6rem, 5.6vw, 4.4rem);
+  line-height: 1.03;
   letter-spacing: -0.02em;
 }
 
 .hero-headline .line {
   display: block;
   opacity: 0;
-  color: var(--deep-purple);
+  color: var(--white);
+  text-transform: uppercase;
 }
 
-/* The reference's two-tone headline: the second line drops to a lighter
-   lavender rather than picking out a single word — a whole-line contrast
-   instead of a highlight chip or underline. */
+/* The one hand-marker accent line — used exactly once per headline so it
+   stays a signature, not a habit. */
 .hero-headline .line:nth-child(2) {
-  color: var(--soft-lavender);
+  font-family: var(--font-marker);
+  font-weight: 400;
+  color: var(--lime);
 }
 
 .hero-foot {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-top: 64px;
-  padding-top: 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  margin-top: 28px;
   opacity: 0;
 }
 
 .hero-sub {
   max-width: 46ch;
-  font-size: 1.08rem;
-  color: var(--text-muted);
+  font-size: 1.05rem;
+  color: var(--text-muted-dark);
 }
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Recolors the flat black PNG to white via the same brightness(0) invert(1)
+   trick used on .logo-mark. (A mask-image: url() version of this was tried
+   first — cleaner in theory, since background-color would be fully
+   controllable — but Chromium blocks it as a cross-origin load under the
+   null origin file:// pages get, even though a plain <img src> to the same
+   file works fine. Verified: mask-image threw a CORS console error, this
+   doesn't.) */
+.hero-bird {
+  width: min(78%, 440px);
+  height: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+/* ---- Spray-paint tag badges ---- */
+.spray-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  background: var(--cream);
+  border: 3px solid var(--ink-dark);
+  border-radius: 16px;
+  padding: 10px 18px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  color: var(--ink-dark);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.badge-icon {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid var(--ink-dark);
+  z-index: 3;
+}
+
+.badge-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.badge-icon.is-orange { background: var(--orange); color: var(--white); }
+.badge-icon.is-mint   { background: var(--mint);   color: var(--ink-dark); }
+.badge-icon.is-lime   { background: var(--lime);   color: var(--ink-dark); }
+
+.badge-websites   { top: 4%;    left: -6%;  transform: rotate(-6deg); }
+.badge-branding   { top: -4%;   left: 38%;  transform: rotate(4deg); }
+.badge-meta-ads   { top: 24%;   right: -10%; transform: rotate(-4deg); }
+.badge-google-ads { bottom: 16%; left: -10%; transform: rotate(5deg); }
+.badge-strategy   { bottom: 2%;  right: -4%; transform: rotate(-3deg); }
+
+/* ---- Scattered doodle marks (X / star / lightning) ---- */
+.doodle-mark {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mark-1 { top: 14%;  left: 30%; width: 22px; color: var(--mint); transform: rotate(-10deg); }
+.mark-2 { top: 46%;  left: 6%;  width: 20px; color: var(--lime); transform: rotate(12deg); }
+.mark-3 { top: 2%;   right: 14%; width: 24px; color: var(--white); opacity: 0.6; transform: rotate(8deg); }
+.mark-4 { bottom: 30%; right: 6%; width: 22px; color: var(--lime); transform: rotate(-8deg); }
+.mark-5 { bottom: 6%;  left: 32%; width: 20px; color: var(--orange); transform: rotate(15deg); }
 
 
 /* ============================================
-   5b. PAGE HERO — the compact title band used by every
-   inner page instead of the homepage's full-screen .hero.
-   Reuses .kicker/.hero-headline/.hero-foot verbatim (same
-   markup, same class names) so the existing on-load GSAP
-   entrance timeline in script.js animates it automatically,
-   with zero JS changes — only the container differs: a
-   normal-height glass panel instead of a 100vh one.
+   4b. PAGE HERO — the compact title band used by every
+   inner page instead of the homepage's full hero. Reuses
+   .kicker/.hero-headline/.hero-foot verbatim (same markup,
+   same class names) so the existing on-load GSAP entrance
+   timeline in script.js animates it automatically, with
+   zero JS changes.
    ============================================ */
 
 .page-hero {
   position: relative;
   z-index: 1;
-  margin-top: calc(var(--header-h) + 28px);
-  margin-bottom: 20px;
-  padding: 64px 56px;
-  scroll-margin-top: calc(var(--header-h) + 24px);
+  background: var(--ink-dark);
+  padding: 72px 0;
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
 .page-hero .hero-headline {
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
 }
 
 .page-hero .hero-foot {
-  margin-top: 32px;
-  padding-top: 0;
-  border-top: none;
+  margin-top: 24px;
 }
 
 
 /* ============================================
-   6. SERVICES — a grid of cards inside one rounded
-   glass section-card.
+   5. WHAT WE DO — cream band, full-bleed, five icon
+   columns. A torn-paper zigzag marks the transition down
+   from the dark hero, kept modest rather than literal.
    ============================================ */
 
 .services {
   position: relative;
   z-index: 1;
-  margin-bottom: 20px;
-  padding: 100px 0;
-  scroll-margin-top: calc(var(--header-h) + 24px);
+  background: var(--cream);
+  padding: 90px 0;
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
+
+.services::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: var(--cream);
+  clip-path: polygon(
+    0% 100%, 5% 30%, 10% 100%, 15% 30%, 20% 100%, 25% 30%, 30% 100%, 35% 30%,
+    40% 100%, 45% 30%, 50% 100%, 55% 30%, 60% 100%, 65% 30%, 70% 100%, 75% 30%,
+    80% 100%, 85% 30%, 90% 100%, 95% 30%, 100% 100%
+  );
+}
+
+.services .eyebrow { color: var(--orange); }
+
+.services h2 {
+  color: var(--ink-text);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  text-transform: uppercase;
+}
+
+.icon-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 40px;
+}
+
+.icon-col {
+  padding: 0 22px;
+  border-left: 1px solid var(--hairline-cream);
+}
+
+.icon-col:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.icon-chip {
+  width: 54px;
+  height: 54px;
+  border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.icon-chip svg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-chip.is-mint   { background: var(--mint);   color: var(--ink-dark); }
+.icon-chip.is-orange { background: var(--orange); color: var(--white); }
+.icon-chip.is-lime   { background: var(--lime);   color: var(--ink-dark); }
+
+.icon-col h3 {
+  font-size: 1.05rem;
+  color: var(--ink-text);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.icon-col p {
+  font-size: 0.92rem;
+  color: var(--text-muted-cream);
+}
+
+
+/* ============================================
+   6. SERVICE / PRICING CARDS — bold white "sticker" cards:
+   thick dark border, hard offset shadow, no soft blur.
+   Reads as graphic and confident rather than the old
+   translucent-glass tint.
+   ============================================ */
 
 .service-grid {
   display: grid;
@@ -502,22 +529,18 @@ a {
   margin-top: 12px;
 }
 
-/* No backdrop-filter here — the section behind it is already blurred glass;
-   stacking a second blur on top would just look muddy. A light tint/border/
-   shadow is enough to read as a distinct card sitting on that surface. */
 .service-card {
   overflow: hidden;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 10px 30px -14px rgba(58, 21, 104, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  background: var(--white);
+  border: 3px solid var(--ink-dark);
+  box-shadow: 6px 6px 0 rgba(16, 32, 26, 0.85);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 46px -16px rgba(58, 21, 104, 0.2);
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 rgba(16, 32, 26, 0.85);
 }
 
 .service-photo {
@@ -528,19 +551,20 @@ a {
 }
 
 .service-card-body {
-  padding: 28px 26px 32px;
+  padding: 26px 24px 28px;
 }
 
 .service-card h3 {
-  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .service-card p {
-  color: var(--text-muted);
-  font-size: 1rem;
+  color: var(--text-muted-cream);
+  font-size: 0.98rem;
 }
 
 .service-dot {
@@ -553,22 +577,22 @@ a {
   transform: translateY(-1px);
 }
 
-.is-violet { background: var(--violet); }
+.is-orange { background: var(--orange); }
 .is-lime   { background: var(--lime); }
-.is-ink    { background: var(--ink); opacity: 0.55; }
+.is-ink    { background: var(--ink-dark); opacity: 0.6; }
 
 
 /* ============================================
-   7. ABOUT — photo + text inside one rounded glass card.
+   7. ABOUT — photo + text.
    ============================================ */
 
 .about {
   position: relative;
   z-index: 1;
-  margin-bottom: 20px;
+  background: var(--cream);
   padding: 0;
   overflow: hidden;
-  scroll-margin-top: calc(var(--header-h) + 24px);
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
 .about-panel {
@@ -589,7 +613,7 @@ a {
 }
 
 .about-inner {
-  padding: 56px;
+  padding: 64px 56px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -597,17 +621,17 @@ a {
 
 .about-lede {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin-bottom: 24px;
-  color: var(--ink);
+  color: var(--ink-text);
 }
 
 .about-body {
-  color: var(--text-muted);
-  font-size: 1.1rem;
+  color: var(--text-muted-cream);
+  font-size: 1.05rem;
 }
 
 
@@ -618,34 +642,37 @@ a {
 .contact {
   position: relative;
   z-index: 1;
-  margin-bottom: 20px;
+  background: var(--ink-dark);
   padding: 0;
-  scroll-margin-top: calc(var(--header-h) + 24px);
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
 .contact-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  padding: 72px 64px;
+  padding: 90px 0;
 }
 
+.contact .eyebrow { color: var(--orange); }
+
 .contact h2 {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 4vw, 2.8rem);
   margin: 4px 0 24px;
-  color: var(--ink);
+  color: var(--white);
+  text-transform: uppercase;
 }
 
 .contact-note {
-  color: var(--text-muted);
-  font-size: 1.05rem;
+  color: var(--text-muted-dark);
+  font-size: 1.02rem;
   max-width: 40ch;
 }
 
 .email-link {
-  color: var(--ink);
+  color: var(--white);
   font-weight: 600;
-  border-bottom: 2px solid var(--violet-deep);
+  border-bottom: 2px solid var(--orange);
 }
 
 .contact-form {
@@ -665,16 +692,16 @@ a {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--text-muted-dark);
 }
 
 .contact-form input,
 .contact-form textarea {
   background: transparent;
   border: none;
-  border-bottom: 2px solid var(--hairline);
+  border-bottom: 2px solid var(--hairline-dark);
   padding: 8px 2px;
-  color: var(--ink);
+  color: var(--white);
   font-family: var(--font-body);
   font-size: 1.05rem;
   transition: border-color 0.2s ease;
@@ -689,19 +716,17 @@ a {
   outline: none;
 }
 
-.field:nth-of-type(1) input:focus { border-color: var(--violet); }
-.field:nth-of-type(2) input:focus { border-color: var(--lime); }
-.field:nth-of-type(3) textarea:focus { border-color: var(--deep-purple); }
+.field:nth-of-type(1) input:focus { border-color: var(--orange); }
+.field:nth-of-type(2) input:focus { border-color: var(--mint); }
+.field:nth-of-type(3) textarea:focus { border-color: var(--lime); }
 
 .contact-form button {
   margin-top: 8px;
   align-self: flex-start;
 }
 
-/* Homepage contact TEASER — single-column, centered, no form (the real
-   form lives on contact.html's .contact-inner 2-col grid). Deliberately a
-   different class so .contact-inner's grid layout stays reserved for the
-   actual form page. */
+/* Homepage-style contact TEASER — single-column, centered, no form. Still
+   used by the inner pages' closing CTA sections (services/work/about). */
 .contact-teaser {
   max-width: 640px;
   margin: 0 auto;
@@ -714,9 +739,9 @@ a {
 }
 
 .contact-teaser h2 {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 4vw, 2.8rem);
   margin: 4px 0 20px;
-  color: var(--ink);
+  color: var(--white);
 }
 
 .contact-teaser .contact-note {
@@ -729,11 +754,7 @@ a {
 
 
 /* ============================================
-   8b. PRICING — tiers have a genuinely different layout
-   (price + feature list + button, no photo) from service
-   cards, so this is a small dedicated component. Same
-   light-tint-no-blur card language as .service-card —
-   the section behind it already provides the glass blur.
+   8b. PRICING
    ============================================ */
 
 .pricing-grid {
@@ -747,29 +768,29 @@ a {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 10px 30px -14px rgba(58, 21, 104, 0.12);
+  background: var(--white);
+  border: 3px solid var(--ink-dark);
+  box-shadow: 6px 6px 0 rgba(16, 32, 26, 0.85);
   padding: 32px 28px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .pricing-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 46px -16px rgba(58, 21, 104, 0.2);
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 rgba(16, 32, 26, 0.85);
 }
 
 .pricing-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
 .pricing-price {
   font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--violet-deep);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--orange);
   margin-bottom: 4px;
 }
 
@@ -777,11 +798,11 @@ a {
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 400;
-  color: var(--text-muted);
+  color: var(--text-muted-cream);
 }
 
 .pricing-note {
-  color: var(--text-muted);
+  color: var(--text-muted-cream);
   font-size: 0.95rem;
   margin-bottom: 24px;
 }
@@ -797,7 +818,7 @@ a {
 
 .pricing-features li {
   font-size: 0.95rem;
-  color: var(--ink);
+  color: var(--ink-text);
   padding-left: 22px;
   position: relative;
 }
@@ -810,32 +831,33 @@ a {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--violet);
+  background: var(--orange);
 }
 
 .pricing-card .btn-primary {
   align-self: flex-start;
 }
 
-/* The premium tier — stronger border/glow instead of a layout change, plus
-   a badge and a filled (not outline) button, so it reads as the featured
-   option without disrupting the 3-column grid the other cards sit in. */
+/* The premium tier — an orange border/badge instead of a layout change,
+   plus a lime-filled button (distinct from every other card's orange
+   button), so it still reads as the featured option now that solid-orange
+   is the *default* button everywhere, not a special state. */
 .pricing-card--featured {
   position: relative;
-  border: 2px solid var(--violet-deep);
-  box-shadow: 0 20px 50px -16px rgba(109, 40, 217, 0.35), 0 8px 24px -12px rgba(58, 21, 104, 0.2);
+  border: 3px solid var(--orange);
+  box-shadow: 6px 6px 0 var(--orange);
 }
 
 .pricing-card--featured:hover {
-  box-shadow: 0 28px 64px -16px rgba(109, 40, 217, 0.45), 0 8px 24px -12px rgba(58, 21, 104, 0.25);
+  box-shadow: 9px 9px 0 var(--orange);
 }
 
 .pricing-badge {
   position: absolute;
   top: -14px;
   right: 28px;
-  background: var(--violet-deep);
-  color: #FFFFFF;
+  background: var(--orange);
+  color: var(--white);
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 700;
@@ -846,27 +868,131 @@ a {
 }
 
 .pricing-card--featured .btn-primary {
-  background: var(--violet-deep);
-  color: #FFFFFF;
-  border-color: var(--violet-deep);
+  background: var(--lime);
+  color: var(--ink-dark);
+  border-color: var(--lime);
 }
 
 .pricing-card--featured .btn-primary:hover {
-  background: var(--violet-hover);
-  border-color: var(--violet-hover);
-  color: #FFFFFF;
+  background: #AEDF2E;
+  border-color: #AEDF2E;
+  color: var(--ink-dark);
 }
 
 
 /* ============================================
-   9. FOOTER — the same glass-card language, smaller.
+   9. CLOSING STATS + CTA — dark band, headline, four
+   stat blocks, mint CTA pill.
+   ============================================ */
+
+.stats-section {
+  position: relative;
+  z-index: 1;
+  background: var(--ink-dark);
+  padding: 80px 0;
+}
+
+.stats-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stats-headline {
+  max-width: 460px;
+}
+
+.stats-headline h2 {
+  color: var(--white);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  text-transform: uppercase;
+}
+
+.stats-headline h2 .accent {
+  font-family: var(--font-marker);
+  color: var(--lime);
+  text-transform: none;
+  font-weight: 400;
+}
+
+.stats-headline p {
+  color: var(--text-muted-dark);
+  margin-top: 14px;
+  max-width: 40ch;
+}
+
+.stats-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.stat-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--white);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stats-cta {
+  background: var(--mint);
+  color: var(--ink-dark);
+  border-radius: 20px;
+  padding: 22px 30px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1.3;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.stats-cta:hover {
+  transform: translateY(-2px);
+}
+
+.stats-cta .accent {
+  font-family: var(--font-marker);
+  color: var(--orange);
+  text-transform: none;
+  font-weight: 400;
+}
+
+
+/* ============================================
+   10. FOOTER
    ============================================ */
 
 .site-footer {
   position: relative;
   z-index: 1;
-  margin-bottom: 20px;
-  padding: 26px 8px;
+  background: var(--ink-dark);
+  border-top: 1px solid var(--hairline-dark);
+  padding: 32px 0;
 }
 
 .footer-inner {
@@ -875,11 +1001,10 @@ a {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 0 24px;
 }
 
 .footer-inner .mono-label {
-  color: var(--text-muted);
+  color: var(--text-muted-dark);
 }
 
 /* Small sitemap row — gives every page a path to every other page
@@ -896,12 +1021,12 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted);
+  color: var(--text-muted-dark);
   transition: color 0.2s ease;
 }
 
 .footer-nav a:hover {
-  color: var(--ink);
+  color: var(--white);
 }
 
 /* Small pill flagging inner-page body content as a temporary stand-in,
@@ -912,9 +1037,9 @@ a {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted);
-  background: rgba(139, 92, 246, 0.12);
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: var(--text-muted-cream);
+  background: rgba(242, 148, 31, 0.12);
+  border: 1px solid rgba(242, 148, 31, 0.3);
   border-radius: 999px;
   padding: 6px 16px;
   margin-bottom: 24px;
@@ -922,7 +1047,7 @@ a {
 
 
 /* ============================================
-   10. MOTION PREFERENCES
+   11. MOTION PREFERENCES
    script.js adds this class when the user prefers reduced motion
    OR the GSAP CDN failed to load — one flag, one fallback state,
    so content can never end up stuck invisible.
@@ -952,22 +1077,53 @@ a {
   transition: none;
 }
 
-.motion-disabled .blob {
-  transform: none !important;
-  animation: none !important;
-  border-radius: 50% !important;
-}
-
 
 /* ============================================
-   11. RESPONSIVE
+   12. RESPONSIVE
    ============================================ */
 
 @media (max-width: 900px) {
+  .hero .container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    min-height: 360px;
+    order: -1;
+  }
+
+  .hero-bird {
+    width: min(60%, 300px);
+  }
+
+  .spray-badge {
+    font-size: 0.72rem;
+    padding: 8px 14px;
+  }
+
+  .icon-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 0;
+  }
+
+  .icon-col {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .icon-col:nth-child(odd) {
+    border-right: 1px solid var(--hairline-cream);
+    padding-right: 22px;
+  }
+
+  .stats-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .contact-inner {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 40px;
   }
 
   .service-grid {
@@ -989,16 +1145,6 @@ a {
   .about-inner {
     padding: 40px;
   }
-
-  .blob-2, .blob-3, .blob-4 {
-    width: 240px;
-    height: 240px;
-  }
-
-  .blob-5, .blob-6 {
-    width: 170px;
-    height: 170px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -1006,39 +1152,61 @@ a {
     padding: 0 20px;
   }
 
-  .glass-panel {
-    border-radius: 24px;
+  .hero {
+    padding: 40px 0 64px;
   }
 
-  .hero,
+  .hero-visual {
+    min-height: 280px;
+  }
+
+  /* Five scattered badges overlap chaotically at this width — thin the
+     set down to the three most legible rather than force an unreadable
+     cluster; Google Ads and Strategy stay reachable via the page content
+     below, this is decoration, not the only place the info lives. */
+  .badge-google-ads,
+  .badge-strategy,
+  .doodle-mark {
+    display: none;
+  }
+
+  .badge-websites   { top: 0; left: 0; bottom: auto; transform: rotate(-6deg); }
+  .badge-branding   { top: 38%; left: 30%; bottom: auto; transform: rotate(4deg); }
+  .badge-meta-ads   { top: auto; bottom: 0; right: -4%; transform: rotate(-4deg); }
+
+  .icon-row {
+    grid-template-columns: 1fr;
+  }
+
+  .icon-col,
+  .icon-col:nth-child(odd) {
+    border: none;
+    padding: 0;
+  }
+
+  .services,
+  .stats-section,
   .page-hero {
-    padding: 44px 28px;
-  }
-
-  .hero-foot {
-    margin-top: 44px;
-    padding-top: 28px;
-  }
-
-  .services {
-    padding: 60px 0;
+    padding: 56px 0;
   }
 
   .contact-inner,
   .contact-teaser {
-    padding: 28px;
+    padding: 56px 0;
   }
 
-  .site-header {
-    left: 10px;
-    right: 10px;
-    top: 10px;
-    border-radius: 22px;
+  .header-inner .btn {
+    padding: 10px 18px;
+    font-size: 0.75rem;
   }
 
-  .header-inner {
-    padding: 12px 16px;
-    gap: 12px;
+  .nav {
+    gap: 14px;
+  }
+
+  .nav a {
+    font-size: 0.66rem;
+    letter-spacing: 0.02em;
   }
 
   .logo {
@@ -1047,15 +1215,6 @@ a {
   }
 
   .logo-mark {
-    height: 24px;
-  }
-
-  .nav {
-    gap: 10px;
-  }
-
-  .nav a {
-    font-size: 0.68rem;
-    letter-spacing: 0.03em;
+    height: 22px;
   }
 }

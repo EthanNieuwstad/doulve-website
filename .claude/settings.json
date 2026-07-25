@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm ls *)",
+      "Bash(mkdir -p /c/Users/USER/AppData/Local/Temp/claude/c--Users-USER-Documents-Doulve-Doulve-website/3c4ed4b2-8fbe-4568-9fb9-37e90ea68c9b/scratchpad/pw)",
+      "Read(//c/Users/USER/AppData/Local/Temp/claude/c--Users-USER-Documents-Doulve-Doulve-website/3c4ed4b2-8fbe-4568-9fb9-37e90ea68c9b/scratchpad/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Read(//c/Users/USER/AppData/Local/Temp/claude/c--Users-USER-Documents-Doulve-Doulve-website/3c4ed4b2-8fbe-4568-9fb9-37e90ea68c9b/scratchpad/pw/**)",
+      "Bash(npx playwright *)",
+      "Bash(node shot.js)",
+      "Bash(node measure.js)",
+      "Bash(git commit -m ' *)",
+      "Read(//c/Users/USER/AppData/Local/Programs/**)",
+      "Bash(node check3.js)",
+      "Bash(node hover-debug2.js)",
+      "Bash(node torn-check.js)",
+      "Bash(node torn-mobile.js)",
+      "Bash(python3 -c \"print\\('py ok'\\)\")",
+      "Bash(node -e \"console.log\\('node ok'\\)\")",
+      "Bash(node alpha-check.js)",
+      "Bash(node img-badge-check.js)",
+      "Bash(node icon-pos-check.js)",
+      "Bash(node icon-pos-check2.js)",
+      "Bash(node icon-remove-check.js)",
+      "Bash(node hover-final.js)",
+      "Bash(node wwd-check.js)",
+      "Bash(node wwd-zoom.js)",
+      "Bash(node other-pages-check.js)",
+      "Bash(node mobile-wwd.js)",
+      "Bash(node strategy-check.js)"
+    ]
+  },
+  "enabledPlugins": {
+    "marketing-skills@marketingskills": true
+  }
+}

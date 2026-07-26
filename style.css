@@ -380,32 +380,6 @@ a {
   display: block;
   filter: brightness(0) invert(1);
   opacity: 0.95;
-  /* Explicit stacking context so the new .hero-splatter background layer
-     (z-index:0) reliably paints behind it. Previously .hero-bird had no
-     position/z-index, so it painted in the plain in-flow layer — which
-     already sits behind the badges (all explicitly positioned/z-indexed)
-     but has no defined relationship to another *positioned* element like
-     the splatter would be. position:relative with no offset is a no-op
-     visually/layout-wise; it only turns on z-index. */
-  position: relative;
-  z-index: 1;
-}
-
-/* Graffiti spray texture behind the badge cluster and bird — soft blurred
-   blobs plus scattered crisp droplet dots, all in the site's lime accent
-   at low opacity so it reads as atmosphere, not a shape competing with
-   the badges. Sits at z-index:0: below .hero-bird (1) and every
-   .spray-badge (2, 4 on hover) and .badge-icon (3) above it, so nothing
-   about their current stacking changes. Sized to fill .hero-visual via
-   inset:0 (not fixed dimensions), and .hero's own overflow:hidden (see
-   above) clips it regardless — no horizontal scroll risk either way. */
-.hero-splatter {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
 }
 
 /* ---- Spray-paint tag badges — real links now, not decoration, so they

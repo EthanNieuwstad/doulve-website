@@ -282,6 +282,46 @@ a {
   font-size: 0.85rem;
 }
 
+/* Hamburger — hidden entirely on desktop (display:none removes it from the
+   header-inner flex layout completely, so it has zero effect on the
+   logo/nav/button space-between arrangement above this breakpoint). Only
+   becomes a visible flex item inside the mobile media query below. */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--white);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+/* Morphs the three bars into an X while the menu is open. */
+.site-header.nav-open .nav-toggle span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.site-header.nav-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.nav-open .nav-toggle span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
 
 /* ============================================
    4. HERO — full-bleed dark section, headline + CTAs on
@@ -1400,23 +1440,35 @@ a {
     padding: 40px 0 64px;
   }
 
+  /* Five scattered badges overlap chaotically at this width — thin the
+     set down to the three most legible ones (Google Ads and Strategy stay
+     reachable via the page content below) and stop absolutely-positioning
+     them: they flow in normal document order instead, stacked vertically
+     below the bird with breathing room between each, rather than floating
+     on top of it. */
   .hero-visual {
-    min-height: 280px;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 0;
+    gap: 18px;
+    padding-bottom: 8px;
   }
 
-  /* Five scattered badges overlap chaotically at this width — thin the
-     set down to the three most legible rather than force an unreadable
-     cluster; Google Ads and Strategy stay reachable via the page content
-     below, this is decoration, not the only place the info lives. */
   .badge-google-ads,
   .badge-strategy,
   .doodle-mark {
     display: none;
   }
 
-  .badge-websites   { top: 0; left: 0; bottom: auto; --rot: -6deg; }
-  .badge-branding   { top: 38%; left: 30%; bottom: auto; --rot: 4deg; }
-  .badge-meta-ads   { top: auto; bottom: 0; right: -4%; --rot: -4deg; }
+  .spray-badge.badge-websites,
+  .spray-badge.badge-branding,
+  .spray-badge.badge-meta-ads {
+    position: static;
+  }
+
+  .spray-badge-img {
+    width: 190px;
+  }
 
   .icon-row {
     grid-template-columns: 1fr;
@@ -1446,23 +1498,58 @@ a {
 
   /* Logo + CTA no longer fit on one row with the full nav at this width
      (logo + nav + button was overflowing the viewport horizontally).
-     Wrap the nav onto its own centered row below, rather than adding a
-     hamburger menu — keeps every link visible with no JS. */
+     Collapse the nav behind a hamburger instead of forcing every link
+     onto a cramped single line: .nav-toggle becomes visible, .nav is
+     hidden by default and only reappears (as a full-width column below
+     row 1) once .site-header gets the .nav-open class from script.js. */
   .header-inner {
     flex-wrap: wrap;
     row-gap: 10px;
+    justify-content: flex-start;
+    column-gap: 14px;
+  }
+
+  /* Pushes whichever is the first "right-side" control (the CTA button
+     on the homepage, or the toggle itself on pages with no header CTA)
+     flush to the right edge, leaving the logo alone on the left — the
+     same visual result as the old space-between, without needing it. */
+  .header-inner .btn,
+  .nav-toggle {
+    margin-left: auto;
+  }
+
+  /* When both the CTA button and the toggle are present (homepage only),
+     the button already claims the auto-margin above; this keeps the
+     toggle snug right next to it instead of also grabbing free space and
+     splitting the two apart. */
+  .header-inner .btn + .nav-toggle {
+    margin-left: 14px;
+  }
+
+  .nav-toggle {
+    display: flex;
   }
 
   .nav {
     order: 3;
     width: 100%;
-    justify-content: center;
-    gap: 14px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--hairline-dark);
+  }
+
+  .site-header.nav-open .nav {
+    display: flex;
   }
 
   .nav a {
-    font-size: 0.66rem;
-    letter-spacing: 0.02em;
+    padding: 10px 4px;
+    font-size: 0.95rem;
+    letter-spacing: normal;
   }
 
   .logo {

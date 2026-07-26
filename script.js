@@ -19,6 +19,38 @@ function syncHeaderHeight() {
 syncHeaderHeight();
 window.addEventListener('resize', syncHeaderHeight);
 
+// ---- Mobile nav hamburger toggle ----
+// Pure functional UI, not animation — runs unconditionally regardless of
+// the motionDisabled/GSAP gate below.
+const navToggle = document.querySelector('.nav-toggle');
+const siteHeader = document.querySelector('.site-header');
+
+if (navToggle && siteHeader) {
+  const closeNav = () => {
+    siteHeader.classList.remove('nav-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = siteHeader.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Tapping a link should close the menu rather than leave it open
+  // underneath the page you just navigated to.
+  siteHeader.querySelectorAll('.nav a').forEach((link) => {
+    link.addEventListener('click', closeNav);
+  });
+
+  // Resizing back up to desktop (e.g. rotating a tablet, or a devtools
+  // drag) shouldn't leave the menu stuck open once .nav-toggle is hidden.
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 640 && siteHeader.classList.contains('nav-open')) {
+      closeNav();
+    }
+  });
+}
+
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
     syncHeaderHeight();

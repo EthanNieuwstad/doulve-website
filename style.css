@@ -401,7 +401,7 @@ a {
 
 .hero-visual {
   position: relative;
-  min-height: 460px;
+  min-height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -418,22 +418,25 @@ a {
 }
 
 /* Each item is a zero-size anchor point sitting dead-center in
-   .badge-orbit; script.js drives its transform every frame as
-   rotate(angle) translateY(-radius) rotate(-angle) scale(depth) — the
-   classic "orbit" trick: the outer rotate() swings the point around the
-   circle, translateY() pushes it out to the radius, and the inner
-   rotate(-angle) cancels the spin back out so the badge inside renders
-   upright rather than tumbling. scale() (last) handles the depth effect
-   (front-of-circle badges read larger). Only ever touches transform/
-   z-index — no layout properties — so this animates via compositing
-   alone, no reflow. */
+   .badge-orbit; script.js drives its transform/opacity/filter every frame
+   from x/y computed directly on an ellipse (not a circle — the vertical
+   radius is ~45% of the horizontal one) so the ring reads as tilted into
+   3D rather than flat. scale (0.6x back -> 1.3x front), opacity (0.35
+   back -> 1.0 front), and blur (3px back -> 0px front) are all driven off
+   the same badge-orbit position each frame, so shrinking/fading/blurring
+   read as one continuous depth effect, not three separate animations.
+   z-index is also script.js-driven, per-frame, based on which half of
+   the ellipse the badge is currently in (see .hero-bird's z-index below
+   for the split point). transform/opacity/filter are all compositor/
+   paint-only — this never triggers layout reflow no matter how often it
+   runs. */
 .orbit-item {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0;
   height: 0;
-  will-change: transform;
+  will-change: transform, opacity, filter;
 }
 
 /* Recolors the flat black PNG to white via the same brightness(0) invert(1)
@@ -449,6 +452,13 @@ a {
   display: block;
   filter: brightness(0) invert(1);
   opacity: 0.95;
+  /* Fixed mid-stack z-index so the orbit can read as 3D: script.js gives
+     badges in the top half of the ellipse (passing "behind" the bird) a
+     lower z-index than this, and badges in the bottom half (passing "in
+     front") a higher one. BADGE_ORBIT_BIRD_Z in script.js must match this
+     number — it's not read from CSS, just kept in sync by convention. */
+  position: relative;
+  z-index: 50;
 }
 
 /* ---- Spray-paint tag badges — real links now, not decoration, so they
@@ -1430,7 +1440,7 @@ a {
   }
 
   .hero-visual {
-    min-height: 360px;
+    min-height: 460px;
     order: -1;
   }
 

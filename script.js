@@ -52,10 +52,13 @@ if (navToggle && siteHeader) {
 }
 
 // ---- Hero badge orbit ----
-// Six badges circle the bird continuously. Runs at >=641px only — below
-// that, style.css collapses .badge-orbit/.orbit-item with display:contents
-// back into the plain stacked mobile layout, so there's nothing to
-// position and the loop below is simply never started there. Respects
+// Six badges circle the bird continuously, on a tilted ellipse rather than
+// a flat circle so it reads as 3D: badges in the top half of the ellipse
+// pass BEHIND the bird (lower z-index than it), badges in the bottom half
+// pass IN FRONT of it (higher z-index). Runs at >=641px only — below that,
+// style.css collapses .badge-orbit/.orbit-item with display:contents back
+// into the plain stacked mobile layout, so there's nothing to position and
+// the loop below is simply never started there. Respects
 // prefers-reduced-motion: badges still land evenly spaced around the
 // bird, just without the continuous spin.
 (function initBadgeOrbit() {
@@ -65,39 +68,69 @@ if (navToggle && siteHeader) {
   if (!items.length) return;
 
   const ROTATION_MS = 25000; // one full loop every 25s — calm, not distracting
-  const FRONT_SCALE = 1.18; // badge nearest the viewer (bottom of the ring)
-  const BACK_SCALE = 0.88; // badge furthest away (top of the ring)
+  const FRONT_SCALE = 1.3; // badge nearest the viewer (bottom of the ellipse)
+  const BACK_SCALE = 0.6; // badge furthest away (top of the ellipse)
+  const FRONT_OPACITY = 1.0;
+  const BACK_OPACITY = 0.35;
+  const MAX_BLUR_PX = 3; // full blur at the very back, easing to 0 at the front
+  const ELLIPSE_RATIO = 0.45; // vertical radius as a fraction of horizontal
+  // ~45% bigger than the original 0.72 — badges swing out further from
+  // the bird now that scale/opacity/blur carry most of the depth read.
+  const RADIUS_FACTOR = 1.04;
+  // Must match .hero-bird's z-index in style.css — badges above this line
+  // in the stack (top half of the ellipse) sit below the bird; badges
+  // below it (bottom half) sit above the bird.
+  const BIRD_Z = 50;
   const desktopQuery = window.matchMedia('(min-width: 641px)');
 
-  let radius = 0;
+  let radiusX = 0;
+  let radiusY = 0;
   let rafId = null;
   let startTime = null;
 
   function measure() {
     const rect = orbit.getBoundingClientRect();
-    // 0.68 keeps badges comfortably inside .hero-visual's box (accounting
-    // for their own half-width) rather than right at the circle's edge.
-    radius = (Math.min(rect.width, rect.height) / 2) * 0.68;
+    radiusX = (Math.min(rect.width, rect.height) / 2) * RADIUS_FACTOR;
+    radiusY = radiusX * ELLIPSE_RATIO;
   }
 
-  // Only transform/z-index are touched here — both are compositor-only
-  // properties, so this never triggers layout reflow no matter how often
-  // it runs.
+  // transform/opacity/filter are the only properties touched here — all
+  // three are compositor/paint-only, so this never triggers layout reflow
+  // no matter how often it runs.
   function layout(baseAngleDeg) {
     const count = items.length;
     items.forEach((item, i) => {
       const angle = (baseAngleDeg + (360 / count) * i) % 360;
       const rad = (angle * Math.PI) / 180;
-      // "Front" is the bottom of the circle (angle 180deg) — closeness
+      // angle 0 = top of the ellipse, 90 = right, 180 = bottom ("front"),
+      // 270 = left — standard clockwise clock-face convention.
+      const x = radiusX * Math.sin(rad);
+      const y = -radiusY * Math.cos(rad);
+      // "Front" is the bottom of the ellipse (angle 180deg) — closeness
       // eases smoothly from 0 (back) to 1 (front) via cosine, so there's
       // no hard jump as a badge crosses into/out of the front position.
+      // Scale, opacity, and blur are all driven off this same value every
+      // frame, so all three read as one continuous depth effect rather
+      // than three independently-timed ones.
       const closeness = (Math.cos(rad - Math.PI) + 1) / 2;
       const scale = BACK_SCALE + closeness * (FRONT_SCALE - BACK_SCALE);
-      item.style.transform =
-        `rotate(${angle}deg) translateY(${-radius}px) rotate(${-angle}deg) scale(${scale})`;
-      // Front badge always renders above the rest of the ring — closeness
-      // is already highest exactly there, so no separate sort/lookup needed.
-      item.style.zIndex = String(Math.round(closeness * 1000) + 1);
+      const opacity = BACK_OPACITY + closeness * (FRONT_OPACITY - BACK_OPACITY);
+      const blur = MAX_BLUR_PX * (1 - closeness);
+
+      item.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      item.style.opacity = String(opacity);
+      item.style.filter = blur > 0.05 ? `blur(${blur}px)` : 'none';
+
+      // y < 0 is the top half of the ellipse (visually behind the bird),
+      // y >= 0 is the bottom half (in front of it). Within each half,
+      // closeness still orders badges relative to each other (the one
+      // nearest dead-center-front/back renders most prominently), it just
+      // never crosses the bird's own z-index (50) in either direction.
+      const z =
+        y < 0
+          ? Math.round(closeness * (BIRD_Z - 10)) + 1 // 1..40, always < bird
+          : BIRD_Z + Math.round(closeness * (BIRD_Z - 10)) + 1; // 51..90, always > bird
+      item.style.zIndex = String(z);
     });
   }
 

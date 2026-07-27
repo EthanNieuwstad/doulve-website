@@ -570,6 +570,15 @@ a {
   height: auto;
 }
 
+/* badge-googleads.png's artwork sits noticeably shorter within its canvas
+   than the other four badges', so at the shared 210px width it reads as
+   visibly smaller — bumped 1.25x (210px -> 262.5px) to bring it in line
+   with Strategy, the closest match in size. Position/rotation (--rot,
+   top/left/right/bottom on .badge-google-ads) are untouched. */
+.spray-badge.badge-google-ads .spray-badge-img {
+  width: 262.5px;
+}
+
 /* .spray-badge:hover still sets background/box-shadow (the cream-badge
    "lift" look) — without this, hovering these would flash a white
    rectangle in behind the transparent PNG. The transform (the actual

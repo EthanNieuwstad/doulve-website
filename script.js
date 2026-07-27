@@ -55,12 +55,12 @@ if (navToggle && siteHeader) {
 // Six badges circle the bird continuously, on a tilted ellipse rather than
 // a flat circle so it reads as 3D: badges in the top half of the ellipse
 // pass BEHIND the bird (lower z-index than it), badges in the bottom half
-// pass IN FRONT of it (higher z-index). Runs at >=641px only — below that,
-// style.css collapses .badge-orbit/.orbit-item with display:contents back
-// into the plain stacked mobile layout, so there's nothing to position and
-// the loop below is simply never started there. Respects
-// prefers-reduced-motion: badges still land evenly spaced around the
-// bird, just without the continuous spin.
+// pass IN FRONT of it (higher z-index). Runs at every width, including
+// mobile — below 641px the ellipse just uses a smaller radius factor (see
+// MOBILE_RADIUS_FACTOR) so it shrinks to fit that narrower column instead
+// of overflowing it; style.css scales the badge art down to match at that
+// same breakpoint. Respects prefers-reduced-motion: badges still land
+// evenly spaced around the bird, just without the continuous spin.
 (function initBadgeOrbit() {
   const orbit = document.querySelector('.badge-orbit');
   if (!orbit) return;
@@ -77,11 +77,15 @@ if (navToggle && siteHeader) {
   // ~45% bigger than the original 0.72 — badges swing out further from
   // the bird now that scale/opacity/blur carry most of the depth read.
   const RADIUS_FACTOR = 1.04;
+  // Mobile's .hero-visual box is much narrower relative to its height than
+  // desktop/tablet's, so the same factor would push badges well past the
+  // viewport edge — this keeps the ellipse inside the column instead.
+  const MOBILE_RADIUS_FACTOR = 0.5;
   // Must match .hero-bird's z-index in style.css — badges above this line
   // in the stack (top half of the ellipse) sit below the bird; badges
   // below it (bottom half) sit above the bird.
   const BIRD_Z = 50;
-  const desktopQuery = window.matchMedia('(min-width: 641px)');
+  const mobileQuery = window.matchMedia('(max-width: 640px)');
 
   let radiusX = 0;
   let radiusY = 0;
@@ -90,7 +94,8 @@ if (navToggle && siteHeader) {
 
   function measure() {
     const rect = orbit.getBoundingClientRect();
-    radiusX = (Math.min(rect.width, rect.height) / 2) * RADIUS_FACTOR;
+    const factor = mobileQuery.matches ? MOBILE_RADIUS_FACTOR : RADIUS_FACTOR;
+    radiusX = (Math.min(rect.width, rect.height) / 2) * factor;
     radiusY = radiusX * ELLIPSE_RATIO;
   }
 
@@ -156,23 +161,18 @@ if (navToggle && siteHeader) {
   }
 
   function sync() {
-    if (!desktopQuery.matches) {
-      stop();
-      return;
-    }
     if (prefersReducedMotion) {
       stop();
       measure();
       layout(0); // static, evenly-spaced ring — no continuous motion
     } else {
+      measure(); // radius factor depends on which side of mobileQuery we're on
       start();
     }
   }
 
-  desktopQuery.addEventListener('change', sync);
-  window.addEventListener('resize', () => {
-    if (desktopQuery.matches) measure();
-  });
+  mobileQuery.addEventListener('change', sync);
+  window.addEventListener('resize', sync);
 
   sync();
 })();

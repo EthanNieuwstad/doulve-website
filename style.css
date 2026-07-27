@@ -1627,58 +1627,30 @@ a {
     padding: 40px 0 64px;
   }
 
-  /* Five scattered badges overlap chaotically at this width — thin the
-     set down to the three most legible ones (Google Ads and Strategy stay
-     reachable via the page content below) and stop absolutely-positioning
-     them: they flow in normal document order instead, stacked vertically
-     below the bird with breathing room between each, rather than floating
-     on top of it. */
-  .hero-visual {
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 0;
-    gap: 18px;
-    padding-bottom: 8px;
-  }
-
-  /* The orbit only runs at >=641px (script.js checks this same 640px
-     breakpoint before starting its rAF loop) — below it, collapse both
-     wrapper levels out of the box tree entirely so .spray-badge rejoins
-     .hero-visual's flex column directly, exactly as if .badge-orbit/
-     .orbit-item didn't exist. */
-  .badge-orbit,
-  .orbit-item {
-    display: contents;
-  }
-
-  .badge-google-ads,
-  .badge-strategy,
-  .badge-content-creation,
+  /* Decorative-only scatter marks, unrelated to the badges — stay hidden
+     at this width regardless of the orbit change below. */
   .doodle-mark {
     display: none;
   }
 
-  .spray-badge.badge-websites,
-  .spray-badge.badge-branding,
-  .spray-badge.badge-meta-ads {
-    position: static;
-    /* Drop the desktop orbit's translate(-50%,-50%) centering — it was
-       only needed to center the badge on .orbit-item's zero-size point,
-       which no longer exists here now that this is a plain flex item. */
-    transform: rotate(var(--rot, 0deg)) scale(1);
-  }
-
-  .spray-badge.badge-websites:hover,
-  .spray-badge.badge-branding:hover,
-  .spray-badge.badge-meta-ads:hover,
-  .spray-badge.badge-websites:focus-visible,
-  .spray-badge.badge-branding:focus-visible,
-  .spray-badge.badge-meta-ads:focus-visible {
-    transform: rotate(calc(var(--rot, 0deg) + 5deg)) scale(1.12);
+  /* The orbit now runs at every width, all six badges — it used to fall
+     back to a static 3-badge stack below 641px, but script.js applies a
+     much smaller radius factor at this breakpoint (MOBILE_RADIUS_FACTOR)
+     so the ellipse shrinks to fit this narrow column instead of
+     overflowing it, rather than being disabled outright. Badge art itself
+     is also scaled down here to match. */
+  .hero-visual {
+    min-height: 420px;
   }
 
   .spray-badge-img {
-    width: 190px;
+    width: 130px;
+  }
+
+  /* Keeps the same 1.25x-over-the-others ratio as the desktop override,
+     just against this breakpoint's smaller 130px base. */
+  .spray-badge.badge-google-ads .spray-badge-img {
+    width: 162.5px;
   }
 
   .icon-row {

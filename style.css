@@ -1233,6 +1233,120 @@ a {
 
 
 /* ============================================
+   8b. WORK + CONTENT SHOWCASE — two dark full-bleed bands
+   (Previous Work, Content Creation) between What We Do and
+   the closing stats. Shared .dark-panel base + a
+   .placeholder-tile grid: the tiles reuse the hero badges'
+   "sticker on dark ground" treatment (cream fill, thick dark
+   border, hard offset shadow) as blank stand-ins for real
+   screenshots/mockups later.
+   ============================================ */
+
+.dark-panel {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--ink-dark);
+  padding: 90px 0;
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+/* Two of these land back-to-back (Previous Work -> Content Creation),
+   with no cream band between them to break things up visually — a thin
+   hairline stands in for that separation instead. */
+.dark-panel + .dark-panel {
+  border-top: 1px solid var(--hairline-dark);
+}
+
+.dark-panel .eyebrow {
+  color: var(--orange);
+}
+
+.dark-panel h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  text-transform: uppercase;
+  max-width: 16ch;
+}
+
+.dark-panel .section-sub {
+  color: var(--text-muted-dark);
+  max-width: 58ch;
+  margin-top: 18px;
+  font-size: 1.02rem;
+}
+
+.dark-panel .placeholder-note {
+  margin-top: 20px;
+  color: var(--text-muted-dark);
+  background: rgba(242, 148, 31, 0.14);
+  border-color: rgba(242, 148, 31, 0.35);
+}
+
+/* Scattered doodle accents, same idea as the hero's — decorative only,
+   never in the way of real content. */
+.section-doodle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.placeholder-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 44px;
+}
+
+/* Ad mockups read as portrait/social-format tiles rather than the work
+   gallery's landscape screenshots — three wider columns suit that shape
+   better than four. */
+.placeholder-grid--ads {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.placeholder-tile {
+  aspect-ratio: 4 / 3;
+  background: var(--cream);
+  color: var(--text-muted-cream);
+  border: 3px solid var(--ink-dark);
+  border-radius: 14px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.placeholder-grid--ads .placeholder-tile {
+  aspect-ratio: 4 / 5;
+}
+
+.placeholder-tile:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.45);
+}
+
+.placeholder-tile svg {
+  width: 32px;
+  height: 32px;
+  opacity: 0.4;
+}
+
+.placeholder-tile span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+
+
+/* ============================================
    9. CLOSING STATS + CTA — dark band, headline, four
    stat blocks, mint CTA pill.
    ============================================ */
@@ -1482,6 +1596,11 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .placeholder-grid,
+  .placeholder-grid--ads {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .pricing-grid {
     grid-template-columns: 1fr;
   }
@@ -1574,8 +1693,15 @@ a {
 
   .services,
   .stats-section,
+  .dark-panel,
   .page-hero {
     padding: 56px 0;
+  }
+
+  .placeholder-grid,
+  .placeholder-grid--ads {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .contact-inner,

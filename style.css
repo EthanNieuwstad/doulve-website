@@ -407,6 +407,35 @@ a {
   justify-content: center;
 }
 
+/* Orbit ring — fills the same box the badges used to scatter across.
+   Absolutely positioned (removed from .hero-visual's flex flow) so it
+   doesn't disturb the bird's centering; script.js measures this box's
+   own size each resize to compute the orbit radius, and treats it as
+   the rotation's coordinate origin. */
+.badge-orbit {
+  position: absolute;
+  inset: 0;
+}
+
+/* Each item is a zero-size anchor point sitting dead-center in
+   .badge-orbit; script.js drives its transform every frame as
+   rotate(angle) translateY(-radius) rotate(-angle) scale(depth) — the
+   classic "orbit" trick: the outer rotate() swings the point around the
+   circle, translateY() pushes it out to the radius, and the inner
+   rotate(-angle) cancels the spin back out so the badge inside renders
+   upright rather than tumbling. scale() (last) handles the depth effect
+   (front-of-circle badges read larger). Only ever touches transform/
+   z-index — no layout properties — so this animates via compositing
+   alone, no reflow. */
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
 /* Recolors the flat black PNG to white via the same brightness(0) invert(1)
    trick used on .logo-mark. (A mask-image: url() version of this was tried
    first — cleaner in theory, since background-color would be fully
@@ -443,6 +472,8 @@ a {
     6% 80%, 0% 68%, 5% 56%, 0% 44%, 6% 32%, 0% 20%
   );
   position: absolute;
+  top: 0;
+  left: 0;
   display: inline-flex;
   align-items: center;
   background: var(--cream);
@@ -459,7 +490,12 @@ a {
   white-space: nowrap;
   z-index: 2;
   cursor: pointer;
-  transform: rotate(var(--rot, 0deg)) scale(1);
+  /* translate(-50%,-50%) centers the badge on .orbit-item's zero-size
+     anchor point (top:0;left:0 above puts its own top-left corner there
+     otherwise). Everything after that is the badge's own tilt/hover
+     animation, untouched by and independent of the orbit's transform on
+     the parent .orbit-item. */
+  transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background-color 0.2s ease;
 }
 
@@ -491,7 +527,7 @@ a {
 
 .spray-badge:hover,
 .spray-badge:focus-visible {
-  transform: rotate(calc(var(--rot, 0deg) + 5deg)) scale(1.12);
+  transform: translate(-50%, -50%) rotate(calc(var(--rot, 0deg) + 5deg)) scale(1.12);
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.45);
   background: var(--white);
   z-index: 4;
@@ -525,18 +561,19 @@ a {
 .badge-icon.is-mint   { background: var(--mint);   color: var(--ink-dark); }
 .badge-icon.is-lime   { background: var(--lime);   color: var(--ink-dark); }
 
-.badge-websites   { top: 4%;    left: -6%;  --rot: -6deg; }
-.badge-branding   { top: -4%;   left: 30%;  --rot: 4deg; }
-.badge-meta-ads   { top: 30%;   right: -10%; --rot: -4deg; }
-.badge-google-ads { bottom: 16%; left: -10%; --rot: 5deg; }
-.badge-strategy   { bottom: 2%;  right: -4%; --rot: -3deg; }
-/* Sixth badge — the only open clock position left once the other five
-   claimed their corners. Branding and Meta Ads above nudged slightly
-   (38%->30% left, 24%->30% top) to open a clean pocket for it rather
-   than overlapping either. Rotation alternates from its nearest
-   neighbor (Meta Ads, -4deg) the same way every other badge alternates
-   from its neighbors. */
-.badge-content-creation { top: -8%; right: -8%; --rot: 6deg; }
+/* Position (top/left/right/bottom) used to be set per badge here to
+   scatter them by hand around the bird; now script.js's orbit engine
+   places every badge on the circle instead (see .badge-orbit/.orbit-item
+   above), evenly spaced by count rather than these fixed spots. Each
+   badge keeps its own --rot "sticker" tilt though — that's layered on
+   top of the orbit's rotation-cancelling transform (see .spray-badge
+   above), independent of where the badge currently sits on the ring. */
+.badge-websites         { --rot: -6deg; }
+.badge-branding         { --rot: 4deg; }
+.badge-meta-ads         { --rot: -4deg; }
+.badge-google-ads       { --rot: 5deg; }
+.badge-strategy         { --rot: -3deg; }
+.badge-content-creation { --rot: 6deg; }
 
 /* All five hero badges now use hand-illustrated sticker PNGs instead of
    the CSS-drawn torn-paper shape — strip the drawn chrome for all of them.
@@ -1475,6 +1512,16 @@ a {
     padding-bottom: 8px;
   }
 
+  /* The orbit only runs at >=641px (script.js checks this same 640px
+     breakpoint before starting its rAF loop) — below it, collapse both
+     wrapper levels out of the box tree entirely so .spray-badge rejoins
+     .hero-visual's flex column directly, exactly as if .badge-orbit/
+     .orbit-item didn't exist. */
+  .badge-orbit,
+  .orbit-item {
+    display: contents;
+  }
+
   .badge-google-ads,
   .badge-strategy,
   .badge-content-creation,
@@ -1486,6 +1533,19 @@ a {
   .spray-badge.badge-branding,
   .spray-badge.badge-meta-ads {
     position: static;
+    /* Drop the desktop orbit's translate(-50%,-50%) centering — it was
+       only needed to center the badge on .orbit-item's zero-size point,
+       which no longer exists here now that this is a plain flex item. */
+    transform: rotate(var(--rot, 0deg)) scale(1);
+  }
+
+  .spray-badge.badge-websites:hover,
+  .spray-badge.badge-branding:hover,
+  .spray-badge.badge-meta-ads:hover,
+  .spray-badge.badge-websites:focus-visible,
+  .spray-badge.badge-branding:focus-visible,
+  .spray-badge.badge-meta-ads:focus-visible {
+    transform: rotate(calc(var(--rot, 0deg) + 5deg)) scale(1.12);
   }
 
   .spray-badge-img {

@@ -51,6 +51,99 @@ if (navToggle && siteHeader) {
   });
 }
 
+// ---- Hero badge orbit ----
+// Six badges circle the bird continuously. Runs at >=641px only — below
+// that, style.css collapses .badge-orbit/.orbit-item with display:contents
+// back into the plain stacked mobile layout, so there's nothing to
+// position and the loop below is simply never started there. Respects
+// prefers-reduced-motion: badges still land evenly spaced around the
+// bird, just without the continuous spin.
+(function initBadgeOrbit() {
+  const orbit = document.querySelector('.badge-orbit');
+  if (!orbit) return;
+  const items = Array.from(orbit.querySelectorAll('.orbit-item'));
+  if (!items.length) return;
+
+  const ROTATION_MS = 25000; // one full loop every 25s — calm, not distracting
+  const FRONT_SCALE = 1.18; // badge nearest the viewer (bottom of the ring)
+  const BACK_SCALE = 0.88; // badge furthest away (top of the ring)
+  const desktopQuery = window.matchMedia('(min-width: 641px)');
+
+  let radius = 0;
+  let rafId = null;
+  let startTime = null;
+
+  function measure() {
+    const rect = orbit.getBoundingClientRect();
+    // 0.68 keeps badges comfortably inside .hero-visual's box (accounting
+    // for their own half-width) rather than right at the circle's edge.
+    radius = (Math.min(rect.width, rect.height) / 2) * 0.68;
+  }
+
+  // Only transform/z-index are touched here — both are compositor-only
+  // properties, so this never triggers layout reflow no matter how often
+  // it runs.
+  function layout(baseAngleDeg) {
+    const count = items.length;
+    items.forEach((item, i) => {
+      const angle = (baseAngleDeg + (360 / count) * i) % 360;
+      const rad = (angle * Math.PI) / 180;
+      // "Front" is the bottom of the circle (angle 180deg) — closeness
+      // eases smoothly from 0 (back) to 1 (front) via cosine, so there's
+      // no hard jump as a badge crosses into/out of the front position.
+      const closeness = (Math.cos(rad - Math.PI) + 1) / 2;
+      const scale = BACK_SCALE + closeness * (FRONT_SCALE - BACK_SCALE);
+      item.style.transform =
+        `rotate(${angle}deg) translateY(${-radius}px) rotate(${-angle}deg) scale(${scale})`;
+      // Front badge always renders above the rest of the ring — closeness
+      // is already highest exactly there, so no separate sort/lookup needed.
+      item.style.zIndex = String(Math.round(closeness * 1000) + 1);
+    });
+  }
+
+  function tick(now) {
+    if (startTime === null) startTime = now;
+    const baseAngle = (((now - startTime) / ROTATION_MS) * 360) % 360;
+    layout(baseAngle);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    if (rafId !== null) return;
+    measure();
+    startTime = null;
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  function sync() {
+    if (!desktopQuery.matches) {
+      stop();
+      return;
+    }
+    if (prefersReducedMotion) {
+      stop();
+      measure();
+      layout(0); // static, evenly-spaced ring — no continuous motion
+    } else {
+      start();
+    }
+  }
+
+  desktopQuery.addEventListener('change', sync);
+  window.addEventListener('resize', () => {
+    if (desktopQuery.matches) measure();
+  });
+
+  sync();
+})();
+
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
     syncHeaderHeight();

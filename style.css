@@ -526,10 +526,17 @@ a {
 .badge-icon.is-lime   { background: var(--lime);   color: var(--ink-dark); }
 
 .badge-websites   { top: 4%;    left: -6%;  --rot: -6deg; }
-.badge-branding   { top: -4%;   left: 38%;  --rot: 4deg; }
-.badge-meta-ads   { top: 24%;   right: -10%; --rot: -4deg; }
+.badge-branding   { top: -4%;   left: 30%;  --rot: 4deg; }
+.badge-meta-ads   { top: 30%;   right: -10%; --rot: -4deg; }
 .badge-google-ads { bottom: 16%; left: -10%; --rot: 5deg; }
 .badge-strategy   { bottom: 2%;  right: -4%; --rot: -3deg; }
+/* Sixth badge — the only open clock position left once the other five
+   claimed their corners. Branding and Meta Ads above nudged slightly
+   (38%->30% left, 24%->30% top) to open a clean pocket for it rather
+   than overlapping either. Rotation alternates from its nearest
+   neighbor (Meta Ads, -4deg) the same way every other badge alternates
+   from its neighbors. */
+.badge-content-creation { top: -8%; right: -8%; --rot: 6deg; }
 
 /* All five hero badges now use hand-illustrated sticker PNGs instead of
    the CSS-drawn torn-paper shape — strip the drawn chrome for all of them.
@@ -543,7 +550,8 @@ a {
 .spray-badge.badge-branding,
 .spray-badge.badge-meta-ads,
 .spray-badge.badge-google-ads,
-.spray-badge.badge-strategy {
+.spray-badge.badge-strategy,
+.spray-badge.badge-content-creation {
   background: none;
   border: none;
   clip-path: none;
@@ -560,7 +568,9 @@ a {
 .spray-badge.badge-google-ads::before,
 .spray-badge.badge-google-ads::after,
 .spray-badge.badge-strategy::before,
-.spray-badge.badge-strategy::after {
+.spray-badge.badge-strategy::after,
+.spray-badge.badge-content-creation::before,
+.spray-badge.badge-content-creation::after {
   content: none;
 }
 
@@ -590,11 +600,13 @@ a {
 .spray-badge.badge-meta-ads:hover,
 .spray-badge.badge-google-ads:hover,
 .spray-badge.badge-strategy:hover,
+.spray-badge.badge-content-creation:hover,
 .spray-badge.badge-websites:focus-visible,
 .spray-badge.badge-branding:focus-visible,
 .spray-badge.badge-meta-ads:focus-visible,
 .spray-badge.badge-google-ads:focus-visible,
-.spray-badge.badge-strategy:focus-visible {
+.spray-badge.badge-strategy:focus-visible,
+.spray-badge.badge-content-creation:focus-visible {
   background: none;
   box-shadow: none;
 }
@@ -723,7 +735,7 @@ a {
 
 .icon-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0;
   margin-top: 40px;
 }
@@ -1465,6 +1477,7 @@ a {
 
   .badge-google-ads,
   .badge-strategy,
+  .badge-content-creation,
   .doodle-mark {
     display: none;
   }

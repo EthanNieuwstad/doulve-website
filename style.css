@@ -1633,24 +1633,30 @@ a {
     display: none;
   }
 
-  /* The orbit now runs at every width, all six badges — it used to fall
-     back to a static 3-badge stack below 641px, but script.js applies a
-     much smaller radius factor at this breakpoint (MOBILE_RADIUS_FACTOR)
-     so the ellipse shrinks to fit this narrow column instead of
-     overflowing it, rather than being disabled outright. Badge art itself
-     is also scaled down here to match. */
+  /* The orbit runs at every width, all six badges — script.js applies a
+     bigger MOBILE_RADIUS_FACTOR here than the ellipse first shipped with,
+     since a bolder, more legible ring reads better on a phone than one
+     playing it safe inside the column; badges are allowed to swing
+     slightly past .hero-visual's own edges into .hero's full-viewport-
+     width overflow:hidden box (see .hero above) rather than being
+     squeezed to guarantee zero bleed. Bird and badge art are both scaled
+     up to match. */
   .hero-visual {
-    min-height: 420px;
+    min-height: 520px;
+  }
+
+  .hero-bird {
+    width: min(82%, 320px);
   }
 
   .spray-badge-img {
-    width: 130px;
+    width: 170px;
   }
 
   /* Keeps the same 1.25x-over-the-others ratio as the desktop override,
-     just against this breakpoint's smaller 130px base. */
+     just against this breakpoint's bigger 170px base. */
   .spray-badge.badge-google-ads .spray-badge-img {
-    width: 162.5px;
+    width: 212.5px;
   }
 
   .icon-row {

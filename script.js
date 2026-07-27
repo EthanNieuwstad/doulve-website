@@ -77,10 +77,11 @@ if (navToggle && siteHeader) {
   // ~45% bigger than the original 0.72 — badges swing out further from
   // the bird now that scale/opacity/blur carry most of the depth read.
   const RADIUS_FACTOR = 1.04;
-  // Mobile's .hero-visual box is much narrower relative to its height than
-  // desktop/tablet's, so the same factor would push badges well past the
-  // viewport edge — this keeps the ellipse inside the column instead.
-  const MOBILE_RADIUS_FACTOR = 0.5;
+  // Bigger than a "never bleed past the column" factor would allow —
+  // by design, front-of-ring badges swing out far enough to clip against
+  // .hero's edges at the extremes (acceptable; see style.css's mobile
+  // .hero-visual comment) rather than reading as a cramped, timid ring.
+  const MOBILE_RADIUS_FACTOR = 0.75;
   // Must match .hero-bird's z-index in style.css — badges above this line
   // in the stack (top half of the ellipse) sit below the bird; badges
   // below it (bottom half) sit above the bird.

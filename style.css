@@ -1118,6 +1118,29 @@ a {
   box-shadow: 9px 9px 0 rgba(16, 32, 26, 0.85);
 }
 
+/* Services page's cards are real links (whole card clickable through to
+   pricing), so this is scoped to the tag+class combo — higher specificity
+   than .service-card:hover above, which work.html's plain <div> cards
+   (not links) still use untouched. Straight vertical lift instead of the
+   diagonal one, per this page's own hover spec.
+   transform needs !important: .service-card is also a GSAP
+   [data-reveal-item] scroll-reveal target (see script.js), and GSAP
+   leaves an inline transform on the element once that intro tween
+   finishes — an inline style beats a plain stylesheet rule on the same
+   property regardless of :hover, so without this the lift would silently
+   never apply after the reveal had already played (same issue fixed for
+   .icon-col's hover lift earlier in this file). */
+a.service-card:hover,
+a.service-card:focus-visible {
+  transform: translateY(-6px) !important;
+  box-shadow: 12px 12px 0 rgba(16, 32, 26, 0.85);
+}
+
+a.service-card:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
 .service-photo {
   display: block;
   width: 100%;
@@ -1140,6 +1163,47 @@ a {
 .service-card p {
   color: var(--text-muted-cream);
   font-size: 0.98rem;
+}
+
+/* "See pricing" indicator — part of the card's own content (not a
+   separate button), just visually signaling the whole card links out.
+   Color matches that card's dot via the same is-lime/is-orange/is-ink
+   modifier reused on this element; the compound override right below
+   guards against .is-orange/.is-lime/.is-ink also existing as bare
+   utility classes elsewhere (.service-dot, .work-card) that set
+   background/opacity — the same cross-component collision fixed for
+   .icon-chip and .work-card earlier in this file. */
+.service-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.service-cta.is-lime,
+.service-cta.is-orange,
+.service-cta.is-ink {
+  background: none;
+  opacity: 1;
+}
+
+.service-cta.is-lime   { color: var(--lime); }
+.service-cta.is-orange { color: var(--orange); }
+.service-cta.is-ink    { color: var(--ink-dark); }
+
+.service-cta-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+a.service-card:hover .service-cta-arrow,
+a.service-card:focus-visible .service-cta-arrow {
+  transform: translateX(4px);
 }
 
 .service-dot {

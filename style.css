@@ -1653,51 +1653,35 @@ a {
   padding: 9px 16px;
 }
 
-/* Placeholder image slot — same idea as .placeholder-tile's icon +
-   caption, restyled to sit inside a dark card instead of standing alone
-   as a cream box. The icon is the thing that scales on hover (see
-   .work-card:hover below); overflow:hidden on .work-card above keeps
-   that zoom from spilling past the card's own rounded corners. */
+/* Real screenshot slot — sits inside the dark card, object-fit:cover +
+   object-position:top so the tile always shows each site's header/hero
+   band rather than a squashed full-page shot, regardless of how the
+   card's own aspect ratio (featured/tall/standard all differ) crops it.
+   The image is the thing that scales on hover (see .work-card:hover
+   below); overflow:hidden on .work-card above keeps that zoom from
+   spilling past the card's own rounded corners. */
 .work-card-media {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   background: rgba(255, 255, 255, 0.03);
 }
 
-.work-card-media svg {
-  width: 30px;
-  height: 30px;
-  color: var(--white);
-  opacity: 0.35;
+.work-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   transition: transform 0.3s ease;
 }
 
-.work-card--featured .work-card-media svg,
-.work-card--tall .work-card-media svg {
-  width: 42px;
-  height: 42px;
-}
-
-.work-card-media span {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted-dark);
-}
-
-.work-card:hover .work-card-media svg {
+.work-card:hover .work-card-media img {
   transform: scale(1.07);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .work-card,
-  .work-card-media svg {
+  .work-card-media img {
     transition: none;
   }
 }

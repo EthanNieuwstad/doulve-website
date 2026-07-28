@@ -25,6 +25,16 @@
   --font-mono: 'Space Mono', monospace;
   --font-marker: 'Permanent Marker', cursive; /* hand-marker accent — used sparingly */
 
+  /* Torn-paper sticker edge, shared by .spray-badge (hero) and .work-badge
+     (portfolio card corners) — a percentage-based polygon so the same
+     jaggedness scales correctly regardless of the badge's own box size. */
+  --torn-edge: polygon(
+    0% 8%, 6% 1%, 14% 6%, 24% 0%, 34% 7%, 46% 1%, 58% 6%, 70% 0%, 82% 7%, 92% 2%, 100% 9%,
+    94% 20%, 100% 32%, 95% 44%, 100% 56%, 94% 68%, 100% 80%, 96% 92%, 100% 100%,
+    88% 95%, 76% 100%, 64% 94%, 52% 100%, 40% 95%, 28% 100%, 16% 94%, 4% 100%, 0% 93%,
+    6% 80%, 0% 68%, 5% 56%, 0% 44%, 6% 32%, 0% 20%
+  );
+
   --header-h: 66px; /* fallback estimate; corrected by script.js once the header renders */
 }
 
@@ -468,19 +478,14 @@ a {
    top of that base tilt instead of overwriting it outright — the "sticker
    being lifted off the surface" effect: it tilts further, scales up, and
    its shadow deepens as if peeling up. */
-/* Torn-paper edge: a percentage-based polygon, so the same jaggedness
-   scales correctly whether the badge is short ("Branding") or long
-   ("Google Ads") — each vertex is a fraction of that badge's own box,
-   not a fixed pixel offset. clip-path cuts the border along with the
-   fill, which is what gives the 3px border its jagged (not rounded-
-   rect) outline for free, without any extra masking layer. */
+/* Torn-paper edge: a percentage-based polygon (now a shared :root token,
+   --torn-edge, since .work-badge on the portfolio cards reuses it too),
+   so the same jaggedness scales correctly whether the badge is short
+   ("Branding") or long ("Google Ads") — each vertex is a fraction of that
+   badge's own box, not a fixed pixel offset. clip-path cuts the border
+   along with the fill, which is what gives the 3px border its jagged
+   (not rounded-rect) outline for free, without any extra masking layer. */
 .spray-badge {
-  --torn-edge: polygon(
-    0% 8%, 6% 1%, 14% 6%, 24% 0%, 34% 7%, 46% 1%, 58% 6%, 70% 0%, 82% 7%, 92% 2%, 100% 9%,
-    94% 20%, 100% 32%, 95% 44%, 100% 56%, 94% 68%, 100% 80%, 96% 92%, 100% 100%,
-    88% 95%, 76% 100%, 64% 94%, 52% 100%, 40% 95%, 28% 100%, 16% 94%, 4% 100%, 0% 93%,
-    6% 80%, 0% 68%, 5% 56%, 0% 44%, 6% 32%, 0% 20%
-  );
   position: absolute;
   top: 0;
   left: 0;
@@ -1345,6 +1350,140 @@ a {
   opacity: 0.6;
 }
 
+/* ---- "Our Work" asymmetric portfolio grid ----
+   A separate component from .placeholder-grid/.placeholder-tile above
+   (which Content Creation still uses unchanged) — this one needs actual
+   variable card sizes and a dark "elevated panel" card instead of a
+   cream box, so it gets its own classes rather than overloading the
+   shared ones. grid-auto-flow:dense lets the two oversized cards
+   (featured, tall) sit anywhere in source order while the six standard
+   squares automatically pack into the gaps around them, rather than
+   requiring every cell to be hand-placed via grid-template-areas. */
+.work-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 170px;
+  grid-auto-flow: dense;
+  gap: 24px;
+  margin-top: 44px;
+}
+
+.work-card--featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.work-card--tall {
+  grid-row: span 2;
+}
+
+/* "Elevated dark panel" card — a touch lighter than the section's own
+   --ink-dark so it still reads as a distinct surface sitting on it,
+   rather than the light cream/thick-border "sticker" treatment used for
+   the hero badges and the Content Creation placeholder tiles (those sit
+   fine as bright accents scattered around a dark section; a whole grid
+   of them here would read as too loud/flat). The colored border is the
+   accent instead — rotated per card via the .is-* modifiers below. */
+.work-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--hairline-dark);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.work-card.is-orange { border-color: var(--orange); }
+.work-card.is-mint   { border-color: var(--mint); }
+.work-card.is-lime   { border-color: var(--lime); }
+
+.work-card.is-orange:hover { box-shadow: 0 0 26px -6px rgba(242, 148, 31, 0.6); }
+.work-card.is-mint:hover   { box-shadow: 0 0 26px -6px rgba(143, 234, 209, 0.6); }
+.work-card.is-lime:hover   { box-shadow: 0 0 26px -6px rgba(195, 247, 58, 0.6); }
+
+.work-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Corner sticker — same torn-edge/hard-shadow "spray-paint tag" language
+   as the hero badges, just smaller and pinned to a card corner instead
+   of scattered and orbiting. Shows the project name in place of the old
+   generic "Project 01" label. */
+.work-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  background: var(--cream);
+  color: var(--ink-dark);
+  border: 2px solid var(--ink-dark);
+  clip-path: var(--torn-edge);
+  padding: 7px 13px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.work-card--featured .work-badge {
+  font-size: 0.85rem;
+  padding: 9px 16px;
+}
+
+/* Placeholder image slot — same idea as .placeholder-tile's icon +
+   caption, restyled to sit inside a dark card instead of standing alone
+   as a cream box. The icon is the thing that scales on hover (see
+   .work-card:hover below); overflow:hidden on .work-card above keeps
+   that zoom from spilling past the card's own rounded corners. */
+.work-card-media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.work-card-media svg {
+  width: 30px;
+  height: 30px;
+  color: var(--white);
+  opacity: 0.35;
+  transition: transform 0.3s ease;
+}
+
+.work-card--featured .work-card-media svg,
+.work-card--tall .work-card-media svg {
+  width: 42px;
+  height: 42px;
+}
+
+.work-card-media span {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted-dark);
+}
+
+.work-card:hover .work-card-media svg {
+  transform: scale(1.07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card,
+  .work-card-media svg {
+    transition: none;
+  }
+}
+
 
 /* ============================================
    9. CLOSING STATS + CTA — dark band, headline, four
@@ -1601,6 +1740,14 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Featured/tall cards still get their extra span within this 2-column
+     grid (featured becomes full-width, tall stays twice as high as a
+     standard card) — only the column count changes. */
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+  }
+
   .pricing-grid {
     grid-template-columns: 1fr;
   }
@@ -1698,6 +1845,22 @@ a {
   .placeholder-grid--ads {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  /* Single column: reset the featured/tall spans so every card stacks as
+     a plain uniform row instead of leaving odd extra-tall cells. */
+  .work-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 18px;
+  }
+
+  .work-card,
+  .work-card--featured,
+  .work-card--tall {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 4 / 3;
   }
 
   .contact-inner,

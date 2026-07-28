@@ -793,8 +793,10 @@ a {
 }
 
 .icon-col {
+  position: relative;
   padding: 0 22px;
   border-left: 1px solid var(--hairline-cream);
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .icon-col:first-child {
@@ -802,10 +804,34 @@ a {
   padding-left: 0;
 }
 
-/* Rough paint-splatter silhouette (irregular clip-path, not a circle),
-   plus two small ink-fleck dots bleeding just past its edge — same
-   "decorative pseudo-elements, no extra markup" technique used for the
-   hero spray-badges' paint flecks. */
+/* Whole card lifts with a soft shadow on hover/focus — .icon-col has no
+   background/border of its own (just the divider rule), so filter:
+   drop-shadow (which follows the content's silhouette) reads better here
+   than box-shadow (which would draw a hard rectangle behind transparent
+   padding).
+   transform needs !important: .icon-col is also a GSAP [data-reveal-item]
+   scroll-reveal target (see script.js), and GSAP leaves an inline
+   transform (translate3d(0,0,0)) on the element once that intro tween
+   finishes — an inline style beats a plain stylesheet rule on the same
+   property regardless of :hover, so without this the lift would silently
+   never apply after the reveal had already played. filter isn't part of
+   that tween, so it doesn't need the same override. */
+.icon-col:hover,
+.icon-col:focus-within {
+  transform: translateY(-4px) !important;
+  filter: drop-shadow(0 10px 18px rgba(20, 35, 28, 0.2));
+}
+
+/* Rough paint-splatter silhouette (irregular clip-path, not a circle) —
+   default state is a "stencil": transparent inside, a muted/dimmed
+   version of the item's accent as the outline and glyph color (via
+   color-mix against transparent, not a new hex value). On hover/focus
+   (triggered on the whole .icon-col, so the effect reads as tied to the
+   card, not just this small icon) a separate .icon-chip-fill layer wipes
+   in from one corner via an expanding clip-path circle — a directional
+   "spray filling the stencil" reveal rather than a plain color fade —
+   while the border/glyph simultaneously settle into the full solid
+   accent/ink pairing the chip always used to show unconditionally. */
 .icon-chip {
   --splatter: polygon(
     20% 0%, 45% 5%, 62% 0%, 80% 10%, 92% 8%, 100% 25%, 96% 40%, 100% 55%,
@@ -813,6 +839,7 @@ a {
     22% 88%, 8% 92%, 0% 75%, 6% 60%, 0% 45%, 8% 30%, 2% 15%, 12% 5%
   );
   position: relative;
+  z-index: 1;
   width: 60px;
   height: 60px;
   clip-path: var(--splatter);
@@ -820,13 +847,30 @@ a {
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
+  background: transparent;
+  border: 2px solid color-mix(in srgb, var(--chip-accent) 55%, transparent);
+  color: color-mix(in srgb, var(--chip-accent) 60%, transparent);
+  transition: border-color 0.4s ease, color 0.4s ease;
 }
 
+.icon-col:hover .icon-chip,
+.icon-col:focus-within .icon-chip {
+  border-color: var(--chip-accent);
+  color: var(--chip-ink);
+}
+
+/* Two small ink-fleck dots bleeding just past the chip's edge — same
+   "decorative pseudo-elements, no extra markup" technique used for the
+   hero spray-badges' paint flecks. Hidden until the stencil is "sprayed"
+   instead of always-on, consistent with everything else here. */
 .icon-chip::before,
 .icon-chip::after {
   content: '';
   position: absolute;
   border-radius: 50%;
+  background: var(--chip-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s;
 }
 
 .icon-chip::before {
@@ -843,21 +887,195 @@ a {
   right: -8px;
 }
 
+.icon-col:hover .icon-chip::before,
+.icon-col:hover .icon-chip::after,
+.icon-col:focus-within .icon-chip::before,
+.icon-col:focus-within .icon-chip::after {
+  opacity: 1;
+}
+
+/* The actual "paint" — an oversized solid square, clipped to the same
+   splatter shape by virtue of being a child of .icon-chip (an ancestor's
+   clip-path clips its descendants' painted content too, the same way
+   overflow:hidden would). A circle clip-path expanding from one corner
+   is what makes the reveal read as directional spreading rather than a
+   flat fade; z-index:0 keeps it under the glyph (see .icon-chip svg). */
+.icon-chip-fill {
+  position: absolute;
+  z-index: 0;
+  inset: -3px;
+  background: var(--chip-accent);
+  clip-path: circle(0% at 20% 85%);
+  transition: clip-path 0.45s ease-out;
+  pointer-events: none;
+}
+
+.icon-col:hover .icon-chip-fill,
+.icon-col:focus-within .icon-chip-fill {
+  clip-path: circle(150% at 20% 85%);
+}
+
 .icon-chip svg {
+  position: relative;
+  z-index: 1;
   width: 24px;
   height: 24px;
 }
 
-.icon-chip.is-mint   { background: var(--mint);   color: var(--ink-dark); }
-.icon-chip.is-orange { background: var(--orange); color: var(--white); }
-.icon-chip.is-lime   { background: var(--lime);   color: var(--ink-dark); }
+/* A few glyph details (the dots in Web Design, the play triangle in Ad
+   Creation, the bars in Strategy & Growth, Branding's accent dot) were
+   drawn fill="currentColor" — solid from the start. Stencil state forces
+   those specific elements to outline-only too, same as the rest of each
+   glyph; hovering restores their original solid fill. Elements that were
+   already fill="none" are untouched (no selector match), so the main
+   outline strokes never gain a fill they never had. */
+.icon-chip svg [fill="currentColor"] {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
 
-.icon-chip.is-mint::before,
-.icon-chip.is-mint::after   { background: var(--mint); }
-.icon-chip.is-orange::before,
-.icon-chip.is-orange::after { background: var(--orange); }
-.icon-chip.is-lime::before,
-.icon-chip.is-lime::after   { background: var(--lime); }
+.icon-col:hover .icon-chip svg [fill="currentColor"],
+.icon-col:focus-within .icon-chip svg [fill="currentColor"] {
+  fill: currentColor;
+  stroke: none;
+}
+
+@media (hover: none) {
+  .icon-chip svg [fill="currentColor"] {
+    fill: currentColor;
+    stroke: none;
+  }
+}
+
+/* A handful of small dots scattered around the chip, hidden at rest and
+   bursting outward + fading in on hover/focus — the "spray" the stencil
+   is being filled with. Kept to real elements (not more pseudo-elements)
+   since .icon-chip already uses both ::before/::after for the paint
+   flecks above; sits as a sibling of .icon-chip (not nested inside it)
+   so it isn't clipped to the splatter shape like the fill layer is. */
+.icon-chip-burst {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+}
+
+.icon-chip-burst i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--chip-accent);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.icon-chip-burst i:nth-child(1) { --end-x: -34px; --end-y: -20px; }
+.icon-chip-burst i:nth-child(2) { --end-x: 32px;  --end-y: -28px; }
+.icon-chip-burst i:nth-child(3) { --end-x: 40px;  --end-y: 20px; }
+.icon-chip-burst i:nth-child(4) { --end-x: -8px;  --end-y: 42px; }
+.icon-chip-burst i:nth-child(5) { --end-x: -42px; --end-y: 12px; }
+
+.icon-col:hover .icon-chip-burst i,
+.icon-col:focus-within .icon-chip-burst i {
+  opacity: 0.85;
+  transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(1);
+}
+
+/* Per-item accent tokens driving everything above — same three colors
+   the chip already used, just referenced through custom properties now
+   instead of setting background/color directly. --chip-ink is whichever
+   of ink-dark/white the glyph needs once it's sitting on the solid fill,
+   matching what each chip already used before this change. */
+.icon-chip.is-mint,
+.icon-chip-burst.is-mint   { --chip-accent: var(--mint); }
+.icon-chip.is-orange,
+.icon-chip-burst.is-orange { --chip-accent: var(--orange); }
+.icon-chip.is-lime,
+.icon-chip-burst.is-lime   { --chip-accent: var(--lime); }
+
+/* .is-orange/.is-lime are also bare utility classes elsewhere (see
+   .service-dot's use of them) that set a solid background — same
+   specificity as .icon-chip's own background:transparent above, so
+   whichever is later in the file wins the collision by accident. This
+   compound selector reliably wins regardless of source order, the same
+   fix used for the hero badges' chrome-stripping earlier in this file. */
+.icon-chip.is-mint,
+.icon-chip.is-orange,
+.icon-chip.is-lime,
+.icon-chip-burst.is-mint,
+.icon-chip-burst.is-orange,
+.icon-chip-burst.is-lime {
+  background: transparent;
+}
+
+.icon-chip.is-mint  { --chip-ink: var(--ink-dark); }
+.icon-chip.is-orange { --chip-ink: var(--white); }
+.icon-chip.is-lime  { --chip-ink: var(--ink-dark); }
+
+/* Touch devices: no hover to reveal the fill, so skip the animation
+   entirely and just show every chip in its finished, fully-sprayed
+   state — simpler and more consistent than a tap-to-reveal interaction
+   across six separate icons. */
+@media (hover: none) {
+  .icon-chip {
+    border-color: var(--chip-accent);
+    color: var(--chip-ink);
+  }
+
+  .icon-chip::before,
+  .icon-chip::after {
+    opacity: 1;
+  }
+
+  .icon-chip-fill {
+    clip-path: circle(150% at 50% 50%);
+  }
+
+  .icon-chip-burst {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-col,
+  .icon-chip,
+  .icon-chip::before,
+  .icon-chip::after {
+    transition-duration: 0.15s;
+    transition-delay: 0s;
+  }
+
+  .icon-col:hover,
+  .icon-col:focus-within {
+    transform: none !important;
+    filter: none;
+  }
+
+  /* Swap the directional corner-wipe for a plain opacity fade. */
+  .icon-chip-fill {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .icon-col:hover .icon-chip-fill,
+  .icon-col:focus-within .icon-chip-fill {
+    opacity: 1;
+  }
+
+  .icon-chip-burst {
+    display: none;
+  }
+}
 
 .icon-col h3 {
   font-size: 1.05rem;

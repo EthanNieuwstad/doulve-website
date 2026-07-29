@@ -415,6 +415,17 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* The whole box is the badge orbit's drag-to-spin surface (script.js
+     binds pointer/touch listeners here, not just on .badge-orbit, so
+     grabbing the bird itself also works). touch-action: none hands touch
+     gestures starting here entirely to that drag logic instead of letting
+     the browser try to scroll the page with them. */
+  touch-action: none;
+  cursor: grab;
+}
+
+.hero-visual.is-dragging {
+  cursor: grabbing;
 }
 
 /* Orbit ring — fills the same box the badges used to scatter across.

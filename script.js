@@ -178,6 +178,33 @@ if (navToggle && siteHeader) {
   sync();
 })();
 
+// ---- Content Creation belt: exact seam-free loop distance ----
+// A flat -50% looks right but isn't: flexbox `gap` is only counted N-1
+// times across the 2N tiles in a row (gaps sit between tiles, not around
+// them), so half of the full track width lands half a gap short of where
+// the duplicated set actually starts. That shows up as a small jump/pause
+// at the loop point. The fix is to measure the real distance — the
+// offsetLeft of the first duplicated (aria-hidden) tile is exactly the
+// width of one unique set, gaps included, whether or not tiles are equal
+// width — and drive the keyframes off that via --belt-shift instead of a
+// hardcoded percentage. Re-measured on resize since tile width/gap both
+// change at the mobile breakpoint.
+(function initContentBelt() {
+  const tracks = document.querySelectorAll('.belt-track');
+  if (!tracks.length) return;
+
+  function measure() {
+    tracks.forEach((track) => {
+      const dupTile = track.querySelector('.belt-tile[aria-hidden="true"]');
+      if (!dupTile) return;
+      track.style.setProperty('--belt-shift', `${dupTile.offsetLeft}px`);
+    });
+  }
+
+  measure();
+  window.addEventListener('resize', measure);
+})();
+
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
     syncHeaderHeight();

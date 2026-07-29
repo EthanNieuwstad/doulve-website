@@ -1578,66 +1578,97 @@ a.service-card:focus-visible .service-cta-arrow {
   z-index: 0;
 }
 
-.placeholder-grid {
+/* ---- Content Creation infinite scroll belt ----
+   Two rows, each row's 9 DOM tiles are really 3 unique images repeated
+   3 times total (the 2nd and 3rd copies marked aria-hidden). Two copies
+   isn't enough width: the row's visible width (up to ~1116px, since
+   .container caps at 1180px) is wider than one set's translated
+   distance, so with only one duplicate the track would run out of
+   tiles and flash empty background for part of every loop, reading as
+   a stutter. Animating .belt-track by --belt-shift (the pixel width of
+   one unique set, measured in JS — see initContentBelt() in script.js)
+   moves exactly one set-width per loop, so the next identical copy
+   lands right where the previous one started and the loop point is
+   invisible, while the 3rd copy stays in reserve to cover the visible
+   width for the whole slide. This also isn't the same as a flat -50%:
+   with flexbox `gap`, N-1 gaps are spread across 3N tiles, so a flat
+   fraction of the total track width doesn't land on the true set
+   boundary — a small but real seam. --belt-shift defaults to 50% only
+   until JS overwrites it on load. */
+.content-belt {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   margin-top: 44px;
 }
 
-/* Ad mockups read as portrait/social-format tiles rather than the work
-   gallery's landscape screenshots — three wider columns suit that shape
-   better than four. */
-.placeholder-grid--ads {
-  grid-template-columns: repeat(3, 1fr);
+.belt-row {
+  overflow: hidden;
+  /* Fades the row to transparent at its own left/right edges instead of
+     hard-clipping a tile mid-image against the section's edge. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
-.placeholder-tile {
-  aspect-ratio: 4 / 3;
-  background: var(--cream);
-  color: var(--text-muted-cream);
+.belt-track {
+  display: flex;
+  width: max-content;
+  gap: 24px;
+  /* Fallback only — flexbox `gap` is applied N-1 times across the 2N
+     tiles, not proportionally to each half, so 50% of the full track
+     width lands short of the true set boundary by half a gap. script.js
+     measures the real offset (the first duplicated tile's offsetLeft)
+     and overwrites this via setProperty on load/resize; this value only
+     shows if that measurement hasn't run yet. */
+  --belt-shift: 50%;
+  animation: belt-scroll-left 30s linear infinite;
+}
+
+.belt-row--right .belt-track {
+  animation-name: belt-scroll-right;
+}
+
+@keyframes belt-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-1 * var(--belt-shift))); }
+}
+
+@keyframes belt-scroll-right {
+  from { transform: translateX(calc(-1 * var(--belt-shift))); }
+  to   { transform: translateX(0); }
+}
+
+.belt-tile {
+  flex: 0 0 auto;
+  width: 200px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
   border: 3px solid var(--ink-dark);
   border-radius: 14px;
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.placeholder-grid--ads .placeholder-tile {
-  aspect-ratio: 4 / 5;
+.belt-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-.placeholder-tile:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.45);
-}
-
-.placeholder-tile svg {
-  width: 32px;
-  height: 32px;
-  opacity: 0.4;
-}
-
-.placeholder-tile span {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  opacity: 0.6;
+@media (prefers-reduced-motion: reduce) {
+  .belt-track {
+    animation: none;
+  }
 }
 
 /* ---- "Our Work" portfolio grid ----
-   A separate component from .placeholder-grid/.placeholder-tile above
-   (which Content Creation still uses unchanged) — this one needs actual
-   variable card sizes and a dark "elevated panel" card instead of a
-   cream box, so it gets its own classes rather than overloading the
-   shared ones.
+   A separate component from the .content-belt scroller above — this one
+   needs actual variable card sizes and a dark "elevated panel" card
+   instead of a cream box, so it gets its own classes rather than
+   overloading the shared ones.
 
    PERMANENTLY LOCKED SHAPE — 7 tiles, 4 columns x 3 rows, no empty
    cells. Every tile has its own dedicated class below with an explicit
@@ -2013,11 +2044,6 @@ a.service-card:focus-visible .service-cta-arrow {
     grid-template-columns: 1fr;
   }
 
-  .placeholder-grid,
-  .placeholder-grid--ads {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   /* The fixed 4-column desktop placement doesn't fit a 2-column layout —
      drop every tile's explicit column/row and let them stack in plain
      source order instead. */
@@ -2131,10 +2157,16 @@ a.service-card:focus-visible .service-cta-arrow {
     padding: 56px 0;
   }
 
-  .placeholder-grid,
-  .placeholder-grid--ads {
-    grid-template-columns: 1fr;
-    gap: 18px;
+  .belt-tile {
+    width: 130px;
+  }
+
+  .content-belt {
+    gap: 14px;
+  }
+
+  .belt-track {
+    gap: 14px;
   }
 
   /* Single column: reset every tile's explicit placement so they stack

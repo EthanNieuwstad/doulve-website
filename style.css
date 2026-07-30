@@ -1233,55 +1233,373 @@ a.service-card:focus-visible .service-cta-arrow {
 
 
 /* ============================================
-   7. ABOUT — photo + text.
+   7. ABOUT PAGE — five acts: a point-of-view hero, the
+   origin story (with animated stat counters), an "old way
+   vs Doulve way" comparison, a 4-step process timeline, and
+   a founder spotlight, closing into the shared .contact CTA.
+   Editorial padding-driven sections (not min-height:100vh
+   like the Work page) — this page is meant to read like a
+   chapter you scroll through, not a sequence of full-screen
+   moments, so it doesn't feel like a re-skin of Work.
    ============================================ */
 
-.about {
+/* ---- Act 1: hero / point of view ----
+   Single-column (no visual/badge-orbit column like the homepage hero —
+   there's no matching asset for this page), so the headline gets to run
+   wide and carry the section on its own. Reuses .kicker/.hero-headline/
+   .hero-foot verbatim, so the existing on-load GSAP entrance timeline in
+   script.js animates it automatically, zero JS changes. */
+.about-hero {
+  position: relative;
+  z-index: 1;
+  background: var(--ink-dark);
+  overflow: hidden;
+  padding: 100px 0 110px;
+}
+
+.about-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+}
+
+.about-hero-headline {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.02;
+}
+
+.about-hero-headline .line:nth-child(3) {
+  color: var(--lime);
+}
+
+.about-hero .hero-sub {
+  max-width: 56ch;
+  font-size: 1.15rem;
+}
+
+.about-hero .hero-actions {
+  margin-top: 32px;
+}
+
+/* ---- Act 2: origin story — cream band, photo + narrative + counters ---- */
+.origin-section {
   position: relative;
   z-index: 1;
   background: var(--cream);
-  padding: 0;
-  overflow: hidden;
+  padding: 90px 0;
   scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
-.about-panel {
+.origin-panel {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: center;
 }
 
-.about-photo-wrap {
-  height: 100%;
-  min-height: 420px;
+.origin-photo-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid var(--ink-dark);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
 }
 
-.about-photo {
+.origin-photo {
   display: block;
   width: 100%;
   height: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
 }
 
-.about-inner {
-  padding: 64px 56px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.origin-photo-note {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  margin: 0;
+  background: rgba(16, 32, 26, 0.85);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.about-lede {
+.origin-section .eyebrow { color: var(--orange); }
+
+.origin-section h2 {
+  color: var(--ink-text);
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  text-transform: uppercase;
+  max-width: 18ch;
+}
+
+.origin-lede {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  line-height: 1.2;
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  line-height: 1.3;
   letter-spacing: -0.01em;
-  margin-bottom: 24px;
+  color: var(--ink-text);
+  margin-top: 18px;
+}
+
+.origin-body {
+  color: var(--text-muted-cream);
+  font-size: 1.02rem;
+  margin-top: 16px;
+  max-width: 60ch;
+}
+
+/* The animated-counter row — this page's signature device. Numbers sit
+   idle at their real, correct value (see the HTML comment above
+   .origin-stats) until initStatCounters() in script.js resets them to 0
+   and counts back up once scrolled into view; motionDisabled/no-JS users
+   simply never see them move; the number was always right either way. */
+.origin-stats {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--hairline-cream);
+}
+
+.origin-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.origin-stat-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--ink-text);
+  letter-spacing: -0.02em;
+}
+
+.origin-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted-cream);
+  max-width: 16ch;
+}
+
+/* ---- Act 3: differentiators — dark band, old-way/new-way comparison ---- */
+.diff-section .eyebrow { color: var(--orange); }
+
+.diff-section h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  text-transform: uppercase;
+  max-width: 16ch;
+}
+
+.diff-section .section-sub {
+  color: var(--text-muted-dark);
+  max-width: 58ch;
+  margin-top: 18px;
+  font-size: 1.02rem;
+}
+
+.diff-table {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+}
+
+.diff-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 22px 0;
+  border-top: 1px solid var(--hairline-dark);
+}
+
+.diff-row--head {
+  padding-bottom: 14px;
+}
+
+.diff-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.diff-label--old { color: var(--text-muted-dark); }
+.diff-label--new { color: var(--lime); }
+
+.diff-old,
+.diff-new {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.diff-old {
+  color: var(--text-muted-dark);
+  opacity: 0.75;
+}
+
+.diff-new {
+  color: var(--white);
+}
+
+.diff-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.diff-old .diff-icon { color: rgba(255, 255, 255, 0.35); }
+.diff-new .diff-icon { color: var(--lime); }
+
+/* ---- Act 4: process — cream band, 4-step timeline ----
+   A real sequence (discover -> build -> launch -> grow), so numbering
+   here earns its place rather than decorating an unordered list. A
+   connecting line runs behind the steps on desktop like a timeline;
+   collapses to a plain vertical stack on mobile. */
+.process-section {
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
+  padding: 90px 0;
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.process-section .eyebrow { color: var(--orange); }
+
+.process-section h2 {
+  color: var(--ink-text);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  text-transform: uppercase;
+  max-width: 16ch;
+}
+
+.process-section .section-sub {
+  color: var(--text-muted-cream);
+  max-width: 58ch;
+  margin-top: 18px;
+  font-size: 1.02rem;
+}
+
+.process-track {
+  position: relative;
+  margin-top: 52px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.process-track::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--hairline-cream);
+}
+
+.process-step {
+  position: relative;
+}
+
+.process-number {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 3px solid var(--ink-dark);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
   color: var(--ink-text);
 }
 
-.about-body {
+.process-step h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--ink-text);
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  margin-top: 18px;
+}
+
+.process-step p {
   color: var(--text-muted-cream);
-  font-size: 1.05rem;
+  margin-top: 8px;
+  font-size: 0.95rem;
+}
+
+/* ---- Act 5: founder spotlight — dark band, photo + pull-quote ---- */
+.founder-panel {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.founder-photo-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid var(--hairline-dark);
+}
+
+.founder-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+}
+
+.founder-photo-note {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  margin: 0;
+}
+
+.founder-section .eyebrow { color: var(--orange); }
+
+.founder-section h2 {
+  color: var(--white);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  text-transform: uppercase;
+  max-width: 20ch;
+}
+
+.founder-quote {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-top: 26px;
+  max-width: 46ch;
+}
+
+.founder-attribution {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mint);
+  margin-top: 16px;
 }
 
 
@@ -2748,6 +3066,35 @@ a.service-card:focus-visible .service-cta-arrow {
   .case-snippet-media {
     flex-basis: 140px;
   }
+
+  .origin-panel,
+  .founder-panel {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .origin-photo,
+  .founder-photo {
+    aspect-ratio: 16 / 10;
+  }
+
+  .diff-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .diff-row--head {
+    display: none;
+  }
+
+  .process-track {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+
+  .process-track::before {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2823,6 +3170,15 @@ a.service-card:focus-visible .service-cta-arrow {
   .stats-section,
   .dark-panel,
   .page-hero {
+    padding: 56px 0;
+  }
+
+  .about-hero {
+    padding: 56px 0 64px;
+  }
+
+  .origin-section,
+  .process-section {
     padding: 56px 0;
   }
 
@@ -2967,5 +3323,24 @@ a.service-card:focus-visible .service-cta-arrow {
 
   .logo-mark {
     height: 22px;
+  }
+
+  .about-hero .hero-actions {
+    margin-top: 24px;
+  }
+
+  .origin-stats {
+    gap: 24px;
+    margin-top: 28px;
+    padding-top: 22px;
+  }
+
+  .process-track {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+
+  .founder-quote {
+    font-size: 1.2rem;
   }
 }

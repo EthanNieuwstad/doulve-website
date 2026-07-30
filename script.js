@@ -563,6 +563,7 @@ if (motionDisabled) {
   gsap.registerPlugin(ScrollTrigger);
   initHeroTimeline();
   initScrollReveals();
+  initStatCounters();
 }
 
 // ---- Hero entrance: headline, tagline, and button stagger in on load ----
@@ -702,6 +703,35 @@ function initScrollReveals() {
 
   // Footer is deliberately left un-animated — a copyright line has nothing
   // to gain from motion.
+}
+
+// ---- About page: animated stat counters (0 -> real value on scroll) ----
+// The only page using [data-count-to] — a no-op everywhere else. Each
+// element already holds its correct final number as static HTML (see the
+// comment above .origin-stats in about.html), so a reader with JS off or
+// GSAP failed to load simply sees the right number sit still; this only
+// runs at all once motionDisabled is confirmed false (called from the
+// same branch that registers ScrollTrigger), so it never touches gsap
+// before the plugin exists. It resets the display to 0 itself right
+// before animating, rather than starting at 0 in the HTML, so there's
+// never a moment where a real user (JS enabled, motion allowed) sees a
+// wrong number before the scroll trigger fires.
+function initStatCounters() {
+  document.querySelectorAll('[data-count-to]').forEach((el) => {
+    const target = parseFloat(el.dataset.countTo);
+    const duration = parseFloat(el.dataset.countDuration || '1.5');
+    const proxy = { value: 0 };
+    el.textContent = '0';
+    gsap.to(proxy, {
+      value: target,
+      duration,
+      ease: 'power2.out',
+      onUpdate: () => {
+        el.textContent = String(Math.round(proxy.value));
+      },
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+    });
+  });
 }
 
 // Hover (cards, buttons, nav) is intentionally pure CSS — see .service-card:hover

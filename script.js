@@ -488,6 +488,68 @@ if (navToggle && siteHeader) {
   window.addEventListener('resize', measure);
 })();
 
+// ---- Work page: websites showcase carousel ----
+// Native scroll-snap already handles touch/trackpad drag on the track
+// with zero JS; this only adds the visible prev/next arrows and position
+// dots for mouse users, since dragging a horizontal track isn't an
+// obvious affordance without a visible control. No-ops entirely on any
+// page other than work.html.
+(function initWorkShowcase() {
+  const track = document.querySelector('.web-showcase-track');
+  if (!track) return;
+  const slides = Array.from(track.querySelectorAll('.web-slide'));
+  if (!slides.length) return;
+
+  const prevBtn = document.querySelector('.web-showcase-arrow--prev');
+  const nextBtn = document.querySelector('.web-showcase-arrow--next');
+  const dots = Array.from(document.querySelectorAll('.web-showcase-dot'));
+
+  function currentIndex() {
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let closest = 0;
+    let closestDist = Infinity;
+    slides.forEach((slide, i) => {
+      const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+      const dist = Math.abs(slideCenter - center);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    });
+    return closest;
+  }
+
+  function goTo(index) {
+    const clamped = Math.max(0, Math.min(slides.length - 1, index));
+    const slide = slides[clamped];
+    const target = slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2;
+    track.scrollTo({ left: target, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  }
+
+  function updateDots() {
+    const idx = currentIndex();
+    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === idx));
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex() - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex() + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  // Keeps the dots in sync with drag/swipe/trackpad scrolling too, not
+  // just the arrow/dot buttons — rAF-throttled so a fast scroll doesn't
+  // recompute the nearest slide on every single scroll event.
+  let scrollRaf = null;
+  track.addEventListener('scroll', () => {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      updateDots();
+      scrollRaf = null;
+    });
+  });
+
+  updateDots();
+})();
+
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
     syncHeaderHeight();
@@ -554,13 +616,23 @@ function initScrollReveals() {
   // Each [data-reveal-group] (a .service-grid or .pricing-grid) gets its own
   // trigger scoped to its own children, so multiple independent grids on
   // one page (or none at all) both work correctly without special-casing.
+  //
+  // An optional data-reveal-delay="0.4" (seconds) on the group holds its
+  // stagger back an extra beat past the default — used on the work page's
+  // three showcase sections so the heading (already fading in via the
+  // section's own .reveal-panel tween above) visibly lands first, and the
+  // carousel/gallery/case cards follow a moment later, rather than
+  // everything arriving in the same instant. Absent everywhere else, so
+  // every other page's reveal-groups are completely unaffected.
   gsap.utils.toArray('[data-reveal-group]').forEach((group) => {
+    const groupDelay = parseFloat(group.dataset.revealDelay || '0');
     gsap.fromTo(group.querySelectorAll('[data-reveal-item]'),
       { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
         duration: 0.55,
+        delay: groupDelay,
         ease: 'power2.out',
         stagger: { each: 0.12, from: 'start' },
         scrollTrigger: { trigger: group, start: 'top 80%', toggleActions: 'play none none none' },

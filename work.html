@@ -44,87 +44,280 @@
     </div>
   </header>
 
-  <!-- ===== PAGE HERO ===== -->
-  <section id="top" class="page-hero">
-    <div class="container">
-      <p class="kicker">Our work</p>
-      <h1 class="hero-headline">
-        <span class="line">Work</span>
-      </h1>
-      <div class="hero-foot">
-        <p class="hero-sub">
-          A selection of brand, web, and advertising projects.
-        </p>
+  <!-- ===== ACT ONE: WEBSITES ===== -->
+  <section id="top" class="dark-panel web-showcase reveal-panel">
+    <div class="container showcase-heading">
+      <p class="eyebrow">Websites</p>
+      <h2>Websites Built To Convert,<br>Not Just Look Good.</h2>
+      <p class="section-sub">Every site we ship gets judged by one number: does it turn visitors into customers. Here's a look at a few.</p>
+      <span class="placeholder-note">Placeholder websites — real client builds coming soon</span>
+    </div>
+
+    <div class="web-showcase-carousel">
+      <div class="web-showcase-track" data-reveal-group data-reveal-delay="0.25">
+        <article class="web-slide" data-reveal-item>
+          <div class="web-slide-media">
+            <img src="images/website-energy.png" alt="Voltage energy drink website" loading="lazy">
+          </div>
+          <div class="web-slide-body">
+            <h3>Voltage Energy</h3>
+            <p>Built to sell merch drops the moment they go live, not just show them off.</p>
+            <span class="stat-pill"><strong>+2.1x</strong> add-to-cart rate <em>placeholder</em></span>
+          </div>
+        </article>
+
+        <article class="web-slide" data-reveal-item>
+          <div class="web-slide-media">
+            <img src="images/website-tattoo.png" alt="Inkwell tattoo studio website" loading="lazy">
+          </div>
+          <div class="web-slide-body">
+            <h3>Inkwell Tattoo Studio</h3>
+            <p>A booking flow simple enough that clients stop calling to ask questions.</p>
+            <span class="stat-pill"><strong>-35%</strong> missed appointments <em>placeholder</em></span>
+          </div>
+        </article>
+
+        <article class="web-slide" data-reveal-item>
+          <div class="web-slide-media">
+            <img src="images/website-matcha.png" alt="Kissho matcha tea website" loading="lazy">
+          </div>
+          <div class="web-slide-body">
+            <h3>Kissho Matcha</h3>
+            <p>An online shopfront built to read premium at every scroll depth.</p>
+            <span class="stat-pill"><strong>+40%</strong> time on site <em>placeholder</em></span>
+          </div>
+        </article>
+
+        <article class="web-slide" data-reveal-item>
+          <div class="web-slide-media">
+            <img src="images/website-beauty.png" alt="Aster beauty studio website" loading="lazy">
+          </div>
+          <div class="web-slide-body">
+            <h3>Aster Beauty Studio</h3>
+            <p>A one-page site built to turn browsers into booked appointments.</p>
+            <span class="stat-pill"><strong>+28%</strong> booking conversion <em>placeholder</em></span>
+          </div>
+        </article>
+      </div>
+
+      <div class="web-showcase-controls">
+        <button type="button" class="web-showcase-arrow web-showcase-arrow--prev" aria-label="Previous website">‹</button>
+        <div class="web-showcase-dots">
+          <button type="button" class="web-showcase-dot is-active" aria-label="Go to Voltage Energy"></button>
+          <button type="button" class="web-showcase-dot" aria-label="Go to Inkwell Tattoo Studio"></button>
+          <button type="button" class="web-showcase-dot" aria-label="Go to Kissho Matcha"></button>
+          <button type="button" class="web-showcase-dot" aria-label="Go to Aster Beauty Studio"></button>
+        </div>
+        <button type="button" class="web-showcase-arrow web-showcase-arrow--next" aria-label="Next website">›</button>
       </div>
     </div>
   </section>
 
-  <!-- ===== PROJECT GRID ===== -->
-  <section class="services reveal-panel">
+  <!-- ===== ACT TWO: BRANDING ===== -->
+  <section class="dark-panel brand-showcase reveal-panel">
+    <!-- Two-column hero: heading text left, a large "feature" render of
+         the Voltage Energy card (below, in the grid) right — fills what
+         used to be dead space next to the heading with a strong visual
+         anchor, and previews what the grid underneath is showing. -->
+    <div class="container brand-hero">
+      <div class="showcase-heading">
+        <p class="eyebrow">Branding</p>
+        <h2>Brands People<br>Actually Remember.</h2>
+        <p class="section-sub">We build identity systems that carry across everything a brand touches — not just a logo, the whole visual language it runs on.</p>
+        <span class="placeholder-note">Placeholder brand work — real client identities coming soon</span>
+      </div>
+
+      <article class="brand-board brand-board--voltage brand-board--feature is-lime" data-reveal-item>
+        <div class="brand-board-canvas">
+          <svg class="brand-board-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
+          <span class="brand-board-mark">Voltage</span>
+          <div class="brand-board-palette">
+            <span style="background:#2FD8FF"></span>
+            <span style="background:#FF2E9A"></span>
+            <span style="background:#C3F73A"></span>
+            <span style="background:#8A5CF6"></span>
+          </div>
+        </div>
+        <div class="brand-board-caption">
+          <h3>Voltage Energy</h3>
+          <p>Full identity system — logo, packaging, social templates.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Six illustrated brand boards standing in for real client
+         identity work (logo mark, palette, one-line deliverable) —
+         deliberately built as CSS/SVG rather than photos, same as the
+         hero badges and icon chips elsewhere, since no client branding
+         photography exists yet. 3 per row on desktop, wrapping to a
+         second row (see .brand-grid in style.css). -->
     <div class="container">
-      <span class="placeholder-note">Placeholder content — final case studies coming soon</span>
-
-      <div class="service-grid" data-reveal-group>
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-kindred/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-orange" aria-hidden="true"></span>Kindred Coffee Co.</h3>
-            <p>Full rebrand and Shopify build for a 3-location specialty roaster.</p>
+      <div class="brand-grid" data-reveal-group data-reveal-delay="0.25">
+        <article class="brand-board brand-board--voltage is-lime" data-reveal-item>
+          <div class="brand-board-canvas">
+            <svg class="brand-board-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
+            <span class="brand-board-mark">Voltage</span>
+            <div class="brand-board-palette">
+              <span style="background:#2FD8FF"></span>
+              <span style="background:#FF2E9A"></span>
+              <span style="background:#C3F73A"></span>
+              <span style="background:#8A5CF6"></span>
+            </div>
           </div>
-        </div>
-
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-northline/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-lime" aria-hidden="true"></span>Northline Fitness</h3>
-            <p>Meta ad campaign relaunch that cut cost-per-lead by more than half.</p>
+          <div class="brand-board-caption">
+            <h3>Voltage Energy</h3>
+            <p>Full identity system — logo, packaging, social templates.</p>
           </div>
-        </div>
+        </article>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-marlow/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-ink" aria-hidden="true"></span>Marlow &amp; Finch</h3>
-            <p>Brand identity and website for a boutique home goods label.</p>
+        <article class="brand-board brand-board--matcha is-mint" data-reveal-item>
+          <div class="brand-board-canvas">
+            <span class="brand-board-mark">Kissho</span>
+            <div class="brand-board-palette">
+              <span style="background:#5B7B4F"></span>
+              <span style="background:#EDE6D8"></span>
+              <span style="background:#2B2B26"></span>
+              <span style="background:#C9A24B"></span>
+            </div>
           </div>
-        </div>
+          <div class="brand-board-caption">
+            <h3>Kissho Matcha</h3>
+            <p>Brand identity and packaging system for a premium tea line.</p>
+          </div>
+        </article>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-basecamp/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-orange" aria-hidden="true"></span>Basecamp Dental Group</h3>
-            <p>Local SEO and Google Ads program across four practice locations.</p>
+        <article class="brand-board brand-board--inkwell is-orange" data-reveal-item>
+          <div class="brand-board-canvas">
+            <svg class="brand-board-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9 7.4.3-5.8 4.6 2.1 7.2-6.3-4.1-6.3 4.1 2.1-7.2-5.8-4.6 7.4-.3z"/></svg>
+            <span class="brand-board-mark">Inkwell</span>
+            <div class="brand-board-palette">
+              <span style="background:#7A1E1E"></span>
+              <span style="background:#141110"></span>
+              <span style="background:#E9DFC7"></span>
+              <span style="background:#B8923F"></span>
+            </div>
           </div>
-        </div>
+          <div class="brand-board-caption">
+            <h3>Inkwell Tattoo</h3>
+            <p>Brand mark, signage, and merch system for a tattoo studio.</p>
+          </div>
+        </article>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-harborvine/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-lime" aria-hidden="true"></span>Harbor &amp; Vine</h3>
-            <p>E-commerce rebuild and brand refresh for a regional wine retailer.</p>
+        <article class="brand-board brand-board--drift is-orange" data-reveal-item>
+          <div class="brand-board-canvas">
+            <svg class="brand-board-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+            <span class="brand-board-mark">Drift</span>
+            <div class="brand-board-palette">
+              <span style="background:#FF2E9A"></span>
+              <span style="background:#2FD8FF"></span>
+              <span style="background:#F5E642"></span>
+              <span style="background:#111111"></span>
+            </div>
           </div>
-        </div>
+          <div class="brand-board-caption">
+            <h3>Drift Skate Co.</h3>
+            <p>Full identity system — logo, deck graphics, drop campaigns.</p>
+          </div>
+        </article>
 
-        <div class="service-card" data-reveal-item>
-          <img class="service-photo" src="https://picsum.photos/seed/doulve-work-cedarpeak/640/480" alt="" loading="lazy" width="640" height="480">
-          <div class="service-card-body">
-            <h3><span class="service-dot is-ink" aria-hidden="true"></span>Cedar Peak Outfitters</h3>
-            <p>Full brand identity plus a performance marketing launch campaign.</p>
+        <article class="brand-board brand-board--aster is-mint" data-reveal-item>
+          <div class="brand-board-canvas">
+            <span class="brand-board-mark">Aster</span>
+            <div class="brand-board-palette">
+              <span style="background:#E8B4B8"></span>
+              <span style="background:#F6EFE9"></span>
+              <span style="background:#B98A6A"></span>
+              <span style="background:#2E2A28"></span>
+            </div>
           </div>
-        </div>
+          <div class="brand-board-caption">
+            <h3>Aster Beauty Studio</h3>
+            <p>Brand identity and packaging for a boutique beauty studio.</p>
+          </div>
+        </article>
+
+        <article class="brand-board brand-board--auto is-lime" data-reveal-item>
+          <div class="brand-board-canvas">
+            <span class="brand-board-mark">Autokorjaamo</span>
+            <div class="brand-board-palette">
+              <span style="background:#F2941F"></span>
+              <span style="background:#4A4E52"></span>
+              <span style="background:#111214"></span>
+              <span style="background:#EDEDED"></span>
+            </div>
+          </div>
+          <div class="brand-board-caption">
+            <h3>Autokorjaamo Repair</h3>
+            <p>Brand identity and signage system for an auto repair shop.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== CONTACT CTA ===== -->
-  <section class="contact reveal-panel">
+  <!-- ===== ACT THREE: META & GOOGLE ADS ===== -->
+  <section class="dark-panel ads-showcase reveal-panel">
+    <div class="container showcase-heading">
+      <p class="eyebrow">Meta &amp; Google Ads</p>
+      <h2>Ads Built To Hit A Number,<br>Not Just Get Seen.</h2>
+      <p class="section-sub">Every campaign is built around one outcome metric from day one. Here's what that looks like in practice.</p>
+      <span class="placeholder-note">Placeholder ad creative — real campaign results coming soon</span>
+    </div>
+
     <div class="container">
-      <div class="contact-teaser">
-        <div class="contact-intro">
-          <p class="eyebrow">Like what you see?</p>
-          <h2>Let's build<br>something.</h2>
-        </div>
-        <a href="contact.html" class="btn btn-primary">Get in touch →</a>
+      <div class="case-list" data-reveal-group data-reveal-delay="0.25">
+        <article class="case-snippet is-orange" data-reveal-item>
+          <div class="case-snippet-media">
+            <span class="work-badge">Meta</span>
+            <img src="images/website-energy.png" alt="Voltage energy drink ad creative" loading="lazy">
+          </div>
+          <div class="case-snippet-body">
+            <h3>Voltage Energy — Meta Prospecting</h3>
+            <p class="case-snippet-approach">Lookalike audiences built from top purchasers, tested against three creative concepts in the first two weeks.</p>
+            <p class="case-snippet-outcome">Scroll-stopping creative paired with lookalike targeting built to move fast.</p>
+            <div class="case-snippet-stats">
+              <span class="stat-pill"><strong>3.2%</strong> CTR <em>placeholder</em></span>
+              <span class="stat-pill"><strong>$1.10</strong> CPC <em>placeholder</em></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-snippet is-mint" data-reveal-item>
+          <div class="case-snippet-media">
+            <span class="work-badge">Google</span>
+            <img src="images/website-auto.png" alt="Auto repair shop ad creative" loading="lazy">
+          </div>
+          <div class="case-snippet-body">
+            <h3>Auto Repair — Google Local Services</h3>
+            <p class="case-snippet-approach">Local Services ads layered on top of geo-targeted search, bidding hardest inside a 10-mile radius.</p>
+            <p class="case-snippet-outcome">Hyper-local search campaigns built to keep the phone ringing.</p>
+            <div class="case-snippet-stats">
+              <span class="stat-pill"><strong>$18</strong> cost per lead <em>placeholder</em></span>
+              <span class="stat-pill"><strong>6.4%</strong> conversion rate <em>placeholder</em></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-snippet is-lime" data-reveal-item>
+          <div class="case-snippet-media">
+            <span class="work-badge">Meta + Google</span>
+            <img src="images/website-tattoo.png" alt="Tattoo studio ad creative" loading="lazy">
+          </div>
+          <div class="case-snippet-body">
+            <h3>Inkwell Tattoo — Meta + Google Retargeting</h3>
+            <p class="case-snippet-approach">A 3-touch retargeting sequence aimed at anyone who viewed a design but didn't book a session.</p>
+            <p class="case-snippet-outcome">Retargeting sequences built to turn browsers into booked sessions.</p>
+            <div class="case-snippet-stats">
+              <span class="stat-pill"><strong>4.1x</strong> ROAS <em>placeholder</em></span>
+              <span class="stat-pill"><strong>$22</strong> cost per booking <em>placeholder</em></span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="ads-cta">
+        <p>Ready to see numbers like these for your business?</p>
+        <a href="contact.html" class="btn btn-primary">Let's build yours →</a>
       </div>
     </div>
   </section>

@@ -14,6 +14,9 @@
   --orange: #F2941F;  /* primary CTA, kicker labels, accents */
   --orange-hover: #DB8412;
   --mint:   #8FEAD1;  /* secondary accent, outline buttons, icon chips */
+  --form-error: #FF6B57;  /* contact form validation only — kept out of the
+                             main accent rotation so it never gets reused
+                             as a "just another brand color" elsewhere */
 
   --text-muted-dark:  rgba(255, 255, 255, 0.68);  /* body copy on --ink-dark */
   --text-muted-cream: rgba(20, 35, 28, 0.65);     /* body copy on --cream */
@@ -1616,9 +1619,8 @@ a.service-card:focus-visible .service-cta-arrow {
 }
 
 .contact-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  display: flex;
+  justify-content: center;
   padding: 90px 0;
 }
 
@@ -1637,33 +1639,82 @@ a.service-card:focus-visible .service-cta-arrow {
   max-width: 40ch;
 }
 
-.email-link {
-  color: var(--white);
-  font-weight: 600;
-  border-bottom: 2px solid var(--orange);
+/* ---- The single boxed form card ----
+   Same border/radius/fill/padding the old "Prefer email?" sidebar card
+   used (see .contact-alt-card below, now retired) — the form lives
+   inside it instead of a separate alternative-contact block. Capped
+   width + centered rather than stretching to the full 1180px container,
+   since a form this wide would read as an odd, overly long line length. */
+.contact-form-card {
+  width: 100%;
+  max-width: 640px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid var(--hairline-dark);
+  border-radius: 18px;
+  padding: 32px;
 }
 
+.contact-form-wrap .eyebrow {
+  margin-bottom: 10px;
+}
+
+/* ---- The form itself ---- */
 .contact-form {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+}
+
+/* Author styles always beat the UA stylesheet's default [hidden] {
+   display: none }, even at equal selector specificity — so setting
+   form.hidden = true in script.js would do nothing on its own against
+   the display: flex above without this explicit override. */
+.contact-form[hidden] {
+  display: none;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 22px;
+}
+
+/* Grid items default to min-width: auto, which lets a track refuse to
+   shrink past its content's min-content size (here, "Company / Business
+   (optional)" as one unbreakable label) — 1fr alone doesn't cap a column
+   at 50% against that, so without this the row pushes past its container
+   instead of wrapping. */
+.field-row > .field {
+  min-width: 0;
 }
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
-.contact-form label {
+.contact-form label,
+.contact-form legend {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted-dark);
+  padding: 0;
 }
 
-.contact-form input,
+.field-optional {
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 0.7;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
 .contact-form textarea {
   background: transparent;
   border: none;
@@ -1682,16 +1733,128 @@ a.service-card:focus-visible .service-cta-arrow {
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
+  border-color: var(--lime);
 }
 
-.field:nth-of-type(1) input:focus { border-color: var(--orange); }
-.field:nth-of-type(2) input:focus { border-color: var(--mint); }
-.field:nth-of-type(3) textarea:focus { border-color: var(--lime); }
+/* One consistent focus accent (lime) rather than a different color per
+   field — calmer, and doesn't imply the color means anything. */
+.field.has-error input,
+.field.has-error textarea {
+  border-color: var(--form-error, #ff6b57);
+}
+
+.field-error {
+  display: block;
+  min-height: 1em;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--form-error, #ff6b57);
+}
+
+/* ---- Project-type chips: real radio inputs, visually hidden but still
+   focusable/keyboard-operable — the label is the visible "chip", styled
+   per :checked/:focus-visible on its sibling input. ---- */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.chip-option {
+  display: inline-flex;
+}
+
+.chip-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--hairline-dark);
+  color: var(--text-muted-dark);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.chip-input:hover + .chip {
+  border-color: var(--mint);
+  color: var(--white);
+}
+
+.chip-input:checked + .chip {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--ink-dark);
+}
+
+.chip-input:focus-visible + .chip {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
+}
+
+/* Honeypot — off-screen, not display:none (bots that check computed
+   visibility can skip display:none fields; this still fools simple ones
+   while staying invisible/unreachable for real visitors and screen
+   readers alike). */
+.field-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 .contact-form button {
   margin-top: 8px;
   align-self: flex-start;
 }
+
+.form-status {
+  min-height: 1.2em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--form-error, #ff6b57);
+}
+
+.form-status.is-pending {
+  color: var(--text-muted-dark);
+}
+
+/* ---- Success state — swaps in for the form, no page reload/redirect ---- */
+.form-success {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.form-success-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--lime);
+  margin-bottom: 20px;
+}
+
+.form-success h2 {
+  margin: 0 0 12px;
+}
+
+.form-success p {
+  color: var(--text-muted-dark);
+  font-size: 1.02rem;
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
 
 /* Homepage-style contact TEASER — single-column, centered, no form. Still
    used by the inner pages' closing CTA sections (services/work/about). */
@@ -2979,11 +3142,6 @@ a.service-card:focus-visible .service-cta-arrow {
     align-items: flex-start;
   }
 
-  .contact-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
   .service-grid {
     grid-template-columns: 1fr;
   }
@@ -3253,6 +3411,11 @@ a.service-card:focus-visible .service-cta-arrow {
   .contact-inner,
   .contact-teaser {
     padding: 56px 0;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .header-inner .btn {

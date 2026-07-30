@@ -550,6 +550,123 @@ if (navToggle && siteHeader) {
   updateDots();
 })();
 
+// ---- Contact page: client-side validation + AJAX form submission ----
+// Pure functional UI, not animation — runs unconditionally like the nav
+// toggle above, regardless of motionDisabled, since a contact form has to
+// work the same whether or not GSAP loaded. No-op on every other page.
+//
+// SETUP REQUIRED: this posts to Formspree. Sign up free at formspree.io
+// (using doulve.studios@gmail.com as the account email is simplest —
+// that becomes the default recipient), create one form, and Formspree
+// gives you an endpoint like https://formspree.io/f/abcdwxyz. Replace
+// FORM_ID in contact.html's <form action="..."> with that real ID —
+// both the fetch() below and the plain-HTML fallback (if JS is ever
+// blocked) read the endpoint straight from the form's own action
+// attribute, so that's the only place it needs to be set.
+(function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const successEl = document.getElementById('form-success');
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const honeypot = form.querySelector('input[name="website_url"]');
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validators = {
+    name: (v) => (v.trim() ? '' : 'Enter your name.'),
+    email: (v) => {
+      if (!v.trim()) return 'Enter your email.';
+      if (!EMAIL_RE.test(v.trim())) return 'Enter a valid email address.';
+      return '';
+    },
+    project_type: () => (form.querySelector('input[name="project_type"]:checked') ? '' : 'Pick one option.'),
+    message: (v) => (v.trim() ? '' : 'Tell us a bit about the project.'),
+  };
+
+  function fieldWrap(name) {
+    const el = form.querySelector(`[name="${name}"]`);
+    return el ? el.closest('.field') : null;
+  }
+
+  function showError(name, message) {
+    const errorEl = document.getElementById(`error-${name}`);
+    if (errorEl) errorEl.textContent = message;
+    const wrap = fieldWrap(name);
+    if (wrap) wrap.classList.toggle('has-error', Boolean(message));
+  }
+
+  function validateField(name) {
+    const el = form.querySelector(`[name="${name}"]`);
+    const value = name === 'project_type' ? '' : el ? el.value : '';
+    const message = validators[name](value);
+    showError(name, message);
+    return !message;
+  }
+
+  // Validate as the visitor fixes things, not just on submit — clears an
+  // error the moment it's resolved instead of waiting for another submit.
+  ['name', 'email', 'message'].forEach((name) => {
+    const el = form.querySelector(`[name="${name}"]`);
+    if (el) el.addEventListener('input', () => validateField(name));
+  });
+  form.querySelectorAll('input[name="project_type"]').forEach((el) => {
+    el.addEventListener('change', () => validateField('project_type'));
+  });
+
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const results = Object.keys(validators).map(validateField);
+    if (results.includes(false)) {
+      statusEl.textContent = 'Please fix the highlighted fields above.';
+      statusEl.classList.remove('is-pending');
+      const firstInvalid = form.querySelector('.has-error input, .has-error textarea, .has-error .chip-input');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Honeypot tripped — a real visitor never fills this in (it's off-
+    // screen and skipped via tabindex="-1"). Pretend it worked and bail
+    // rather than tipping the bot off, but never actually send it.
+    if (honeypot && honeypot.value.trim()) {
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.setAttribute('tabindex', '-1');
+      successEl.focus();
+      return;
+    }
+
+    statusEl.textContent = 'Sending…';
+    statusEl.classList.add('is-pending');
+    submitBtn.disabled = true;
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
+    })
+      .then((response) => {
+        if (response.ok) {
+          form.hidden = true;
+          successEl.hidden = false;
+          successEl.setAttribute('tabindex', '-1');
+          successEl.focus();
+        } else {
+          statusEl.textContent = 'Something went wrong — please try again, or email us directly at doulve.studios@gmail.com.';
+          statusEl.classList.remove('is-pending');
+          submitBtn.disabled = false;
+        }
+      })
+      .catch(() => {
+        statusEl.textContent = 'Something went wrong — please try again, or email us directly at doulve.studios@gmail.com.';
+        statusEl.classList.remove('is-pending');
+        submitBtn.disabled = false;
+      });
+  });
+})();
+
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(() => {
     syncHeaderHeight();

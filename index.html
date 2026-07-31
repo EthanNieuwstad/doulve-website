@@ -297,42 +297,63 @@
       <p class="section-sub">We design ad creative that actually gets clicked — bold visuals, sharp copy, built for Meta and Google from day one. Here's a taste of what we create.</p>
       <span class="placeholder-note">Placeholder mockups — real ad creative coming soon</span>
 
-      <!-- Infinite scroll belt — each row is 3 unique tiles followed by
+      <!-- Infinite scroll belt — each row is 6 unique tiles followed by
            that same set repeated twice more (aria-hidden, empty alt), so
-           9 tiles total per row. A single duplicate (6 tiles) isn't wide
-           enough: the row's visible width (up to ~1116px, since .container
-           caps at 1180px) exceeds one set's width once translated, so the
+           18 tiles total per row. A single duplicate isn't wide enough:
+           the row's visible width (up to ~1116px, since .container caps
+           at 1180px) exceeds one set's width once translated, so the
            track would run out of tiles and flash empty background for
            part of every loop. Three sets keeps the track wider than the
            visible width plus one full slide distance at every breakpoint,
            so it's never possible to slide past the end of the content.
+           Row 1 and row 2 each have 5 images of their own plus one
+           borrowed from the other row (row 1 borrows sushi, row 2
+           borrows matcha) — same cross-pollination for both rows.
            See .belt-track in style.css. -->
       <div class="content-belt" data-reveal-group>
         <div class="belt-row belt-row--left" data-reveal-item>
           <div class="belt-track">
-            <div class="belt-tile"><img src="images/website-energy.png" alt="Energy drink brand content"></div>
-            <div class="belt-tile"><img src="images/website-skate.png" alt="Skate shop content"></div>
-            <div class="belt-tile"><img src="images/website-tattoo.png" alt="Tattoo studio content"></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-energy.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-skate.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-tattoo.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-energy.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-skate.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-tattoo.png" alt=""></div>
+            <div class="belt-tile"><img src="images/ad-frosty1.png" alt="Frosty snowboard brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-frosty2.png" alt="Frosty ski goggles brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-icecream.png" alt="Ice cream bar ad"></div>
+            <div class="belt-tile"><img src="images/ad-matcha.png" alt="Kissho Matcha tea brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-milkshake.png" alt="Vintage-style milkshake ad"></div>
+            <div class="belt-tile"><img src="images/ad-sushi.png" alt="Japanese sushi restaurant ad"></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty2.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-milkshake.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty2.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-milkshake.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.png" alt=""></div>
           </div>
         </div>
 
         <div class="belt-row belt-row--right" data-reveal-item>
           <div class="belt-track">
-            <div class="belt-tile"><img src="images/website-beauty.png" alt="Beauty studio content"></div>
-            <div class="belt-tile"><img src="images/website-matcha.png" alt="Matcha tea brand content"></div>
-            <div class="belt-tile"><img src="images/website-auto.png" alt="Auto repair content"></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-beauty.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-matcha.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-auto.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-beauty.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-matcha.png" alt=""></div>
-            <div class="belt-tile" aria-hidden="true"><img src="images/website-auto.png" alt=""></div>
+            <div class="belt-tile"><img src="images/ad-plumbing.png" alt="24/7 plumbing services ad"></div>
+            <div class="belt-tile"><img src="images/ad-sunglasses.png" alt="Näkö sunglasses brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-sushi.png" alt="Japanese sushi restaurant ad"></div>
+            <div class="belt-tile"><img src="images/ad-tracker.png" alt="Trackr GPS dog collar ad"></div>
+            <div class="belt-tile"><img src="images/ad-construction.png" alt="Construction and home-building ad"></div>
+            <div class="belt-tile"><img src="images/ad-matcha.png" alt="Kissho Matcha tea brand ad"></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-tracker.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-construction.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-tracker.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-construction.png" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.png" alt=""></div>
           </div>
         </div>
       </div>

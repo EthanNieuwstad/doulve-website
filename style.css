@@ -1162,8 +1162,25 @@ a.service-card:focus-visible {
   object-fit: cover;
 }
 
+/* Website Design card's screenshot only — the matcha site's real content
+   (product grid) sits mid-page, so a default center crop was showing that
+   instead of the header/hero band. Scoped to this one image via modifier
+   class rather than changing the shared .service-photo rule, so the
+   other two cards' crops are unaffected. */
+.service-photo--top {
+  object-position: top;
+}
+
+/* Color scheme driven entirely by --card-bg/--card-fg/--card-fg-muted,
+   left unset (falling back to the original white/ink-text/muted-cream
+   trio) unless a .service-card--* modifier below sets them — same
+   padding/font-size/spacing regardless, only the three color values
+   change. Reusable: a future card just needs one new modifier rule
+   setting these three properties, no other CSS to touch. */
 .service-card-body {
   padding: 26px 24px 28px;
+  background: var(--card-bg, var(--white));
+  transition: background-color 0.25s ease;
 }
 
 .service-card h3 {
@@ -1172,11 +1189,45 @@ a.service-card:focus-visible {
   align-items: center;
   margin-bottom: 10px;
   text-transform: uppercase;
+  color: var(--card-fg, var(--ink-text));
 }
 
 .service-card p {
-  color: var(--text-muted-cream);
+  color: var(--card-fg-muted, var(--text-muted-cream));
   font-size: 0.98rem;
+}
+
+/* Per-card palette, sampled from each card's own image — Website Design's
+   matcha green, a warm terracotta pulled from the sunglasses ad's lens/
+   earring tones, and a neutral near-black matching the frosty ad's own
+   black-and-white treatment. */
+.service-card--matcha {
+  --card-bg: #1F3A28;
+  --card-fg: var(--white);
+  --card-fg-muted: rgba(255, 255, 255, 0.72);
+}
+
+.service-card--sunglasses {
+  --card-bg: #8A3B24;
+  --card-fg: var(--white);
+  --card-fg-muted: rgba(255, 255, 255, 0.72);
+}
+
+.service-card--frosty {
+  --card-bg: #121212;
+  --card-fg: var(--white);
+  --card-fg-muted: rgba(255, 255, 255, 0.72);
+}
+
+/* The CTA reuses the dot's is-lime/is-orange/is-ink color unmodified on
+   every card except this one: .is-ink's near-black text (fine on the
+   card's old white body) would nearly disappear against the new
+   terracotta background, so it's the one case needing a lighter accent
+   here — scoped to this card only, the shared .service-cta.is-ink rule
+   (and the dot, left untouched per spec) still renders its normal color
+   everywhere else. */
+.service-card--sunglasses .service-cta.is-ink {
+  color: var(--mint);
 }
 
 /* "See pricing" indicator — part of the card's own content (not a

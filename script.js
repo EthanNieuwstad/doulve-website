@@ -609,14 +609,10 @@ if (navToggle && siteHeader) {
 // toggle above, regardless of motionDisabled, since a contact form has to
 // work the same whether or not GSAP loaded. No-op on every other page.
 //
-// SETUP REQUIRED: this posts to Formspree. Sign up free at formspree.io
-// (using doulve.studios@gmail.com as the account email is simplest —
-// that becomes the default recipient), create one form, and Formspree
-// gives you an endpoint like https://formspree.io/f/abcdwxyz. Replace
-// FORM_ID in contact.html's <form action="..."> with that real ID —
-// both the fetch() below and the plain-HTML fallback (if JS is ever
-// blocked) read the endpoint straight from the form's own action
-// attribute, so that's the only place it needs to be set.
+// Posts to Formspree (doulve.studios@gmail.com's account, delivering to
+// that same address) — both the fetch() below and the plain-HTML fallback
+// (if JS is ever blocked) read the endpoint straight from the form's own
+// action attribute in contact.html, so that's the only place it's set.
 (function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;

@@ -2146,6 +2146,13 @@ a.service-card:focus-visible .service-cta-arrow {
   margin-top: 44px;
 }
 
+/* Mobile-only carousel position indicator — real rules live in the
+   max-width: 640px breakpoint below; hidden by default everywhere else
+   since only that breakpoint turns .work-grid into a scrollable row. */
+.work-grid-dots {
+  display: none;
+}
+
 .work-card--energy      { grid-column: 1 / span 2; grid-row: 1 / span 2; }
 .work-card--skate-top   { grid-column: 3; grid-row: 1; }
 .work-card--tattoo      { grid-column: 4; grid-row: 1; }
@@ -3310,13 +3317,25 @@ a.service-card:focus-visible .service-cta-arrow {
     gap: 14px;
   }
 
-  /* Single column: reset every tile's explicit placement so they stack
-     as a plain uniform column instead of leaving odd extra-tall cells. */
+  /* Horizontal scroll-snap carousel instead of a stacked column — reset
+     every tile's explicit grid placement (same as before) but swap the
+     grid itself for a single scrollable row. 82% card width leaves ~18%
+     of the next card peeking in at the right edge (~1.2 cards visible),
+     the same "obviously more to swipe" cue .web-showcase-track used to
+     use for Work page's site carousel. Scrollbar hidden since the dot
+     row below is the visible position indicator. */
   .work-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    grid-template-columns: none;
     grid-template-rows: none;
-    grid-auto-rows: auto;
-    gap: 18px;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .work-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .work-card,
@@ -3329,7 +3348,37 @@ a.service-card:focus-visible .service-cta-arrow {
   .work-card--beauty {
     grid-column: auto;
     grid-row: auto;
+    flex: 0 0 82%;
     aspect-ratio: 4 / 3;
+    scroll-snap-align: start;
+  }
+
+  /* Position dots, one per card — script.js's initWorkGridDots() keeps
+     .is-active synced to whichever card is nearest the scroll position.
+     Hidden entirely outside this breakpoint (see the base .work-grid-dots
+     rule); desktop's grid isn't scrollable so there's nothing for dots to
+     indicate there. */
+  .work-grid-dots {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 20px;
+  }
+
+  .work-grid-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hairline-dark);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .work-grid-dot.is-active {
+    background: var(--lime);
+    transform: scale(1.35);
   }
 
   .web-slide {

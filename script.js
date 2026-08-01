@@ -488,6 +488,60 @@ if (navToggle && siteHeader) {
   window.addEventListener('resize', measure);
 })();
 
+// ---- Homepage: "Our Work" mobile carousel dots ----
+// .work-grid is a plain (non-scrollable) grid at every width except the
+// max-width: 640px breakpoint, where it becomes a horizontal scroll-snap
+// row (see style.css) — this only keeps the dot row's .is-active state
+// synced to whichever card is nearest the current scroll position, and
+// lets a dot click scroll straight to its card. No-op at any other width
+// since .work-grid.scrollLeft never moves off 0 there, and the dots
+// themselves are display:none outside the breakpoint anyway.
+(function initWorkGridDots() {
+  const grid = document.querySelector('.work-grid');
+  const dotsWrap = document.querySelector('.work-grid-dots');
+  if (!grid || !dotsWrap) return;
+  const cards = Array.from(grid.querySelectorAll('.work-card'));
+  const dots = Array.from(dotsWrap.querySelectorAll('.work-grid-dot'));
+  if (!cards.length || !dots.length) return;
+
+  function currentIndex() {
+    const center = grid.scrollLeft + grid.clientWidth / 2;
+    let closest = 0;
+    let closestDist = Infinity;
+    cards.forEach((card, i) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const dist = Math.abs(cardCenter - center);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    });
+    return closest;
+  }
+
+  function updateDots() {
+    const idx = currentIndex();
+    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === idx));
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      grid.scrollTo({ left: cards[i].offsetLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+  });
+
+  let scrollRaf = null;
+  grid.addEventListener('scroll', () => {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      updateDots();
+      scrollRaf = null;
+    });
+  });
+
+  updateDots();
+})();
+
 // ---- Work page: websites showcase carousel ----
 // Native scroll-snap already handles touch/trackpad drag on the track
 // with zero JS; this only adds the visible prev/next arrows and position

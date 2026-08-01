@@ -3290,15 +3290,11 @@ a.service-card:focus-visible .service-cta-arrow {
     width: 105px;
   }
 
-  .icon-row {
-    grid-template-columns: 1fr;
-  }
-
-  .icon-col,
-  .icon-col:nth-child(odd) {
-    border: none;
-    padding: 0;
-  }
+  /* Was a single column here — six full-height stacked rows meant a lot
+     of scrolling to see everything. The max-width: 900px breakpoint
+     above already set up a clean 2-column arrangement (odd items get the
+     divider, even items don't); no override needed here, so it's just
+     left to cascade down to this width too, same 3-rows-of-2 layout. */
 
   .services,
   .stats-section,

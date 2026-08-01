@@ -3241,27 +3241,21 @@ a.service-card:focus-visible .service-cta-arrow {
     display: none;
   }
 
-  /* The orbit runs at every width, all six badges — script.js applies a
-     bigger MOBILE_RADIUS_FACTOR here than the ellipse first shipped with,
-     since a bolder, more legible ring reads better on a phone than one
-     playing it safe inside the column; badges are allowed to swing
-     slightly past .hero-visual's own edges into .hero's full-viewport-
-     width overflow:hidden box (see .hero above) rather than being
-     squeezed to guarantee zero bleed. Bird and badge art are both scaled
-     up to match.
+  /* The orbit runs at every width, all six badges — a smaller
+     MOBILE_RADIUS_FACTOR (see script.js) plus a smaller badge base width
+     here keep the ring's front-most badges (scaled up to 1.3x at their
+     closest point, same FRONT_SCALE desktop uses) from overlapping each
+     other or crowding the bird inside this narrow column; an earlier
+     revision pushed both up for a "bolder" look, which is exactly what
+     was overlapping.
 
      min-height only needs to clear the orbit's actual vertical reach
-     (radiusY + the front badge's own half-height at its 1.3x scale, which
-     works out to comfortably under 250px) — 520px (and even 360px) left
-     visible flex-centered blank space above/below the ring since the
-     ellipse is intentionally much flatter than it is wide. 300px trims
-     that down close to what the ring actually needs; it's a touch
-     narrower than this column's own width (~350px) so script.js's
-     min(rect.width, rect.height) now resolves to height instead of
-     width, which nudges the radius in a bit too — a deliberate small
-     trade so the section doesn't sit in a box taller than its content. */
+     (radiusY + the front badge's own half-height at its 1.3x scale) —
+     260px comfortably covers that at the smaller radius below without
+     leaving a lot of dead flex-centered space above/below the ring,
+     since the ellipse is intentionally much flatter than it is wide. */
   .hero-visual {
-    min-height: 300px;
+    min-height: 260px;
   }
 
   .hero-bird {
@@ -3269,13 +3263,13 @@ a.service-card:focus-visible .service-cta-arrow {
   }
 
   .spray-badge-img {
-    width: 170px;
+    width: 84px;
   }
 
   /* Keeps the same 1.25x-over-the-others ratio as the desktop override,
-     just against this breakpoint's bigger 170px base. */
+     just against this breakpoint's smaller 84px base. */
   .spray-badge.badge-google-ads .spray-badge-img {
-    width: 212.5px;
+    width: 105px;
   }
 
   .icon-row {

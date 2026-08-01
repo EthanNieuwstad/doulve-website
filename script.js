@@ -89,11 +89,11 @@ if (navToggle && siteHeader) {
   // ~45% bigger than the original 0.72 — badges swing out further from
   // the bird now that scale/opacity/blur carry most of the depth read.
   const RADIUS_FACTOR = 1.04;
-  // Bigger than a "never bleed past the column" factor would allow —
-  // by design, front-of-ring badges swing out far enough to clip against
-  // .hero's edges at the extremes (acceptable; see style.css's mobile
-  // .hero-visual comment) rather than reading as a cramped, timid ring.
-  const MOBILE_RADIUS_FACTOR = 0.75;
+  // Paired with the smaller mobile badge base width (see style.css's
+  // .spray-badge-img mobile override) — a bigger factor here spreads the
+  // now-smaller badges out enough that adjacent ones (closest when both
+  // sit near the ellipse's front) don't touch or overlap.
+  const MOBILE_RADIUS_FACTOR = 0.95;
   // Must match .hero-bird's z-index in style.css — badges above this line
   // in the stack (top half of the ellipse) sit below the bird; badges
   // below it (bottom half) sit above the bird.

@@ -966,6 +966,8 @@ a {
 }
 
 .service-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border-radius: 20px;
   background: var(--white);
@@ -1007,6 +1009,7 @@ a.service-card:focus-visible {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 /* Website Design card's screenshot only — the matcha site's real content
@@ -1023,11 +1026,20 @@ a.service-card:focus-visible {
    trio) unless a .service-card--* modifier below sets them — same
    padding/font-size/spacing regardless, only the three color values
    change. Reusable: a future card just needs one new modifier rule
-   setting these three properties, no other CSS to touch. */
+   setting these three properties, no other CSS to touch.
+   flex: 1 (against .service-card's own flex-column above) makes this
+   fill whatever height the grid row stretches the card to, whatever its
+   own text content's natural height is — without it, a card with
+   shorter copy than its row-mates fell short of the card's full
+   (grid-stretched) height, leaving .service-card's own white background
+   exposed as a bar beneath the rounded bottom corners. */
 .service-card-body {
+  display: flex;
+  flex-direction: column;
   padding: 26px 24px 28px;
   background: var(--card-bg, var(--white));
   transition: background-color 0.25s ease;
+  flex: 1;
 }
 
 .service-card h3 {
@@ -1084,12 +1096,20 @@ a.service-card:focus-visible {
    guards against .is-orange/.is-lime/.is-ink also existing as bare
    utility classes elsewhere (.service-dot, .work-card) that set
    background/opacity — the same cross-component collision fixed for
-   .icon-chip and .work-card earlier in this file. */
+   .icon-chip and .work-card earlier in this file.
+   margin-top: auto (against .service-card-body's own flex-column) pins
+   this to the bottom of the body regardless of how many lines the
+   description above it wraps to, so all three cards' links land on the
+   same horizontal line even though their copy lengths differ. padding-top
+   keeps the old 16px minimum gap above it in the (currently hypothetical)
+   case where the description is long enough to leave no free space for
+   the auto margin to consume. */
 .service-cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 16px;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 0.85rem;

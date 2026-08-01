@@ -1939,6 +1939,46 @@ a.service-card:focus-visible .service-cta-arrow {
   color: var(--orange);
 }
 
+/* Section-level "view more" CTA — the eyebrow/heading/subtext are grouped
+   into .section-header-text so the button can sit alongside that whole
+   block instead of just the eyebrow line, which read as floating above
+   the copy rather than level with it. Bottom-aligned so the button sits
+   level with the paragraph (and toward the grid/belt below it) rather
+   than up near the heading — both sections' buttons land at the same
+   vertical position this way. No margin-bottom needed here:
+   .section-header-text's own children keep their normal margins, and
+   .work-grid/.content-belt's own margin-top still provides the gap down
+   to the grid/belt below, same as before this row wrapper existed. */
+.section-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.section-header-text {
+  min-width: 0;
+}
+
+/* Same sticker colors as .hero-actions' .btn-primary (solid-orange,
+   dark text) — reused rather than redefined, just scaled down ~35%
+   (padding, font-size, border, shadow) since this is a small corner CTA,
+   not a main hero button. Compound selector so it outranks the base
+   .btn-primary's own background/color/border. */
+.btn-view-more {
+  padding: 10px 20px;
+  font-size: 0.68rem;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.section-header-row .btn-primary.btn-view-more {
+  background: #F5A623;
+  color: #0B2B25;
+  border: 2px solid #0B2B25;
+  box-shadow: 3px 3px 0 #0B2B25;
+}
+
 .dark-panel h2 {
   color: var(--white);
   font-size: clamp(1.8rem, 3.6vw, 2.6rem);
@@ -3156,6 +3196,12 @@ a.service-card:focus-visible .service-cta-arrow {
 @media (max-width: 640px) {
   .container {
     padding: 0 20px;
+  }
+
+  .section-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .hero {

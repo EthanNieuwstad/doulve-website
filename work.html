@@ -282,63 +282,94 @@
   <section id="ad-creation" class="dark-panel ads-showcase reveal-panel">
     <div class="container showcase-heading">
       <p class="eyebrow">Meta &amp; Google Ads</p>
-      <h2>Ads Built To Hit A Number,<br>Not Just Get Seen.</h2>
-      <p class="section-sub">Every campaign is built around one outcome metric from day one. Here's what that looks like in practice.</p>
+      <h2>Scroll-Stopping Content.</h2>
+      <p class="section-sub">Every campaign starts with creative built to stop the scroll — a look at ad work we've shipped for Meta and Google.</p>
     </div>
 
     <div class="container">
-      <div class="case-list" data-reveal-group data-reveal-delay="0.25">
-        <article class="case-snippet is-orange" data-reveal-item>
-          <div class="case-snippet-media">
-            <span class="work-badge">Meta</span>
-            <img src="images/website-energy.webp" alt="Voltage energy drink ad creative" loading="lazy" width="1024" height="1536">
+      <!-- Infinite scroll belt — same technique as the homepage's Content
+           Creation belt (see .content-belt in style.css): each row's 6
+           unique tiles are followed by that same set repeated twice more
+           (aria-hidden, empty alt), 18 tiles total per row, so the loop
+           point is invisible and the track never runs out of tiles mid-
+           slide. Three rows alternate direction (right, left, right) and
+           reuse the real ad-creative posters shown elsewhere on the site
+           instead of website screenshots. Pauses on hover — see
+           .belt-row:hover in style.css — so a visitor can stop and look
+           at one without freezing the other rows. -->
+      <div class="content-belt" data-reveal-group data-reveal-delay="0.25">
+        <div class="belt-row belt-row--right" data-reveal-item>
+          <div class="belt-track">
+            <div class="belt-tile"><img src="images/ad-matcha.webp" alt="Kissho Matcha tea brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-sushi.webp" alt="Japanese sushi restaurant ad"></div>
+            <div class="belt-tile"><img src="images/ad-frosty1.webp" alt="Frosty snowboard brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-sunglasses.webp" alt="Näkö sunglasses brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-icecream.webp" alt="Ice cream bar ad"></div>
+            <div class="belt-tile"><img src="images/ad-plumbing.webp" alt="24/7 plumbing services ad"></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.webp" alt=""></div>
           </div>
-          <div class="case-snippet-body">
-            <h3>Voltage Energy — Meta Prospecting</h3>
-            <p class="case-snippet-approach">Lookalike audiences built from top purchasers, tested against three creative concepts in the first two weeks.</p>
-            <p class="case-snippet-outcome">Scroll-stopping creative paired with lookalike targeting built to move fast.</p>
-            <div class="case-snippet-stats">
-              <span class="stat-pill"><strong>3.2%</strong> CTR</span>
-              <span class="stat-pill"><strong>$1.10</strong> CPC</span>
-            </div>
-          </div>
-        </article>
+        </div>
 
-        <article class="case-snippet is-mint" data-reveal-item>
-          <div class="case-snippet-media">
-            <span class="work-badge">Google</span>
-            <img src="images/website-auto.webp" alt="Auto repair shop ad creative" loading="lazy" width="1024" height="1536">
+        <div class="belt-row belt-row--left" data-reveal-item>
+          <div class="belt-track">
+            <div class="belt-tile"><img src="images/ad-milkshake.webp" alt="Vintage-style milkshake ad"></div>
+            <div class="belt-tile"><img src="images/ad-tracker.webp" alt="Trackr GPS dog collar ad"></div>
+            <div class="belt-tile"><img src="images/ad-construction.webp" alt="Construction and home-building ad"></div>
+            <div class="belt-tile"><img src="images/ad-frosty2.webp" alt="Frosty ski goggles brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-matcha.webp" alt="Kissho Matcha tea brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-sunglasses.webp" alt="Näkö sunglasses brand ad"></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-milkshake.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-tracker.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-construction.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty2.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-milkshake.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-tracker.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-construction.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty2.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-matcha.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.webp" alt=""></div>
           </div>
-          <div class="case-snippet-body">
-            <h3>Auto Repair — Google Local Services</h3>
-            <p class="case-snippet-approach">Local Services ads layered on top of geo-targeted search, bidding hardest inside a 10-mile radius.</p>
-            <p class="case-snippet-outcome">Hyper-local search campaigns built to keep the phone ringing.</p>
-            <div class="case-snippet-stats">
-              <span class="stat-pill"><strong>$18</strong> cost per lead</span>
-              <span class="stat-pill"><strong>6.4%</strong> conversion rate</span>
-            </div>
-          </div>
-        </article>
+        </div>
 
-        <article class="case-snippet is-lime" data-reveal-item>
-          <div class="case-snippet-media">
-            <span class="work-badge">Meta + Google</span>
-            <img src="images/website-tattoo.webp" alt="Tattoo studio ad creative" loading="lazy" width="1024" height="1536">
+        <div class="belt-row belt-row--right" data-reveal-item>
+          <div class="belt-track">
+            <div class="belt-tile"><img src="images/ad-sushi.webp" alt="Japanese sushi restaurant ad"></div>
+            <div class="belt-tile"><img src="images/ad-icecream.webp" alt="Ice cream bar ad"></div>
+            <div class="belt-tile"><img src="images/ad-frosty1.webp" alt="Frosty snowboard brand ad"></div>
+            <div class="belt-tile"><img src="images/ad-plumbing.webp" alt="24/7 plumbing services ad"></div>
+            <div class="belt-tile"><img src="images/ad-tracker.webp" alt="Trackr GPS dog collar ad"></div>
+            <div class="belt-tile"><img src="images/ad-construction.webp" alt="Construction and home-building ad"></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-tracker.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-construction.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-tracker.webp" alt=""></div>
+            <div class="belt-tile" aria-hidden="true"><img src="images/ad-construction.webp" alt=""></div>
           </div>
-          <div class="case-snippet-body">
-            <h3>Inkwell Tattoo — Meta + Google Retargeting</h3>
-            <p class="case-snippet-approach">A 3-touch retargeting sequence aimed at anyone who viewed a design but didn't book a session.</p>
-            <p class="case-snippet-outcome">Retargeting sequences built to turn browsers into booked sessions.</p>
-            <div class="case-snippet-stats">
-              <span class="stat-pill"><strong>4.1x</strong> ROAS</span>
-              <span class="stat-pill"><strong>$22</strong> cost per booking</span>
-            </div>
-          </div>
-        </article>
+        </div>
       </div>
 
       <div class="ads-cta">
-        <p>Ready to see numbers like these for your business?</p>
+        <p>Want ad creative like this for your brand?</p>
         <a href="contact.html" class="btn btn-primary">Let's build yours →</a>
       </div>
     </div>

@@ -2095,6 +2095,13 @@ a.service-card:focus-visible .service-cta-arrow {
   to   { transform: translateX(0); }
 }
 
+/* Pauses just the row under the cursor (not the whole belt) so a visitor
+   can stop the drift on one ad long enough to actually look at it,
+   without the other rows freezing too. */
+.belt-row:hover .belt-track {
+  animation-play-state: paused;
+}
+
 .belt-tile {
   flex: 0 0 auto;
   width: 200px;
@@ -3050,88 +3057,7 @@ a.service-card:focus-visible .service-cta-arrow {
   font-size: clamp(1.3rem, 2vw, 1.8rem);
 }
 
-/* ---- Section 3: ads — results-focused case-study snippets + close ---- */
-
-.case-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.case-snippet {
-  display: flex;
-  align-items: flex-start;
-  gap: 26px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 2px solid var(--hairline-dark);
-  border-radius: 18px;
-  padding: 18px;
-  transition: border-color 0.25s ease, transform 0.25s ease;
-}
-
-.case-snippet.is-orange:hover { border-color: var(--orange); transform: translateY(-2px); }
-.case-snippet.is-mint:hover   { border-color: var(--mint); transform: translateY(-2px); }
-.case-snippet.is-lime:hover   { border-color: var(--lime); transform: translateY(-2px); }
-
-/* 2/3 matches the real screenshots' actual pixel dimensions (1024x1536)
-   exactly, so object-fit: contain shows the whole mockup with zero
-   letterboxing for these specific assets — contain (not cover) is what
-   stops the crop; the matching ratio is what stops it from needing to
-   letterbox in the first place. White background is a safety net for
-   any future image that doesn't match perfectly (or has transparency),
-   so a letterboxed edge blends with the screenshot's own white chrome
-   instead of showing as a visible gap. */
-.case-snippet-media {
-  position: relative;
-  flex: 0 0 190px;
-  aspect-ratio: 2 / 3;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--white);
-}
-
-.case-snippet-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.case-snippet-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.case-snippet-body h3 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  color: var(--white);
-  font-size: 1.05rem;
-  text-transform: uppercase;
-}
-
-/* The strategy line — how the campaign was built — reads a shade
-   brighter than the outcome line below it, so the two read as distinct
-   "approach, then result" beats rather than two identical paragraphs. */
-.case-snippet-approach {
-  color: var(--white);
-  opacity: 0.82;
-  margin-top: 8px;
-  max-width: 52ch;
-}
-
-.case-snippet-outcome {
-  color: var(--text-muted-dark);
-  margin-top: 6px;
-  max-width: 52ch;
-}
-
-.case-snippet-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 22px;
-  margin-top: 12px;
-}
+/* ---- Section 3: ads — scroll-stopping ad creative belt + close ---- */
 
 .ads-cta {
   margin-top: 52px;
@@ -3160,8 +3086,7 @@ a.service-card:focus-visible .service-cta-arrow {
 
   .brand-board-canvas,
   .web-showcase-arrow,
-  .web-showcase-dot,
-  .case-snippet {
+  .web-showcase-dot {
     transition: none;
   }
 }
@@ -3296,10 +3221,6 @@ a.service-card:focus-visible .service-cta-arrow {
 
   .brand-board--feature .brand-board-canvas {
     min-height: 260px;
-  }
-
-  .case-snippet-media {
-    flex-basis: 140px;
   }
 
   .origin-panel,
@@ -3534,21 +3455,6 @@ a.service-card:focus-visible .service-cta-arrow {
   .brand-board-canvas {
     aspect-ratio: 4 / 3;
     padding: 20px;
-  }
-
-  .case-snippet {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  /* Capped rather than full-width — at a 2/3 aspect ratio, full-width
-     would make each thumbnail 400px+ tall on a phone, a lot of scroll
-     distance for three cards. A fixed, centered size keeps it reading as
-     a framed thumbnail above the text instead of a full-bleed image. */
-  .case-snippet-media {
-    width: 160px;
-    flex-basis: auto;
   }
 
   .ads-cta {

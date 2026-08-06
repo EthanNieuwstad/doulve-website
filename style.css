@@ -5,10 +5,15 @@
    ============================================ */
 
 :root {
-  --ink-dark: #10201A;   /* near-black-green — hero/stats/header/footer background */
+  --ink-dark: #10201A;   /* near-black-green — hero/stats/header background */
   --cream:    #EDE6D8;   /* "What We Do" band background */
   --ink-text: #14231C;   /* headings/body text on cream */
   --white:    #FFFFFF;
+  /* Deliberately NOT --ink-dark: a cool near-black (blue-leaning, not
+     green-leaning) so the footer reads as a distinct closing "shade" of
+     the palette rather than a repeat of the header/hero band above it —
+     still dark enough that the orange/lime/mint accents pop the same way. */
+  --footer-ink: #14161C;
 
   --lime:   #C3F73A;  /* headline accent, icon chips */
   --orange: #F2941F;  /* primary CTA, kicker labels, accents */
@@ -2252,8 +2257,12 @@ a.service-card:focus-visible .service-cta-arrow {
 
 
 /* ============================================
-   9. CLOSING STATS + CTA — dark band, headline, four
-   stat blocks, mint CTA pill.
+   9. CLOSING STATS + CTA — dark band. Three clear tiers:
+   eyebrow/headline/subtext, then a proper 4-up grid of stat
+   cards, then the CTA pill on its own line. (Previously a
+   single flex row crammed headline + four inline icon/number
+   pairs + the CTA together with no real separation between
+   them.)
    ============================================ */
 
 .stats-section {
@@ -2263,69 +2272,104 @@ a.service-card:focus-visible .service-cta-arrow {
   padding: 80px 0;
 }
 
-.stats-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
+.stats-top {
+  max-width: 620px;
 }
 
-.stats-headline {
-  max-width: 460px;
+.stats-section .eyebrow {
+  margin-bottom: 14px;
 }
 
-.stats-headline h2 {
+.stats-top h2 {
   color: var(--white);
   font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   text-transform: uppercase;
 }
 
-.stats-headline h2 .accent {
+.stats-top h2 .accent {
   font-family: var(--font-marker);
   color: var(--lime);
   text-transform: none;
   font-weight: 400;
 }
 
-.stats-headline p {
+.stats-top p {
   color: var(--text-muted-dark);
   margin-top: 14px;
-  max-width: 40ch;
+  max-width: 44ch;
 }
 
-.stats-row {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+/* ---- Stat grid — four bordered cards instead of inline icon/number
+   pairs, so each stat reads as its own unit and the set reads as a
+   grid, not a run-on row. ---- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 44px;
 }
 
-.stat-block {
+.stat-card {
+  position: relative;
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 26px 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--hairline-dark);
+  border-radius: 16px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--hairline-dark);
+}
+
+/* Circular accent chip behind each icon — same is-orange/is-mint/is-lime
+   background + icon-color pairing as .badge-icon (hero) uses, so the
+   stat grid reads as the same visual language rather than a one-off. */
+.stat-icon-wrap {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
+.stat-icon-wrap.is-orange { background: var(--orange); color: var(--white); }
+.stat-icon-wrap.is-mint   { background: var(--mint);   color: var(--ink-dark); }
+.stat-icon-wrap.is-lime   { background: var(--lime);   color: var(--ink-dark); }
+
+/* Every stat icon shares one visual spec — 24x24 viewBox, stroke-width 2,
+   round caps/joins, no fill except small solid accent dots (their own
+   stroke="none") — so the set reads as one consistent icon family
+   instead of mismatched weights/styles. */
 .stat-icon {
-  width: 30px;
-  height: 30px;
-  color: var(--orange);
-  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
 }
 
 .stat-number {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: var(--white);
   display: block;
 }
 
 .stat-label {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text-muted-dark);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.stats-cta-row {
+  margin-top: 44px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .stats-cta {
@@ -2355,38 +2399,97 @@ a.service-card:focus-visible .service-cta-arrow {
 
 
 /* ============================================
-   10. FOOTER
+   10. FOOTER — a distinct cool near-black (--footer-ink, NOT the
+   green --ink-dark the rest of the dark sections share), so it reads
+   as a deliberate closing band rather than more of the same header/
+   hero color. Two tiers: a content row (brand blurb, sitemap, CTA)
+   over a thin divider, then a minimal bottom bar (copyright, back to
+   top) — replacing the old single all-in-one-row layout.
    ============================================ */
 
 .site-footer {
   position: relative;
   z-index: 1;
-  background: var(--ink-dark);
+  background: var(--footer-ink);
   border-top: 1px solid var(--hairline-dark);
-  padding: 32px 0;
 }
 
-.footer-inner {
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr auto;
+  gap: 40px;
+  padding: 64px 0 40px;
+}
+
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-tagline {
+  margin-top: 14px;
+  color: var(--text-muted-dark);
+  font-size: 0.92rem;
+  max-width: 34ch;
+}
+
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted-dark);
+  margin-bottom: 16px;
+}
+
+/* Sitemap — gives every page a path to every other page (including
+   Pricing, which is deliberately not in the primary nav) — now a
+   vertical list (a footer column), not a horizontal pill row. */
+.footer-sitemap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.footer-sitemap a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  opacity: 0.85;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.footer-sitemap a:hover {
+  opacity: 1;
+  color: var(--lime);
+}
+
+.footer-cta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+  padding: 20px 0;
+  border-top: 1px solid var(--hairline-dark);
 }
 
-.footer-inner .mono-label {
+.footer-bottom .mono-label {
   color: var(--text-muted-dark);
 }
 
-/* Small sitemap row — gives every page a path to every other page
-   (including Pricing, which is deliberately not in the primary nav). */
-.footer-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.footer-nav a {
+.footer-top-link {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
@@ -2396,7 +2499,7 @@ a.service-card:focus-visible .service-cta-arrow {
   transition: color 0.2s ease;
 }
 
-.footer-nav a:hover {
+.footer-top-link:hover {
   color: var(--white);
 }
 
@@ -3102,9 +3205,18 @@ a.service-card:focus-visible .service-cta-arrow {
     padding-right: 22px;
   }
 
-  .stats-inner {
-    flex-direction: column;
-    align-items: flex-start;
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 36px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    max-width: none;
   }
 
   .service-grid {
@@ -3301,6 +3413,28 @@ a.service-card:focus-visible .service-cta-arrow {
   .dark-panel,
   .page-hero {
     padding: 56px 0;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 22px 20px;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+    padding: 48px 0 32px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-cta-col {
+    align-items: flex-start;
   }
 
   .about-hero {

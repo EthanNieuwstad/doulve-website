@@ -371,66 +371,109 @@
     </div>
   </section>
 
-  <!-- ===== CLOSING STATS + CTA ===== -->
+  <!-- ===== CLOSING STATS + CTA =====
+       Three tiers, top to bottom: eyebrow/headline/subtext, a 4-up grid
+       of stat cards, then the CTA on its own line — replacing the old
+       single row that crammed headline + inline stats + CTA together.
+       Numbers below are placeholders — swap them for real figures
+       whenever you have them. -->
   <section class="stats-section reveal-panel">
     <div class="container">
-      <div class="stats-inner">
-        <div class="stats-headline">
-          <h2>Creative that hits.<br><span class="accent">Results that stick.</span></h2>
-          <p>We combine creativity and strategy to deliver real impact for your business.</p>
+      <div class="stats-top">
+        <p class="eyebrow">By The Numbers</p>
+        <h2>Creative that hits.<br><span class="accent">Results that stick.</span></h2>
+        <p>We combine creativity and strategy to deliver real impact for your business.</p>
+      </div>
+
+      <div class="stats-grid" data-reveal-group>
+        <div class="stat-card" data-reveal-item>
+          <span class="stat-icon-wrap is-mint">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="14" rx="2"/>
+              <line x1="3" y1="8.5" x2="21" y2="8.5"/>
+              <circle cx="6" cy="6.25" r="0.6" fill="currentColor" stroke="none"/>
+              <circle cx="8.6" cy="6.25" r="0.6" fill="currentColor" stroke="none"/>
+              <line x1="9" y1="21" x2="15" y2="21"/>
+              <line x1="12" y1="18" x2="12" y2="21"/>
+            </svg>
+          </span>
+          <span class="stat-number">100+</span>
+          <span class="stat-label">Sites shipped by our lead designer</span>
         </div>
 
-        <div class="stats-row" data-reveal-group>
-          <div class="stat-block" data-reveal-item>
-            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-2 5l-3 3-3-3c-1-1-2-3-2-5 0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.5" fill="currentColor"/><path d="M8 15l-3 3 1 3 3-3"/><path d="M16 15l3 3-1 3-3-3"/></svg>
-            <span>
-              <span class="stat-number">100+</span>
-              <span class="stat-label">Projects Delivered</span>
-            </span>
-          </div>
-
-          <div class="stat-block" data-reveal-item>
-            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="0.8" fill="currentColor"/><circle cx="15" cy="10" r="0.8" fill="currentColor"/></svg>
-            <span>
-              <span class="stat-number">50+</span>
-              <span class="stat-label">Happy Clients</span>
-            </span>
-          </div>
-
-          <div class="stat-block" data-reveal-item>
-            <svg class="stat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
-            <span>
-              <span class="stat-number">200M+</span>
-              <span class="stat-label">Ad Impressions Managed</span>
-            </span>
-          </div>
-
-          <div class="stat-block" data-reveal-item>
-            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,17 9,11 13,15 21,7"/><polyline points="15,7 21,7 21,13"/></svg>
-            <span>
-              <span class="stat-number">3.5x</span>
-              <span class="stat-label">Average ROI Increase</span>
-            </span>
-          </div>
+        <div class="stat-card" data-reveal-item>
+          <span class="stat-icon-wrap is-lime">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <circle cx="9" cy="10" r="0.8" fill="currentColor" stroke="none"/>
+              <circle cx="15" cy="10" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="stat-number">75+</span>
+          <span class="stat-label">Happy clients</span>
         </div>
 
+        <div class="stat-card" data-reveal-item>
+          <span class="stat-icon-wrap is-orange">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 10.5v3a1.2 1.2 0 0 0 1.2 1.2h1.6l4.7 4.3V5l-4.7 4.3H4.2A1.2 1.2 0 0 0 3 10.5z"/>
+              <path d="M15.5 7.5a5 5 0 0 1 0 9"/>
+              <path d="M18.3 5a8.5 8.5 0 0 1 0 14"/>
+            </svg>
+          </span>
+          <span class="stat-number">1,000s</span>
+          <span class="stat-label">Ads created</span>
+        </div>
+
+        <div class="stat-card" data-reveal-item>
+          <span class="stat-icon-wrap is-mint">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3,17 9,11 13,15 21,7"/>
+              <polyline points="15,7 21,7 21,13"/>
+            </svg>
+          </span>
+          <span class="stat-number">3x</span>
+          <span class="stat-label">Average ROI increase</span>
+        </div>
+      </div>
+
+      <div class="stats-cta-row">
         <a href="contact.html" class="stats-cta">Let's build something<br><span class="accent">epic</span> together →</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== FOOTER =====
+       Two tiers: a content row (brand blurb, sitemap, CTA) over a thin
+       divider, then a minimal bottom bar (copyright, back to top).
+       "#top" is a special browser fragment that scrolls to the top of
+       the document even where no element literally has id="top". -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-      <nav class="footer-nav">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
+        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+      </div>
+
+      <nav class="footer-sitemap" aria-label="Footer">
+        <p class="footer-col-title">Sitemap</p>
         <a href="services.html">Services</a>
         <a href="work.html">Work</a>
         <a href="pricing.html">Pricing</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
+
+      <div class="footer-cta-col">
+        <p class="footer-col-title">Ready When You Are</p>
+        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
       <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
+      <a href="#top" class="footer-top-link">Back to top ↑</a>
     </div>
   </footer>
 

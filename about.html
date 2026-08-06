@@ -209,18 +209,36 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== FOOTER =====
+       Two tiers: a content row (brand blurb, sitemap, CTA) over a thin
+       divider, then a minimal bottom bar (copyright, back to top).
+       "#top" is a special browser fragment that scrolls to the top of
+       the document even where no element literally has id="top". -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-      <nav class="footer-nav">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
+        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+      </div>
+
+      <nav class="footer-sitemap" aria-label="Footer">
+        <p class="footer-col-title">Sitemap</p>
         <a href="services.html">Services</a>
         <a href="work.html">Work</a>
         <a href="pricing.html">Pricing</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
+
+      <div class="footer-cta-col">
+        <p class="footer-col-title">Ready When You Are</p>
+        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
       <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
+      <a href="#top" class="footer-top-link">Back to top ↑</a>
     </div>
   </footer>
 

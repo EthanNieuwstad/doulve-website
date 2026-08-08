@@ -723,9 +723,7 @@ a {
 
 
 /* ============================================
-   5. WHAT WE DO — cream band, full-bleed, five icon
-   columns. A torn-paper zigzag marks the transition down
-   from the dark hero, kept modest rather than literal.
+   5. WHAT WE DO — cream band, full-bleed, five icon columns.
    ============================================ */
 
 .services {
@@ -749,6 +747,17 @@ a {
     40% 100%, 45% 30%, 50% 100%, 55% 30%, 60% 100%, 65% 30%, 70% 100%, 75% 30%,
     80% 100%, 85% 30%, 90% 100%, 95% 30%, 100% 100%
   );
+}
+
+/* Homepage "What We Do" only — a plain straight edge instead of the torn-
+   paper zigzag above, which Pricing/Services (the other two pages that
+   reuse the bare .services class) keep untouched. Same selector/specificity
+   as .services::before above (one class + pseudo-element each), so source
+   order alone decides — this rule coming later wins and content: none
+   suppresses the pseudo-element outright, leaving .services' own flat
+   cream background as the section's actual edge. */
+.what-we-do::before {
+  content: none;
 }
 
 .services .eyebrow { color: var(--orange); }
@@ -784,24 +793,6 @@ a {
   border-radius: 3px;
   margin-top: 4px;
   transform: rotate(-1.5deg);
-}
-
-/* A second torn edge at the bottom, mirroring the existing top one
-   (.services::before, shared) but scoped only to this section so other
-   .services-using pages are unaffected. */
-.what-we-do::after {
-  content: '';
-  position: absolute;
-  bottom: -18px;
-  left: 0;
-  right: 0;
-  height: 18px;
-  background: var(--cream);
-  clip-path: polygon(
-    0% 0%, 5% 70%, 10% 0%, 15% 70%, 20% 0%, 25% 70%, 30% 0%, 35% 70%,
-    40% 0%, 45% 70%, 50% 0%, 55% 70%, 60% 0%, 65% 70%, 70% 0%, 75% 70%,
-    80% 0%, 85% 70%, 90% 0%, 95% 70%, 100% 0%
-  );
 }
 
 .icon-row {

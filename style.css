@@ -1938,21 +1938,32 @@ a.service-card:focus-visible .service-cta-arrow {
    8b. PRICING
    ============================================ */
 
+/* Five cards, one row, at the widths where they fit comfortably
+   (>900px — see the 900px/640px breakpoints below for how this steps
+   down). Every font-size/padding/gap value on .pricing-card and its
+   children is deliberately smaller here than in those breakpoints:
+   this is the tight 5-across fit, they're the roomier 3-across/1-across
+   layouts once there's more width per card to work with. */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
   margin-top: 12px;
+  /* Grid's own default, stated explicitly: every card in a row stretches
+     to the row's tallest card, so borders/shadows line up evenly even
+     though content length varies a lot between cards (Website's short
+     bullet list vs. the tier tables + extra notes on the ads cards). */
+  align-items: stretch;
 }
 
 .pricing-card {
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--white);
   border: 3px solid var(--ink-dark);
   box-shadow: 6px 6px 0 rgba(16, 32, 26, 0.85);
-  padding: 32px 28px;
+  padding: 22px 18px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1962,22 +1973,27 @@ a.service-card:focus-visible .service-cta-arrow {
 }
 
 .pricing-card h3 {
-  font-size: 1.35rem;
-  margin-bottom: 8px;
+  font-size: 1.02rem;
+  /* Fits 2 lines at this font-size/line-height regardless of whether a
+     given title actually wraps ("Website" doesn't, "Meta Ads
+     Management" does) — so .pricing-price starts at the same y-position
+     in every card instead of jumping up for the 1-line titles. */
+  min-height: 2.15rem;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 
 .pricing-price {
   font-family: var(--font-display);
-  font-size: 2.1rem;
+  font-size: 1.55rem;
   font-weight: 800;
   color: var(--orange);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .pricing-price span {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.72rem;
   font-weight: 400;
   color: var(--text-muted-cream);
 }
@@ -1989,24 +2005,24 @@ a.service-card:focus-visible .service-cta-arrow {
    attention. */
 .pricing-setup-fee {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.68rem;
   color: var(--text-muted-cream);
-  margin-bottom: 16px;
+  margin-bottom: 9px;
 }
 
 .pricing-note {
   color: var(--text-muted-cream);
-  font-size: 0.95rem;
-  margin-bottom: 24px;
+  font-size: 0.8rem;
+  margin-bottom: 13px;
 }
 
 /* "Excludes ad spend" / recommended-minimum context — secondary/muted
    by design so it reads as a caveat, not a competing price. */
 .pricing-ad-spend-note {
   color: var(--text-muted-cream);
-  font-size: 0.82rem;
+  font-size: 0.68rem;
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin-bottom: 11px;
 }
 
 /* Small in-card table for tiered services (volume-based ad management,
@@ -2014,12 +2030,16 @@ a.service-card:focus-visible .service-cta-arrow {
    tier is short enough to show at once with no JS/interaction cost,
    and it slots into the same vertical rhythm the plain .pricing-features
    list uses on the non-tiered cards (Website, All-In Partner): both
-   sit between .pricing-note and the CTA button. */
+   sit between .pricing-note and the CTA button. Row padding is roomier
+   than it strictly needs to be — Meta/Google/Ad Creation are the three
+   cards using this table and none of them use .pricing-features, so
+   loosening it here closes their gap above the button without touching
+   All-In Partner (the tallest card, which sets the row height) at all. */
 .pricing-tier-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  font-size: 0.88rem;
+  font-size: 0.72rem;
 }
 
 .pricing-tier-table tr {
@@ -2032,7 +2052,7 @@ a.service-card:focus-visible .service-cta-arrow {
 
 .pricing-tier-table th,
 .pricing-tier-table td {
-  padding: 8px 0;
+  padding: 10px 0;
   font-weight: 400;
 }
 
@@ -2060,27 +2080,68 @@ a.service-card:focus-visible .service-cta-arrow {
   color: var(--ink-text);
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 0.78rem;
+  font-size: 0.62rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 7px 14px;
+  letter-spacing: 0.03em;
+  padding: 5px 10px;
   border-radius: 999px;
-  margin-bottom: 18px;
+  margin-bottom: 11px;
 }
 
 .pricing-features {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 28px;
-  flex-grow: 1;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Website/Ad Creation-specific gap-closing boosts below are sized for
+   the cramped 5-across desktop fit specifically (small base font sizes/
+   padding) — at >900px only, where .pricing-grid is 5 columns. Without
+   this guard these selectors' extra specificity (compound descendant
+   selectors beat the plain-class rules in the 900px breakpoint below)
+   would win there too and badly overshoot once cards go back to their
+   roomier 3-column/1-column sizing. */
+@media (min-width: 901px) {
+  /* Website is the only card with nothing but a short note + 4 bullets
+     above the button — every other card also carries a setup fee, an
+     ad-spend caveat, or a tier table, so its content is naturally
+     taller. Scoped to the first card specifically (rather than
+     .pricing-features generally) so this doesn't also loosen All-In
+     Partner's list, which shares the same class but is already the
+     tallest card and sets the row height for the whole grid —
+     loosening it there would just make every card taller without
+     closing anyone's gap. */
+  .pricing-grid > .pricing-card:first-child .pricing-features {
+    gap: 26px;
+  }
+
+  .pricing-grid > .pricing-card:first-child .pricing-note {
+    margin-bottom: 34px;
+  }
+
+  /* Ad Creation (4th card) is the other outlier — a 4-row tier table
+     plus one short note is still less total content than the ads-
+     management cards' table + setup fee + note + ad-spend caveat.
+     Scoped the same way as Website above, and for the same reason:
+     .pricing-tier-table's base padding is shared with Meta/Google,
+     which are already close to the target gap, so a further global
+     increase would overshoot them. */
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table th,
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table td {
+    padding: 16px 0;
+  }
+
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-note {
+    margin-bottom: 30px;
+  }
 }
 
 .pricing-features li {
-  font-size: 0.95rem;
+  font-size: 0.76rem;
   color: var(--ink-text);
-  padding-left: 22px;
+  padding-left: 16px;
   position: relative;
 }
 
@@ -2088,15 +2149,24 @@ a.service-card:focus-visible .service-cta-arrow {
   content: '';
   position: absolute;
   left: 0;
-  top: 7px;
-  width: 8px;
-  height: 8px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--orange);
 }
 
 .pricing-card .btn-primary {
   align-self: flex-start;
+  /* Pushes the button to the bottom of the card regardless of how much
+     (or how little) content sits above it — the same fix works whether
+     a card ends in a bullet list (Website, All-In Partner) or a tier
+     table (Meta, Google, Ad Creation), so every button lands on the
+     same line across the row without needing flex-grow on whichever
+     element happens to be last before it. */
+  margin-top: auto;
+  padding: 9px 16px;
+  font-size: 0.76rem;
 }
 
 /* The premium tier — an orange border/badge instead of a layout change,
@@ -2115,16 +2185,16 @@ a.service-card:focus-visible .service-cta-arrow {
 
 .pricing-badge {
   position: absolute;
-  top: -14px;
-  right: 28px;
+  top: -13px;
+  right: 18px;
   background: var(--orange);
   color: var(--white);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 6px 14px;
+  letter-spacing: 0.05em;
+  padding: 5px 11px;
   border-radius: 999px;
 }
 
@@ -3193,8 +3263,109 @@ a.service-card:focus-visible .service-cta-arrow {
     grid-row: auto;
   }
 
+  /* 3 across instead of 5 — cards have real room again at this width
+     (roomier than the 5-across desktop fit above), so every size this
+     restores is exactly the pre-5-column value, undoing the base
+     .pricing-card shrink rather than picking new numbers. 640px below
+     drops to a single column but keeps these same restored sizes —
+     a single card at full container width has even more room than 3
+     across does, so nothing needs to shrink again down there. */
   .pricing-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .pricing-card {
+    border-radius: 20px;
+    padding: 32px 28px;
+  }
+
+  .pricing-card h3 {
+    font-size: 1.35rem;
+    min-height: 2.85rem;
+    margin-bottom: 8px;
+  }
+
+  .pricing-price {
+    font-size: 2.1rem;
+    margin-bottom: 4px;
+  }
+
+  .pricing-price span {
+    font-size: 0.95rem;
+  }
+
+  .pricing-setup-fee {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .pricing-note {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .pricing-ad-spend-note {
+    font-size: 0.82rem;
+    margin-bottom: 20px;
+  }
+
+  .pricing-tier-table {
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+  }
+
+  .pricing-tier-table th,
+  .pricing-tier-table td {
+    padding: 8px 0;
+  }
+
+  /* At this 3-column width, Ad Creation (4th card) shares a row with
+     All-In Partner, the tallest/densest card on the page — closes some
+     of the resulting gap the same way the >900px rule above does, at
+     values scaled for this breakpoint's larger fonts. */
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table th,
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table td {
+    padding: 24px 0;
+  }
+
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-note,
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-ad-spend-note {
+    margin-bottom: 46px;
+  }
+
+  .pricing-savings-callout {
+    font-size: 0.78rem;
+    padding: 7px 14px;
+    margin-bottom: 18px;
+  }
+
+  .pricing-features {
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .pricing-features li {
+    font-size: 0.95rem;
+    padding-left: 22px;
+  }
+
+  .pricing-features li::before {
+    width: 8px;
+    height: 8px;
+    top: 7px;
+  }
+
+  .pricing-badge {
+    top: -14px;
+    right: 28px;
+    font-size: 0.68rem;
+    padding: 6px 14px;
+  }
+
+  .pricing-card .btn-primary {
+    padding: 16px 32px;
+    font-size: 1rem;
   }
 
   .about-panel {
@@ -3247,6 +3418,10 @@ a.service-card:focus-visible .service-cta-arrow {
   .ads-steps {
     grid-template-columns: 1fr;
     row-gap: 32px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
   }
 
   .container {

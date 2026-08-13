@@ -137,144 +137,69 @@
     </div>
   </section>
 
-  <!-- ===== ACT TWO: BRANDING ===== -->
-  <section class="dark-panel brand-showcase reveal-panel">
-    <!-- Two-column hero: heading text left, a large "feature" render of
-         the Voltage Energy card (below, in the grid) right — fills what
-         used to be dead space next to the heading with a strong visual
-         anchor, and previews what the grid underneath is showing. -->
-    <div class="container brand-hero">
-      <div class="showcase-heading">
-        <p class="eyebrow">Branding</p>
-        <h2>Brands People<br>Actually Remember.</h2>
-        <p class="section-sub">We build identity systems that carry across everything a brand touches — not just a logo, the whole visual language it runs on.</p>
-      </div>
+  <!-- ===== ACT TWO: ADS =====
+       Was the Branding showcase — replaced with a fuller Ads deep-dive,
+       between the Websites showcase above and the ad-creative marquee
+       below (Act Three, #ad-creation): pitch/how-it-works here, visual
+       proof there. Reuses .ads-spotlight/.requirement-pill/etc. from
+       the Services page version of this content — same classes, this
+       is just the richer version with the how-it-works steps added. -->
+  <section id="ads" class="dark-panel ads-spotlight reveal-panel">
+    <svg class="section-doodle" style="top: 8%; right: 6%; width: 26px; color: var(--mint);" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9 7.4.3-5.8 4.6 2.1 7.2-6.3-4.1-6.3 4.1 2.1-7.2-5.8-4.6 7.4-.3z"/></svg>
 
-      <article class="brand-board brand-board--voltage brand-board--feature is-lime" data-reveal-item>
-        <div class="brand-board-canvas">
-          <svg class="brand-board-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
-          <span class="brand-board-mark">Voltage</span>
-          <div class="brand-board-palette">
-            <span style="background:#2FD8FF"></span>
-            <span style="background:#FF2E9A"></span>
-            <span style="background:#C3F73A"></span>
-            <span style="background:#8A5CF6"></span>
-          </div>
-        </div>
-        <div class="brand-board-caption">
-          <h3>Voltage Energy</h3>
-          <p>Full identity system — logo, packaging, social templates.</p>
-        </div>
-      </article>
-    </div>
-
-    <!-- Six illustrated brand boards standing in for real client
-         identity work (logo mark, palette, one-line deliverable) —
-         deliberately built as CSS/SVG rather than photos, same as the
-         hero badges and icon chips elsewhere, since no client branding
-         photography exists yet. 3 per row on desktop, wrapping to a
-         second row (see .brand-grid in style.css). -->
     <div class="container">
-      <div class="brand-grid" data-reveal-group data-reveal-delay="0.25">
-        <article class="brand-board brand-board--voltage is-lime" data-reveal-item>
-          <div class="brand-board-canvas">
-            <svg class="brand-board-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
-            <span class="brand-board-mark">Voltage</span>
-            <div class="brand-board-palette">
-              <span style="background:#2FD8FF"></span>
-              <span style="background:#FF2E9A"></span>
-              <span style="background:#C3F73A"></span>
-              <span style="background:#8A5CF6"></span>
-            </div>
-          </div>
-          <div class="brand-board-caption">
-            <h3>Voltage Energy</h3>
-            <p>Full identity system — logo, packaging, social templates.</p>
-          </div>
-        </article>
-
-        <article class="brand-board brand-board--matcha is-mint" data-reveal-item>
-          <div class="brand-board-canvas">
-            <span class="brand-board-mark">Kissho</span>
-            <div class="brand-board-palette">
-              <span style="background:#5B7B4F"></span>
-              <span style="background:#EDE6D8"></span>
-              <span style="background:#2B2B26"></span>
-              <span style="background:#C9A24B"></span>
-            </div>
-          </div>
-          <div class="brand-board-caption">
-            <h3>Kissho Matcha</h3>
-            <p>Brand identity and packaging system for a premium tea line.</p>
-          </div>
-        </article>
-
-        <article class="brand-board brand-board--inkwell is-orange" data-reveal-item>
-          <div class="brand-board-canvas">
-            <svg class="brand-board-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9 7.4.3-5.8 4.6 2.1 7.2-6.3-4.1-6.3 4.1 2.1-7.2-5.8-4.6 7.4-.3z"/></svg>
-            <span class="brand-board-mark">Inkwell</span>
-            <div class="brand-board-palette">
-              <span style="background:#7A1E1E"></span>
-              <span style="background:#141110"></span>
-              <span style="background:#E9DFC7"></span>
-              <span style="background:#B8923F"></span>
-            </div>
-          </div>
-          <div class="brand-board-caption">
-            <h3>Inkwell Tattoo</h3>
-            <p>Brand mark, signage, and merch system for a tattoo studio.</p>
-          </div>
-        </article>
-
-        <article class="brand-board brand-board--drift is-orange" data-reveal-item>
-          <div class="brand-board-canvas">
-            <svg class="brand-board-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
-            <span class="brand-board-mark">Drift</span>
-            <div class="brand-board-palette">
-              <span style="background:#FF2E9A"></span>
-              <span style="background:#2FD8FF"></span>
-              <span style="background:#F5E642"></span>
-              <span style="background:#111111"></span>
-            </div>
-          </div>
-          <div class="brand-board-caption">
-            <h3>Drift Skate Co.</h3>
-            <p>Full identity system — logo, deck graphics, drop campaigns.</p>
-          </div>
-        </article>
-
-        <article class="brand-board brand-board--aster is-mint" data-reveal-item>
-          <div class="brand-board-canvas">
-            <span class="brand-board-mark">Aster</span>
-            <div class="brand-board-palette">
-              <span style="background:#E8B4B8"></span>
-              <span style="background:#F6EFE9"></span>
-              <span style="background:#B98A6A"></span>
-              <span style="background:#2E2A28"></span>
-            </div>
-          </div>
-          <div class="brand-board-caption">
-            <h3>Aster Beauty Studio</h3>
-            <p>Brand identity and packaging for a boutique beauty studio.</p>
-          </div>
-        </article>
-
-        <article class="brand-board brand-board--auto is-lime" data-reveal-item>
-          <div class="brand-board-canvas">
-            <span class="brand-board-mark">Autokorjaamo</span>
-            <div class="brand-board-palette">
-              <span style="background:#F2941F"></span>
-              <span style="background:#4A4E52"></span>
-              <span style="background:#111214"></span>
-              <span style="background:#EDEDED"></span>
-            </div>
-          </div>
-          <div class="brand-board-caption">
-            <h3>Autokorjaamo Repair</h3>
-            <p>Brand identity and signage system for an auto repair shop.</p>
-          </div>
-        </article>
+      <div class="ads-spotlight-inner showcase-heading">
+        <p class="eyebrow">Ads</p>
+        <h2>Ads That Actually<br><span class="accent">Convert.</span></h2>
+        <p class="section-sub">We run your Meta and Google campaigns end to end — targeting, creative, copy, and optimization — so you get customers, not just clicks.</p>
       </div>
+
+      <!-- How it works — a numbered step per stage, same colored-chip
+           language as the homepage stat icons (is-orange/is-mint/is-lime
+           cycling per item) rather than the About page's cream-toned
+           .process-track, since this section sits on a dark panel.
+           4 columns desktop -> 2 at 900px -> 1 at 640px, matching the
+           file's existing breakpoint values elsewhere. -->
+      <div class="ads-steps-block">
+        <p class="ads-label">How it works</p>
+        <div class="ads-steps" data-reveal-group data-reveal-delay="0.15">
+          <div class="ads-step" data-reveal-item>
+            <span class="ads-step-number is-orange">1</span>
+            <h3>Strategy First</h3>
+            <p>We figure out who you're targeting and what "success" actually means for your budget before a single ad goes live.</p>
+          </div>
+
+          <div class="ads-step" data-reveal-item>
+            <span class="ads-step-number is-mint">2</span>
+            <h3>Creative &amp; Copy</h3>
+            <p>Static ads, video ads, and the copy to go with them, built to match your brand.</p>
+          </div>
+
+          <div class="ads-step" data-reveal-item>
+            <span class="ads-step-number is-lime">3</span>
+            <h3>Launch &amp; Optimize</h3>
+            <p>We manage the day-to-day: testing angles, adjusting spend, killing what doesn't work.</p>
+          </div>
+
+          <div class="ads-step" data-reveal-item>
+            <span class="ads-step-number is-orange">4</span>
+            <h3>Reporting</h3>
+            <p>Plain-language updates on what's working, not just a dashboard dump.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ads-requirements">
+        <p class="ads-label">What we need from you</p>
+        <div class="requirement-pills">
+          <span class="requirement-pill is-orange"><span class="pill-dot" aria-hidden="true"></span>Budget</span>
+          <span class="requirement-pill is-mint"><span class="pill-dot" aria-hidden="true"></span>Audience</span>
+          <span class="requirement-pill is-lime"><span class="pill-dot" aria-hidden="true"></span>Assets</span>
+          <span class="requirement-pill is-orange"><span class="pill-dot" aria-hidden="true"></span>Ad Accounts</span>
+        </div>
+      </div>
+
+      <a href="contact.html" class="btn btn-primary">Let's talk ads →</a>
     </div>
   </section>
 

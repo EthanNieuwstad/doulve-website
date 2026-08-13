@@ -1150,6 +1150,142 @@ a.service-card:focus-visible .service-cta-arrow {
 
 
 /* ============================================
+   6b. ADS SPOTLIGHT — the Work page's Ads deep-dive (id="ads",
+   replacing what used to be the Branding showcase there). The heading
+   block stays capped/narrow for readability; the steps grid and pill
+   row below it are full container width so the 4-up grid has room to
+   breathe — mobile-first in effect either way, since everything here
+   is a single column until the 900px/640px overrides further down.
+   ============================================ */
+
+.ads-spotlight-inner {
+  max-width: 640px;
+}
+
+/* Same accent treatment .stats-top h2 .accent uses (marker font, lime,
+   case as-written rather than forced uppercase) — the one place in this
+   headline that breaks from the bold uppercase rest of it. */
+.ads-spotlight h2 .accent {
+  font-family: var(--font-marker);
+  color: var(--lime);
+  text-transform: none;
+  font-weight: 400;
+}
+
+/* Shared by both the "How it works" and "What we need from you" labels
+   below. */
+.ads-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted-dark);
+  margin-bottom: 14px;
+}
+
+.ads-steps-block {
+  margin-top: 44px;
+}
+
+/* Same colored-chip idea as .stat-icon-wrap (is-orange/is-mint/is-lime
+   cycling per item) rather than the About page's cream-toned
+   .process-number circles — this section sits on a dark panel, not
+   cream, so it gets its own numbered-chip treatment instead of
+   reusing .process-* verbatim. */
+.ads-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.ads-step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+.ads-step-number.is-orange { background: var(--orange); color: var(--white); }
+.ads-step-number.is-mint   { background: var(--mint);   color: var(--ink-dark); }
+.ads-step-number.is-lime   { background: var(--lime);   color: var(--ink-dark); }
+
+.ads-step h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--white);
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ads-step p {
+  color: var(--text-muted-dark);
+  font-size: 0.92rem;
+}
+
+.ads-requirements {
+  margin-top: 44px;
+}
+
+/* Small pill badges — border/radius/padding borrowed from the contact
+   form's .chip, the colored-dot accent borrowed from .service-dot,
+   combined into one static (non-interactive) element since this list is
+   informational, not a control. */
+.requirement-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.requirement-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px 9px 12px;
+  border-radius: 999px;
+  border: 2px solid var(--hairline-dark);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* .is-orange/.is-lime are also bare utility classes elsewhere (solid
+   background, no border) — without this, that bare rule's background
+   would paint the whole pill solid instead of just its dot. Same
+   cross-component guard used for .icon-chip/.service-cta/.work-card
+   elsewhere in this file. .is-mint has no bare-class equivalent, so it
+   doesn't strictly need the guard, but it's included for symmetry. */
+.requirement-pill.is-orange,
+.requirement-pill.is-mint,
+.requirement-pill.is-lime {
+  background: none;
+  opacity: 1;
+}
+
+.pill-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.requirement-pill.is-orange .pill-dot { background: var(--orange); }
+.requirement-pill.is-mint   .pill-dot { background: var(--mint); }
+.requirement-pill.is-lime   .pill-dot { background: var(--lime); }
+
+
+/* ============================================
    7. ABOUT PAGE — five acts: a point-of-view hero, the
    origin story (with animated stat counters), an "old way
    vs Doulve way" comparison, a 4-step process timeline, and
@@ -2024,6 +2160,66 @@ a.service-card:focus-visible .service-cta-arrow {
   z-index: 0;
 }
 
+/* ---- Ads teaser — a single bordered card pointing at the Work page's
+   full Ads breakdown (#ads), not a repeat of it. Compact on purpose:
+   shorter section padding than the standard .dark-panel 90px, and the
+   card itself borrows the bordered-surface language .work-card/
+   .stat-card already use rather than inventing a new surface style. ---- */
+.ads-teaser {
+  padding: 56px 0;
+}
+
+.ads-teaser-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 28px 26px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid var(--hairline-dark);
+  border-radius: 18px;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ads-teaser-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+
+.ads-teaser-text .eyebrow {
+  margin-bottom: 10px;
+}
+
+.ads-teaser-text h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--white);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  text-transform: uppercase;
+}
+
+.ads-teaser-text p {
+  color: var(--text-muted-dark);
+  margin-top: 8px;
+  max-width: 52ch;
+}
+
+.ads-teaser-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+.ads-teaser-card:hover .ads-teaser-link .service-cta-arrow {
+  transform: translateX(4px);
+}
+
 /* ---- Content Creation infinite scroll belt ----
    Two rows, each row's 9 DOM tiles are really 3 unique images repeated
    3 times total (the 2nd and 3rd copies marked aria-hidden). Two copies
@@ -2561,7 +2757,6 @@ a.service-card:focus-visible .service-cta-arrow {
    ============================================ */
 
 .web-showcase,
-.brand-showcase,
 .ads-showcase {
   min-height: 100vh;
   min-height: 100dvh;
@@ -2588,7 +2783,6 @@ a.service-card:focus-visible .service-cta-arrow {
    full-width box exactly like every other .container on the site,
    putting its edge back in line with the page hero's. */
 .web-showcase > .container,
-.brand-showcase > .container,
 .ads-showcase > .container {
   width: 100%;
 }
@@ -2643,93 +2837,11 @@ a.service-card:focus-visible .service-cta-arrow {
   margin-bottom: 0;
 }
 
-/* Branding's own heading runs a shade larger than the shared .dark-panel
-   h2 clamp above (2.6rem ceiling) — with only a handful of illustrated
-   cards below it instead of a cinematic carousel or a tall case-study
-   list, the section needs its headline carrying a bit more weight on its
-   own to read as equally commanding as Websites/Ads. */
-.brand-showcase .showcase-heading h2 {
-  font-size: clamp(2.1rem, 4.6vw, 3.1rem);
-}
-
 /* Websites is the first section a visitor lands on right after the page
    hero, so its headline gets the biggest bump of the three — a bold,
    dominant opening statement rather than a compact block. */
 .web-showcase .showcase-heading h2 {
   font-size: clamp(2.4rem, 5.2vw, 3.6rem);
-}
-
-/* Two-column hero: heading text left, a large "feature" card right —
-   the feature card is a real .brand-board (see .brand-board--feature
-   below), just placed as this grid's second column instead of inside
-   .brand-grid, so it inherits all of that component's styling/hover/
-   is-* accent handling for free. align-items: stretch makes both
-   columns match the row's height, which is what lets the feature
-   card's canvas grow to fill roughly the same height as the heading
-   text instead of using the grid cards' fixed aspect-ratio. */
-.brand-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: stretch;
-  gap: 48px;
-}
-
-/* Visually flipped via order (not DOM order) — heading stays first in
-   the markup/reading order, it just renders in the right-hand column,
-   right-aligned so it reads as intentionally anchored to that edge
-   rather than left-aligned text that's simply been shoved rightward.
-   This alternates with Websites (left) and Ads (left) either side of
-   it. Reset to the natural order at the single-column breakpoint below,
-   so "heading first" on mobile isn't affected by this desktop-only flip. */
-.brand-hero .showcase-heading {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  order: 2;
-  text-align: right;
-}
-
-.brand-hero .brand-board--feature {
-  order: 1;
-}
-
-.brand-board--feature {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-board--feature .brand-board-canvas {
-  flex: 1;
-  aspect-ratio: auto;
-  min-height: 320px;
-}
-
-.brand-board--feature .brand-board-icon {
-  width: 30px;
-  height: 30px;
-  top: 24px;
-  right: 24px;
-}
-
-.brand-board--feature .brand-board-mark {
-  font-size: clamp(2.6rem, 4vw, 4rem);
-}
-
-.brand-board--feature .brand-board-palette span {
-  width: 26px;
-  height: 26px;
-}
-
-.brand-board--feature .brand-board-caption {
-  margin-top: 20px;
-}
-
-.brand-board--feature .brand-board-caption h3 {
-  font-size: 1.15rem;
-}
-
-.brand-board--feature .brand-board-caption p {
-  max-width: 42ch;
 }
 
 /* Shared by the websites carousel and the ads case-study snippets — a
@@ -2886,168 +2998,6 @@ a.service-card:focus-visible .service-cta-arrow {
   transform: scale(1.35);
 }
 
-/* ---- Section 2: branding — illustrated brand boards ----
-   Six CSS/SVG-built "brand board" tiles standing in for real client
-   identity work (no branding photography exists yet, same reasoning as
-   the hero badges/icon chips being illustrated rather than photographed).
-   Same .container-scoped width as Websites/Ads (not full-bleed) and the
-   same shared .showcase-heading rhythm, so this reads as the third
-   parallel chapter rather than a leftover "everything else" grid. */
-.brand-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  width: 100%;
-}
-
-.brand-board-canvas {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: 20px;
-  border: 3px solid var(--hairline-dark);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  overflow: hidden;
-  padding: 24px;
-  transition: border-color 0.25s ease, transform 0.25s ease;
-}
-
-.brand-board.is-orange:hover .brand-board-canvas { border-color: var(--orange); transform: translateY(-3px); }
-.brand-board.is-mint:hover .brand-board-canvas   { border-color: var(--mint); transform: translateY(-3px); }
-.brand-board.is-lime:hover .brand-board-canvas   { border-color: var(--lime); transform: translateY(-3px); }
-
-/* .is-orange/.is-lime are also bare utility classes elsewhere (.service-dot)
-   that set a solid background — same specificity as this rule, so whichever
-   is later in the file wins the collision by accident. This compound
-   selector reliably wins regardless of source order (same fix used for
-   .icon-chip and .work-card earlier in this file) — .brand-board itself
-   should never have a background of its own; only .brand-board-canvas does. */
-.brand-board.is-orange,
-.brand-board.is-mint,
-.brand-board.is-lime {
-  background: transparent;
-}
-
-.brand-board-icon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 22px;
-  height: 22px;
-  opacity: 0.5;
-}
-
-.brand-board-mark {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  text-align: center;
-}
-
-.brand-board-palette {
-  display: flex;
-  gap: 8px;
-}
-
-.brand-board-palette span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.18);
-}
-
-.brand-board-caption {
-  margin-top: 16px;
-}
-
-.brand-board-caption h3 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  color: var(--white);
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-
-.brand-board-caption p {
-  color: var(--text-muted-dark);
-  margin-top: 4px;
-  max-width: 34ch;
-}
-
-/* Per-brand personality — the same recurring fictional clients used in
-   the Websites/Ads sections, so the page reads as "one client, full
-   service" rather than a new unrelated cast for every chapter. Each
-   canvas's own colors are deliberately distinct from the shared site
-   palette (these are the CLIENTS' brand colors, not Doulve's), while the
-   card border/hover accent above still uses the site's own lime/mint/
-   orange. */
-.brand-board--voltage .brand-board-canvas {
-  background: #0b0b0f;
-  color: var(--lime);
-}
-
-.brand-board--voltage .brand-board-mark {
-  font-style: italic;
-}
-
-.brand-board--matcha .brand-board-canvas {
-  background: var(--cream);
-  color: #4b6b3f;
-}
-
-.brand-board--matcha .brand-board-mark {
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: none;
-}
-
-.brand-board--inkwell .brand-board-canvas {
-  background: #1a0a0a;
-  color: #e8c77a;
-}
-
-.brand-board--inkwell .brand-board-mark {
-  font-family: var(--font-marker);
-  font-weight: 400;
-  text-transform: none;
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-}
-
-.brand-board--drift .brand-board-canvas {
-  background: #0d0d0d;
-  color: #ff2e9a;
-}
-
-.brand-board--drift .brand-board-mark {
-  transform: rotate(-3deg);
-}
-
-.brand-board--aster .brand-board-canvas {
-  background: #f6efe9;
-  color: #b98a6a;
-}
-
-.brand-board--aster .brand-board-mark {
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: none;
-}
-
-.brand-board--auto .brand-board-canvas {
-  background: #111214;
-  color: var(--orange);
-}
-
-.brand-board--auto .brand-board-mark {
-  letter-spacing: -0.02em;
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
-}
-
 /* ---- Section 3: ads — scroll-stopping ad creative belt + close ---- */
 
 .ads-cta {
@@ -3075,7 +3025,6 @@ a.service-card:focus-visible .service-cta-arrow {
     scroll-behavior: auto;
   }
 
-  .brand-board-canvas,
   .web-showcase-arrow,
   .web-showcase-dot {
     transition: none;
@@ -3088,6 +3037,11 @@ a.service-card:focus-visible .service-cta-arrow {
    ============================================ */
 
 @media (max-width: 900px) {
+  .ads-steps {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 36px;
+  }
+
   .hero .container {
     grid-template-columns: 1fr;
   }
@@ -3179,41 +3133,6 @@ a.service-card:focus-visible .service-cta-arrow {
     flex-basis: min(86vw, 640px);
   }
 
-  /* Three columns of a big wordmark + palette get cramped well before
-     the site's usual 2-up tablet breakpoint, so this drops straight to a
-     single column rather than squeezing into 2. */
-  .brand-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .brand-board-canvas {
-    aspect-ratio: 16 / 9;
-  }
-
-  /* Heading, then the feature card below it — DOM order already puts
-     the heading first, so dropping to a single column is enough. The
-     desktop flip's `order`/text-align:right are reset here so the
-     stacked mobile layout always reads heading-first, left-aligned,
-     regardless of which side it's pinned to on desktop. */
-  .brand-hero {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .brand-hero .showcase-heading {
-    order: initial;
-    text-align: left;
-  }
-
-  .brand-hero .brand-board--feature {
-    order: initial;
-  }
-
-  .brand-board--feature .brand-board-canvas {
-    min-height: 260px;
-  }
-
   .origin-panel,
   .founder-panel {
     grid-template-columns: 1fr;
@@ -3245,6 +3164,11 @@ a.service-card:focus-visible .service-cta-arrow {
 }
 
 @media (max-width: 640px) {
+  .ads-steps {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+
   .container {
     padding: 0 20px;
   }
@@ -3443,14 +3367,15 @@ a.service-card:focus-visible .service-cta-arrow {
     gap: 20px;
   }
 
-  .brand-board-canvas {
-    aspect-ratio: 4 / 3;
-    padding: 20px;
-  }
-
   .ads-cta {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .ads-teaser-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
   }
 
   .contact-inner,

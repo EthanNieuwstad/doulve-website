@@ -54,21 +54,28 @@
       </h1>
       <div class="hero-foot">
         <p class="hero-sub">
-          Six ways to work with us, from a single build to running your whole brand presence.
+          Five ways to work with us, from a single build to running your whole marketing.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ===== PRICING TIERS ===== -->
+  <!-- ===== PRICING TIERS =====
+       Real quoted prices, not placeholders — the illustrative-pricing
+       disclaimer this page used to show is intentionally dropped.
+       Card anatomy stays the same across every card (h3 -> price ->
+       [setup fee] -> note -> [ad-spend note] -> features-or-table ->
+       CTA); only the middle slot swaps between a plain bullet list
+       (Website, All-In Partner) and a small tier table (Meta, Google,
+       Ad Creation) depending on whether that service has volume tiers.
+       See .pricing-tier-table/.pricing-setup-fee/.pricing-ad-spend-note
+       in style.css. -->
   <section class="services reveal-panel">
     <div class="container">
-      <span class="placeholder-note">Pricing shown is illustrative. Final numbers to be confirmed.</span>
-
       <div class="pricing-grid" data-reveal-group>
         <div class="pricing-card" data-reveal-item>
           <h3>Website</h3>
-          <p class="pricing-price">$4,800 <span>one-time</span></p>
+          <p class="pricing-price">€1,800 <span>one-time</span></p>
           <p class="pricing-note">Custom-designed, built to convert. Yours outright when we're done.</p>
           <ul class="pricing-features">
             <li>Custom design, not a template</li>
@@ -80,67 +87,60 @@
         </div>
 
         <div class="pricing-card" data-reveal-item>
-          <h3>Website + Ads Bundle</h3>
-          <p class="pricing-price">$1,650 <span>/mo</span></p>
-          <p class="pricing-note">Launch a site, then put a real budget behind it. Cheaper than buying both apart.</p>
-          <ul class="pricing-features">
-            <li>Full website build included</li>
-            <li>Meta + Google ad setup</li>
-            <li>Monthly performance reporting</li>
-            <li>3-month minimum</li>
-          </ul>
+          <h3>Meta Ads Management</h3>
+          <p class="pricing-price">€300 <span>/mo</span></p>
+          <p class="pricing-setup-fee">+ €300 setup fee (one-time)</p>
+          <p class="pricing-note">Meta ad campaign management from strategy to optimization.</p>
+          <p class="pricing-ad-spend-note">Excludes ad spend — billed directly by Meta. Recommended minimum budget €300–500/mo.</p>
+          <table class="pricing-tier-table">
+            <tr><th scope="row">4 ads/mo</th><td>€300</td></tr>
+            <tr><th scope="row">8 ads/mo</th><td>€450</td></tr>
+            <tr><th scope="row">12 ads/mo</th><td>€600</td></tr>
+          </table>
           <a href="contact.html" class="btn btn-primary">Get started</a>
         </div>
 
         <div class="pricing-card" data-reveal-item>
-          <h3>Ads Management</h3>
-          <p class="pricing-price">$950 <span>/mo + ad spend</span></p>
-          <p class="pricing-note">Already have a site? Hand us the ad accounts and watch the numbers move.</p>
-          <ul class="pricing-features">
-            <li>Meta + Google campaign management</li>
-            <li>Weekly optimization</li>
-            <li>Monthly performance reporting</li>
-            <li>Dedicated strategist</li>
-          </ul>
+          <h3>Google Ads Management</h3>
+          <p class="pricing-price">€350 <span>/mo</span></p>
+          <p class="pricing-setup-fee">+ €350 setup fee (one-time)</p>
+          <p class="pricing-note">Google ad campaign management from keywords to reporting.</p>
+          <p class="pricing-ad-spend-note">Excludes ad spend — billed directly by Google. Recommended minimum budget €300–500/mo.</p>
+          <table class="pricing-tier-table">
+            <tr><th scope="row">1 campaign/mo</th><td>€350</td></tr>
+            <tr><th scope="row">2 campaigns/mo</th><td>€550</td></tr>
+            <tr><th scope="row">3 campaigns/mo</th><td>€750</td></tr>
+          </table>
           <a href="contact.html" class="btn btn-primary">Get started</a>
         </div>
 
         <div class="pricing-card" data-reveal-item>
-          <h3>Ad Creative</h3>
-          <p class="pricing-price">$750 <span>/mo</span></p>
-          <p class="pricing-note">The ad only works if people stop scrolling. We design the graphics and video that make them stop.</p>
-          <ul class="pricing-features">
-            <li>Static and video ad assets</li>
-            <li>Built for the platform, not repurposed</li>
-            <li>Monthly refresh to fight ad fatigue</li>
-            <li>Fast turnaround on requests</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">Get started</a>
-        </div>
-
-        <div class="pricing-card" data-reveal-item>
-          <h3>Content Creation</h3>
-          <p class="pricing-price">$1,100 <span>/mo</span></p>
-          <p class="pricing-note">We keep your feed alive with regular photo and video, independent of whatever campaign is running.</p>
-          <ul class="pricing-features">
-            <li>Monthly photo + video shoot</li>
-            <li>Social-ready edits</li>
-            <li>Content calendar included</li>
-            <li>Pairs with any package here</li>
-          </ul>
+          <h3>Ad Creation</h3>
+          <p class="pricing-price"><span>from</span> €15 <span>/ad</span></p>
+          <p class="pricing-note">Static ads priced by volume, video ads at a flat rate.</p>
+          <table class="pricing-tier-table">
+            <tr><th scope="row">Static, 1–4 ads</th><td>€20/ad</td></tr>
+            <tr><th scope="row">Static, 5–8 ads</th><td>€17/ad</td></tr>
+            <tr><th scope="row">Static, 9–12 ads</th><td>€15/ad</td></tr>
+            <tr><th scope="row">Video ad (30s)</th><td>€100/ad</td></tr>
+          </table>
+          <p class="pricing-ad-spend-note">No volume discount on video ads.</p>
           <a href="contact.html" class="btn btn-primary">Get started</a>
         </div>
 
         <div class="pricing-card pricing-card--featured" data-reveal-item>
           <span class="pricing-badge">Full-Service</span>
           <h3>All-In Partner</h3>
-          <p class="pricing-price">$3,400 <span>/mo</span></p>
-          <p class="pricing-note">One team runs the whole brand presence. Site, ads, creative, content, under one invoice.</p>
+          <p class="pricing-price"><span>from</span> €1,800 <span>setup</span></p>
+          <p class="pricing-setup-fee">+ €1,200/mo ongoing</p>
+          <p class="pricing-note">Website build plus ongoing Meta and Google ads management and ad creation, all under one invoice.</p>
+          <p class="pricing-ad-spend-note">Excludes ad spend.</p>
+          <p class="pricing-savings-callout">Save €650 in setup fees</p>
           <ul class="pricing-features">
-            <li>Website design + ongoing care</li>
-            <li>Ads management, creative, and content, combined</li>
-            <li>One point of contact</li>
-            <li>Quarterly strategy review</li>
+            <li>Website build</li>
+            <li>Ongoing Meta + Google ads management</li>
+            <li>Ad creation, 1 video/mo included (additional videos €100 each)</li>
+            <li>One invoice, one point of contact</li>
           </ul>
           <a href="contact.html" class="btn btn-primary">Go all-in →</a>
         </div>

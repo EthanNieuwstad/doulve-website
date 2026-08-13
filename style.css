@@ -1982,10 +1982,90 @@ a.service-card:focus-visible .service-cta-arrow {
   color: var(--text-muted-cream);
 }
 
+/* A second, smaller price line for services with both a one-time setup
+   fee and a recurring rate (Meta/Google ads management, the All-In
+   partnership) — .pricing-price stays the single big number, this just
+   adds the "+ setup fee" context under it without competing for
+   attention. */
+.pricing-setup-fee {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted-cream);
+  margin-bottom: 16px;
+}
+
 .pricing-note {
   color: var(--text-muted-cream);
   font-size: 0.95rem;
   margin-bottom: 24px;
+}
+
+/* "Excludes ad spend" / recommended-minimum context — secondary/muted
+   by design so it reads as a caveat, not a competing price. */
+.pricing-ad-spend-note {
+  color: var(--text-muted-cream);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Small in-card table for tiered services (volume-based ad management,
+   per-ad creative pricing) — chosen over a dropdown/toggle since every
+   tier is short enough to show at once with no JS/interaction cost,
+   and it slots into the same vertical rhythm the plain .pricing-features
+   list uses on the non-tiered cards (Website, All-In Partner): both
+   sit between .pricing-note and the CTA button. */
+.pricing-tier-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 0.88rem;
+}
+
+.pricing-tier-table tr {
+  border-bottom: 1px solid var(--hairline-cream);
+}
+
+.pricing-tier-table tr:last-child {
+  border-bottom: none;
+}
+
+.pricing-tier-table th,
+.pricing-tier-table td {
+  padding: 8px 0;
+  font-weight: 400;
+}
+
+.pricing-tier-table th {
+  text-align: left;
+  color: var(--ink-text);
+}
+
+.pricing-tier-table td {
+  text-align: right;
+  color: var(--ink-text);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* All-In Partner's setup-fee-waiver highlight — lime tint/border on the
+   white card (not lime text: --lime is too light to read on white, so
+   the accent stays in the background/border and the text uses the
+   card's normal high-contrast ink color). */
+.pricing-savings-callout {
+  display: inline-block;
+  background: rgba(195, 247, 58, 0.25);
+  border: 1.5px solid var(--lime);
+  color: var(--ink-text);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
 }
 
 .pricing-features {

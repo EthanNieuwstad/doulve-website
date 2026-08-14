@@ -1938,8 +1938,17 @@ a.service-card:focus-visible .service-cta-arrow {
    8b. PRICING
    ============================================ */
 
+/* Wider than the site's standard 1180px .container — 5 cards need more
+   room to stay comfortably readable than the shared container gives
+   them. Only affects this one section (a second class alongside
+   .container, not a change to .container itself), so every other
+   section on the site keeps its usual 1180px column. */
+.pricing-page-container {
+  max-width: 1480px;
+}
+
 /* Five cards, one row, at the widths where they fit comfortably
-   (>900px — see the 900px/640px breakpoints below for how this steps
+   (>1200px — see the 1200px/640px breakpoints below for how this steps
    down). Every font-size/padding/gap value on .pricing-card and its
    children is deliberately smaller here than in those breakpoints:
    this is the tight 5-across fit, they're the roomier 3-across/1-across
@@ -2098,12 +2107,12 @@ a.service-card:focus-visible .service-cta-arrow {
 
 /* Website/Ad Creation-specific gap-closing boosts below are sized for
    the cramped 5-across desktop fit specifically (small base font sizes/
-   padding) — at >900px only, where .pricing-grid is 5 columns. Without
+   padding) — at >1200px only, where .pricing-grid is 5 columns. Without
    this guard these selectors' extra specificity (compound descendant
-   selectors beat the plain-class rules in the 900px breakpoint below)
+   selectors beat the plain-class rules in the 1200px breakpoint below)
    would win there too and badly overshoot once cards go back to their
    roomier 3-column/1-column sizing. */
-@media (min-width: 901px) {
+@media (min-width: 1201px) {
   /* Website is the only card with nothing but a short note + 4 bullets
      above the button — every other card also carries a setup fee, an
      ad-spend caveat, or a tier table, so its content is naturally
@@ -3186,6 +3195,114 @@ a.service-card:focus-visible .service-cta-arrow {
    13. RESPONSIVE
    ============================================ */
 
+/* Pricing card sizing only — a dedicated breakpoint above the site's
+   usual 900px, since 5 columns need to give up the extra room earlier
+   than every other component does. Every size here is exactly the
+   pre-5-column value, undoing the base .pricing-card shrink rather
+   than picking new numbers. 640px below drops to a single column but
+   keeps these same restored sizes — a single card at full container
+   width has even more room than 3 across does, so nothing needs to
+   shrink again down there. */
+@media (max-width: 1200px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .pricing-card {
+    border-radius: 20px;
+    padding: 32px 28px;
+  }
+
+  .pricing-card h3 {
+    font-size: 1.35rem;
+    min-height: 2.85rem;
+    margin-bottom: 8px;
+  }
+
+  .pricing-price {
+    font-size: 2.1rem;
+    margin-bottom: 4px;
+  }
+
+  .pricing-price span {
+    font-size: 0.95rem;
+  }
+
+  .pricing-setup-fee {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .pricing-note {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .pricing-ad-spend-note {
+    font-size: 0.82rem;
+    margin-bottom: 20px;
+  }
+
+  .pricing-tier-table {
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+  }
+
+  .pricing-tier-table th,
+  .pricing-tier-table td {
+    padding: 8px 0;
+  }
+
+  /* At this 3-column width, Ad Creation (4th card) shares a row with
+     All-In Partner, the tallest/densest card on the page — closes some
+     of the resulting gap the same way the >1200px rule above does, at
+     values scaled for this breakpoint's larger fonts. */
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table th,
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table td {
+    padding: 24px 0;
+  }
+
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-note,
+  .pricing-grid > .pricing-card:nth-child(4) .pricing-ad-spend-note {
+    margin-bottom: 46px;
+  }
+
+  .pricing-savings-callout {
+    font-size: 0.78rem;
+    padding: 7px 14px;
+    margin-bottom: 18px;
+  }
+
+  .pricing-features {
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .pricing-features li {
+    font-size: 0.95rem;
+    padding-left: 22px;
+  }
+
+  .pricing-features li::before {
+    width: 8px;
+    height: 8px;
+    top: 7px;
+  }
+
+  .pricing-badge {
+    top: -14px;
+    right: 28px;
+    font-size: 0.68rem;
+    padding: 6px 14px;
+  }
+
+  .pricing-card .btn-primary {
+    padding: 16px 32px;
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 900px) {
   .ads-steps {
     grid-template-columns: repeat(2, 1fr);
@@ -3261,111 +3378,6 @@ a.service-card:focus-visible .service-cta-arrow {
   .work-card--beauty {
     grid-column: auto;
     grid-row: auto;
-  }
-
-  /* 3 across instead of 5 — cards have real room again at this width
-     (roomier than the 5-across desktop fit above), so every size this
-     restores is exactly the pre-5-column value, undoing the base
-     .pricing-card shrink rather than picking new numbers. 640px below
-     drops to a single column but keeps these same restored sizes —
-     a single card at full container width has even more room than 3
-     across does, so nothing needs to shrink again down there. */
-  .pricing-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-  }
-
-  .pricing-card {
-    border-radius: 20px;
-    padding: 32px 28px;
-  }
-
-  .pricing-card h3 {
-    font-size: 1.35rem;
-    min-height: 2.85rem;
-    margin-bottom: 8px;
-  }
-
-  .pricing-price {
-    font-size: 2.1rem;
-    margin-bottom: 4px;
-  }
-
-  .pricing-price span {
-    font-size: 0.95rem;
-  }
-
-  .pricing-setup-fee {
-    font-size: 0.85rem;
-    margin-bottom: 16px;
-  }
-
-  .pricing-note {
-    font-size: 0.95rem;
-    margin-bottom: 24px;
-  }
-
-  .pricing-ad-spend-note {
-    font-size: 0.82rem;
-    margin-bottom: 20px;
-  }
-
-  .pricing-tier-table {
-    font-size: 0.88rem;
-    margin-bottom: 20px;
-  }
-
-  .pricing-tier-table th,
-  .pricing-tier-table td {
-    padding: 8px 0;
-  }
-
-  /* At this 3-column width, Ad Creation (4th card) shares a row with
-     All-In Partner, the tallest/densest card on the page — closes some
-     of the resulting gap the same way the >900px rule above does, at
-     values scaled for this breakpoint's larger fonts. */
-  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table th,
-  .pricing-grid > .pricing-card:nth-child(4) .pricing-tier-table td {
-    padding: 24px 0;
-  }
-
-  .pricing-grid > .pricing-card:nth-child(4) .pricing-note,
-  .pricing-grid > .pricing-card:nth-child(4) .pricing-ad-spend-note {
-    margin-bottom: 46px;
-  }
-
-  .pricing-savings-callout {
-    font-size: 0.78rem;
-    padding: 7px 14px;
-    margin-bottom: 18px;
-  }
-
-  .pricing-features {
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .pricing-features li {
-    font-size: 0.95rem;
-    padding-left: 22px;
-  }
-
-  .pricing-features li::before {
-    width: 8px;
-    height: 8px;
-    top: 7px;
-  }
-
-  .pricing-badge {
-    top: -14px;
-    right: 28px;
-    font-size: 0.68rem;
-    padding: 6px 14px;
-  }
-
-  .pricing-card .btn-primary {
-    padding: 16px 32px;
-    font-size: 1rem;
   }
 
   .about-panel {

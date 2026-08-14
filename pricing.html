@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing — Doulve</title>
-  <meta name="description" content="Pricing for brand, web, and media services from Doulve.">
+  <title data-i18n="meta.pricing.title">Hinnoittelu — Doulve</title>
+  <meta name="description" data-i18n-attr-content="meta.pricing.description" content="Doulven brändi-, verkko- ja mediapalveluiden hinnoittelu.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     </style>
   </noscript>
 </head>
-<body>
+<body data-i18n-page="pricing">
 
   <!-- ===== HEADER ===== -->
   <header class="site-header">
@@ -34,12 +34,29 @@
         DOULVE<span class="logo-chip" aria-hidden="true"></span>
       </a>
       <nav class="nav" id="site-nav">
-        <a href="services.html"><span>Services</span></a>
-        <a href="work.html"><span>Work</span></a>
-        <a href="about.html"><span>About</span></a>
-        <a href="contact.html"><span>Contact</span></a>
+        <a href="services.html"><span data-i18n="common.navServices">Palvelut</span></a>
+        <a href="work.html"><span data-i18n="common.navWork">Työt</span></a>
+        <a href="about.html"><span data-i18n="common.navAbout">Meistä</span></a>
+        <a href="contact.html"><span data-i18n="common.navContact">Yhteystiedot</span></a>
       </nav>
-      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+
+      <div class="lang-switcher">
+        <button type="button" class="lang-switcher-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr-aria-label="langSwitcher.toggleAria" aria-label="Vaihda kieltä">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9s1.3-6.5 3.8-9z"/></svg>
+          <span class="lang-switcher-code">FI</span>
+        </button>
+        <div class="lang-switcher-popup" hidden>
+          <button type="button" class="lang-switcher-close" data-i18n-attr-aria-label="langSwitcher.closeAria" aria-label="Sulje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
+          <div class="lang-switcher-tabs" role="tablist">
+            <button type="button" class="lang-switcher-tab is-active" data-lang="fi" role="tab" aria-selected="true" data-i18n="langSwitcher.suomi">Suomi</button>
+            <button type="button" class="lang-switcher-tab" data-lang="en" role="tab" aria-selected="false" data-i18n="langSwitcher.english">English</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="nav-toggle" data-i18n-attr-aria-label="common.navToggleAria" aria-label="Avaa valikko" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -48,13 +65,13 @@
   <!-- ===== PAGE HERO ===== -->
   <section id="top" class="page-hero">
     <div class="container">
-      <p class="kicker">Pricing</p>
+      <p class="kicker" data-i18n="pricing.kicker">Hinnoittelu</p>
       <h1 class="hero-headline">
-        <span class="line">Simple, upfront pricing</span>
+        <span class="line" data-i18n="pricing.heading">Selkeä ja läpinäkyvä hinnoittelu</span>
       </h1>
       <div class="hero-foot">
-        <p class="hero-sub">
-          Five ways to work with us, from a single build to running your whole marketing.
+        <p class="hero-sub" data-i18n="pricing.sub">
+          Viisi tapaa työskennellä kanssamme — yksittäisestä verkkosivuprojektista koko markkinoinnin hoitamiseen.
         </p>
       </div>
     </div>
@@ -69,80 +86,86 @@
        (Website, All-In Partner) and a small tier table (Meta, Google,
        Ad Creation) depending on whether that service has volume tiers.
        See .pricing-tier-table/.pricing-setup-fee/.pricing-ad-spend-note
-       in style.css. -->
+       in style.css.
+
+       EUR amounts are identical in both languages (no currency
+       conversion) — lang/fi.json and lang/en.json just format the same
+       numbers per each language's convention (space thousands-separator
+       in Finnish vs. comma in English). Don't "fix" a price that looks
+       different between languages; it's the same number, formatted. -->
   <section class="services reveal-panel">
     <div class="container pricing-page-container">
       <div class="pricing-grid" data-reveal-group>
         <div class="pricing-card" data-reveal-item>
-          <h3>Website</h3>
-          <p class="pricing-price">€1,800 <span>one-time</span></p>
-          <p class="pricing-note">Custom-designed, built to convert. Yours outright when we're done.</p>
+          <h3 data-i18n="pricing.websiteTitle">Verkkosivu</h3>
+          <p class="pricing-price"><span data-i18n="pricing.websitePrice">1 800 €</span> <span data-i18n="pricing.websitePriceUnit">kertamaksu</span></p>
+          <p class="pricing-note" data-i18n="pricing.websiteNote">Yksilöllisesti suunniteltu, konvertoiva verkkosivu. Kokonaan sinun, kun olemme valmiit.</p>
           <ul class="pricing-features">
-            <li>Custom design, not a template</li>
-            <li>Copywriting included</li>
-            <li>Mobile-first build</li>
-            <li>30-day post-launch support</li>
+            <li data-i18n="pricing.websiteFeature1">Räätälöity design, ei valmispohja</li>
+            <li data-i18n="pricing.websiteFeature2">Copywriting sisältyy hintaan</li>
+            <li data-i18n="pricing.websiteFeature3">Mobiilioptimoitu toteutus</li>
+            <li data-i18n="pricing.websiteFeature4">30 päivän tuki julkaisun jälkeen</li>
           </ul>
-          <a href="contact.html" class="btn btn-primary">Get started</a>
+          <a href="contact.html" class="btn btn-primary" data-i18n="common.getStarted">Aloitetaan</a>
         </div>
 
         <div class="pricing-card" data-reveal-item>
-          <h3>Meta Ads Management</h3>
-          <p class="pricing-price">€300 <span>/mo</span></p>
-          <p class="pricing-setup-fee">+ €300 setup fee (one-time)</p>
-          <p class="pricing-note">Meta ad campaign management from strategy to optimization.</p>
-          <p class="pricing-ad-spend-note">Excludes ad spend — billed directly by Meta. Recommended minimum budget €300–500/mo.</p>
+          <h3 data-i18n="pricing.metaTitle">Meta-mainonnan hallinta</h3>
+          <p class="pricing-price"><span data-i18n="pricing.metaPrice">300 €</span> <span data-i18n="pricing.metaPriceUnit">/kk</span></p>
+          <p class="pricing-setup-fee" data-i18n="pricing.metaSetupFee">+ 300 € käyttöönotto (kertamaksu)</p>
+          <p class="pricing-note" data-i18n="pricing.metaNote">Meta-mainoskampanjoiden hallinta strategiasta optimointiin.</p>
+          <p class="pricing-ad-spend-note" data-i18n="pricing.metaAdSpendNote">Ei sisällä mainosbudjettia — laskutetaan suoraan Metalta. Suositeltu vähimmäisbudjetti 300–500 €/kk.</p>
           <table class="pricing-tier-table">
-            <tr><th scope="row">4 ads/mo</th><td>€300</td></tr>
-            <tr><th scope="row">8 ads/mo</th><td>€450</td></tr>
-            <tr><th scope="row">12 ads/mo</th><td>€600</td></tr>
+            <tr><th scope="row" data-i18n="pricing.metaTier1Label">4 mainosta/kk</th><td data-i18n="pricing.metaTier1Price">300 €</td></tr>
+            <tr><th scope="row" data-i18n="pricing.metaTier2Label">8 mainosta/kk</th><td data-i18n="pricing.metaTier2Price">450 €</td></tr>
+            <tr><th scope="row" data-i18n="pricing.metaTier3Label">12 mainosta/kk</th><td data-i18n="pricing.metaTier3Price">600 €</td></tr>
           </table>
-          <a href="contact.html" class="btn btn-primary">Get started</a>
+          <a href="contact.html" class="btn btn-primary" data-i18n="common.getStarted">Aloitetaan</a>
         </div>
 
         <div class="pricing-card" data-reveal-item>
-          <h3>Google Ads Management</h3>
-          <p class="pricing-price">€350 <span>/mo</span></p>
-          <p class="pricing-setup-fee">+ €350 setup fee (one-time)</p>
-          <p class="pricing-note">Google ad campaign management from keywords to reporting.</p>
-          <p class="pricing-ad-spend-note">Excludes ad spend — billed directly by Google. Recommended minimum budget €300–500/mo.</p>
+          <h3 data-i18n="pricing.googleTitle">Google-mainonnan hallinta</h3>
+          <p class="pricing-price"><span data-i18n="pricing.googlePrice">350 €</span> <span data-i18n="pricing.googlePriceUnit">/kk</span></p>
+          <p class="pricing-setup-fee" data-i18n="pricing.googleSetupFee">+ 350 € käyttöönotto (kertamaksu)</p>
+          <p class="pricing-note" data-i18n="pricing.googleNote">Google-mainoskampanjoiden hallinta hakusanoista raportointiin.</p>
+          <p class="pricing-ad-spend-note" data-i18n="pricing.googleAdSpendNote">Ei sisällä mainosbudjettia — laskutetaan suoraan Googlelta. Suositeltu vähimmäisbudjetti 300–500 €/kk.</p>
           <table class="pricing-tier-table">
-            <tr><th scope="row">1 campaign/mo</th><td>€350</td></tr>
-            <tr><th scope="row">2 campaigns/mo</th><td>€550</td></tr>
-            <tr><th scope="row">3 campaigns/mo</th><td>€750</td></tr>
+            <tr><th scope="row" data-i18n="pricing.googleTier1Label">1 kampanja/kk</th><td data-i18n="pricing.googleTier1Price">350 €</td></tr>
+            <tr><th scope="row" data-i18n="pricing.googleTier2Label">2 kampanjaa/kk</th><td data-i18n="pricing.googleTier2Price">550 €</td></tr>
+            <tr><th scope="row" data-i18n="pricing.googleTier3Label">3 kampanjaa/kk</th><td data-i18n="pricing.googleTier3Price">750 €</td></tr>
           </table>
-          <a href="contact.html" class="btn btn-primary">Get started</a>
+          <a href="contact.html" class="btn btn-primary" data-i18n="common.getStarted">Aloitetaan</a>
         </div>
 
         <div class="pricing-card" data-reveal-item>
-          <h3>Ad Creation</h3>
-          <p class="pricing-price"><span>from</span> €15 <span>/ad</span></p>
-          <p class="pricing-note">Static ads priced by volume, video ads at a flat rate.</p>
+          <h3 data-i18n="pricing.adCreationTitle">Mainosten Suunnittelu</h3>
+          <p class="pricing-price"><span data-i18n="pricing.adCreationPricePrefix">alk.</span> <span data-i18n="pricing.adCreationPrice">15 €</span> <span data-i18n="pricing.adCreationPriceUnit">/mainos</span></p>
+          <p class="pricing-note" data-i18n="pricing.adCreationNote">Staattiset mainokset volyymin mukaan, videomainokset kiinteään hintaan.</p>
           <table class="pricing-tier-table">
-            <tr><th scope="row">Static, 1–4 ads</th><td>€20/ad</td></tr>
-            <tr><th scope="row">Static, 5–8 ads</th><td>€17/ad</td></tr>
-            <tr><th scope="row">Static, 9–12 ads</th><td>€15/ad</td></tr>
-            <tr><th scope="row">Video ad (30s)</th><td>€100/ad</td></tr>
+            <tr><th scope="row" data-i18n="pricing.adCreationTier1Label">Staattiset, 1–4 mainosta</th><td data-i18n="pricing.adCreationTier1Price">20 €/mainos</td></tr>
+            <tr><th scope="row" data-i18n="pricing.adCreationTier2Label">Staattiset, 5–8 mainosta</th><td data-i18n="pricing.adCreationTier2Price">17 €/mainos</td></tr>
+            <tr><th scope="row" data-i18n="pricing.adCreationTier3Label">Staattiset, 9–12 mainosta</th><td data-i18n="pricing.adCreationTier3Price">15 €/mainos</td></tr>
+            <tr><th scope="row" data-i18n="pricing.adCreationTier4Label">Videomainos (30s)</th><td data-i18n="pricing.adCreationTier4Price">100 €/mainos</td></tr>
           </table>
-          <p class="pricing-ad-spend-note">No volume discount on video ads.</p>
-          <a href="contact.html" class="btn btn-primary">Get started</a>
+          <p class="pricing-ad-spend-note" data-i18n="pricing.adCreationAdSpendNote">Videomainoksille ei määräalennusta.</p>
+          <a href="contact.html" class="btn btn-primary" data-i18n="common.getStarted">Aloitetaan</a>
         </div>
 
         <div class="pricing-card pricing-card--featured" data-reveal-item>
-          <span class="pricing-badge">Full-Service</span>
-          <h3>All-In Partner</h3>
-          <p class="pricing-price"><span>from</span> €1,800 <span>setup</span></p>
-          <p class="pricing-setup-fee">+ €1,200/mo ongoing</p>
-          <p class="pricing-note">Website build plus ongoing Meta and Google ads management and ad creation, all under one invoice.</p>
-          <p class="pricing-ad-spend-note">Excludes ad spend.</p>
-          <p class="pricing-savings-callout">Save €650 in setup fees</p>
+          <span class="pricing-badge" data-i18n="pricing.allInBadge">Kaiken Kattava</span>
+          <h3 data-i18n="pricing.allInTitle">Kokonaisvaltainen Kumppanuus</h3>
+          <p class="pricing-price"><span data-i18n="pricing.allInPricePrefix">alk.</span> <span data-i18n="pricing.allInPrice">1 800 €</span> <span data-i18n="pricing.allInPriceUnit">käyttöönotto</span></p>
+          <p class="pricing-setup-fee" data-i18n="pricing.allInSetupFee">+ 1 200 €/kk jatkossa</p>
+          <p class="pricing-note" data-i18n="pricing.allInNote">Verkkosivun toteutus sekä jatkuva Meta- ja Google-mainonnan hallinta ja mainosten suunnittelu, kaikki samalla laskulla.</p>
+          <p class="pricing-ad-spend-note" data-i18n="pricing.allInAdSpendNote">Ei sisällä mainosbudjettia.</p>
+          <p class="pricing-savings-callout" data-i18n="pricing.allInSavingsCallout">Säästät 650 € käyttöönottomaksuissa</p>
           <ul class="pricing-features">
-            <li>Website build</li>
-            <li>Ongoing Meta + Google ads management</li>
-            <li>Ad creation, 1 video/mo included (additional videos €100 each)</li>
-            <li>One invoice, one point of contact</li>
+            <li data-i18n="pricing.allInFeature1">Verkkosivun toteutus</li>
+            <li data-i18n="pricing.allInFeature2">Jatkuva Meta- ja Google-mainonnan hallinta</li>
+            <li data-i18n="pricing.allInFeature3">Mainosten suunnittelu, 1 video/kk sisältyy (lisävideot 100 €/kpl)</li>
+            <li data-i18n="pricing.allInFeature4">Yksi lasku, yksi yhteyshenkilö</li>
           </ul>
-          <a href="contact.html" class="btn btn-primary">Go all-in →</a>
+          <a href="contact.html" class="btn btn-primary" data-i18n="pricing.goAllIn">Aloita kumppanuus →</a>
         </div>
       </div>
     </div>
@@ -157,32 +180,33 @@
     <div class="container footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+        <p class="footer-tagline" data-i18n="common.footerTagline">Brändijärjestelmiä, verkkosivuja ja Meta/Google-mainoskampanjoita yrityksille, jotka eivät halua sulautua joukkoon.</p>
       </div>
 
       <nav class="footer-sitemap" aria-label="Footer">
-        <p class="footer-col-title">Sitemap</p>
-        <a href="services.html">Services</a>
-        <a href="work.html">Work</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <p class="footer-col-title" data-i18n="common.footerSitemapTitle">Sivukartta</p>
+        <a href="services.html" data-i18n="common.navServices">Palvelut</a>
+        <a href="work.html" data-i18n="common.navWork">Työt</a>
+        <a href="pricing.html" data-i18n="pricing.kicker">Hinnoittelu</a>
+        <a href="about.html" data-i18n="common.navAbout">Meistä</a>
+        <a href="contact.html" data-i18n="common.navContact">Yhteystiedot</a>
       </nav>
 
       <div class="footer-cta-col">
-        <p class="footer-col-title">Ready When You Are</p>
-        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+        <p class="footer-col-title" data-i18n="common.footerCtaTitle">Valmiina kun sinä olet</p>
+        <a href="contact.html" class="btn btn-primary" data-i18n="common.footerCtaButton">Jutellaan →</a>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
-      <a href="#top" class="footer-top-link">Back to top ↑</a>
+      <p class="mono-label" data-i18n="common.footerCopyright">© 2026 Doulve — Brändi / Verkko / Media</p>
+      <a href="#top" class="footer-top-link" data-i18n="common.footerBackToTop">Takaisin ylös ↑</a>
     </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

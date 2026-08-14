@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doulve — Brand, Web &amp; Media</title>
-  <meta name="description" content="Doulve builds brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.">
+  <title data-i18n="meta.home.title">Doulve — Brändi, verkko ja media</title>
+  <meta name="description" data-i18n-attr-content="meta.home.description" content="Doulve rakentaa brändijärjestelmiä, verkkosivuja ja Meta/Google-mainoskampanjoita yrityksille, jotka eivät halua sulautua joukkoon.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     </style>
   </noscript>
 </head>
-<body>
+<body data-i18n-page="home">
 
   <!-- ===== HEADER ===== -->
   <header class="site-header">
@@ -34,12 +34,34 @@
         DOULVE<span class="logo-chip" aria-hidden="true"></span>
       </a>
       <nav class="nav" id="site-nav">
-        <a href="services.html"><span>Services</span></a>
-        <a href="work.html"><span>Work</span></a>
-        <a href="about.html"><span>About</span></a>
-        <a href="contact.html"><span>Contact</span></a>
+        <a href="services.html"><span data-i18n="common.navServices">Palvelut</span></a>
+        <a href="work.html"><span data-i18n="common.navWork">Työt</span></a>
+        <a href="about.html"><span data-i18n="common.navAbout">Meistä</span></a>
+        <a href="contact.html"><span data-i18n="common.navContact">Yhteystiedot</span></a>
       </nav>
-      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+
+      <!-- ===== LANGUAGE SWITCHER =====
+           Identical markup on every page — see i18n.js for the open/
+           close/switch wiring and style.css's "3b. LANGUAGE SWITCHER"
+           block for styling. Sits between .nav and .nav-toggle, outside
+           the collapsing mobile nav, so it's reachable at every width. -->
+      <div class="lang-switcher">
+        <button type="button" class="lang-switcher-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr-aria-label="langSwitcher.toggleAria" aria-label="Vaihda kieltä">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9s1.3-6.5 3.8-9z"/></svg>
+          <span class="lang-switcher-code">FI</span>
+        </button>
+        <div class="lang-switcher-popup" hidden>
+          <button type="button" class="lang-switcher-close" data-i18n-attr-aria-label="langSwitcher.closeAria" aria-label="Sulje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
+          <div class="lang-switcher-tabs" role="tablist">
+            <button type="button" class="lang-switcher-tab is-active" data-lang="fi" role="tab" aria-selected="true" data-i18n="langSwitcher.suomi">Suomi</button>
+            <button type="button" class="lang-switcher-tab" data-lang="en" role="tab" aria-selected="false" data-i18n="langSwitcher.english">English</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="nav-toggle" data-i18n-attr-aria-label="common.navToggleAria" aria-label="Avaa valikko" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -49,21 +71,20 @@
   <section id="top" class="hero">
     <div class="container">
       <div class="hero-copy">
-        <p class="kicker">Bold Brands. Real Results.</p>
+        <p class="kicker" data-i18n="home.heroKicker">Rohkeat Brändit. Aidot Tulokset.</p>
 
         <h1 class="hero-headline">
-          <span class="line">Elevate.</span>
-          <span class="line">Everywhere.</span>
+          <span class="line" data-i18n="home.heroLine1">Nosta Rimaa.</span>
+          <span class="line" data-i18n="home.heroLine2">Kaikkialla.</span>
         </h1>
 
         <div class="hero-foot">
-          <p class="hero-sub">
-            From brand systems to websites to Meta/Google ad campaigns — one
-            team, zero hassle.
+          <p class="hero-sub" data-i18n="home.heroSub">
+            Brändijärjestelmistä verkkosivuihin ja Meta/Google-mainoskampanjoihin — yksi tiimi, ei harmia.
           </p>
           <div class="hero-actions">
-            <a href="services.html" class="btn btn-primary">Our Services →</a>
-            <a href="work.html" class="btn btn-secondary">View Our Work</a>
+            <a href="services.html" class="btn btn-primary" data-i18n="home.heroBtnPrimary">Palvelumme →</a>
+            <a href="work.html" class="btn btn-secondary" data-i18n="home.heroBtnSecondary">Katso Töitämme</a>
           </div>
         </div>
       </div>
@@ -78,37 +99,37 @@
         <div class="badge-orbit">
           <div class="orbit-item">
             <a href="services.html" class="spray-badge badge-websites">
-              <img class="spray-badge-img" src="images/badge-websites.webp" alt="Websites" width="600" height="400">
+              <img class="spray-badge-img" src="images/badge-websites.webp" data-i18n-attr-alt="home.badgeWebsites" alt="Verkkosivut" width="600" height="400">
             </a>
           </div>
 
           <div class="orbit-item">
             <a href="services.html" class="spray-badge badge-branding">
-              <img class="spray-badge-img" src="images/badge-branding.webp" alt="Branding" width="600" height="400">
+              <img class="spray-badge-img" src="images/badge-branding.webp" data-i18n-attr-alt="home.badgeBranding" alt="Brändäys" width="600" height="400">
             </a>
           </div>
 
           <div class="orbit-item">
             <a href="services.html" class="spray-badge badge-meta-ads">
-              <img class="spray-badge-img" src="images/badge-meta-ads.webp" alt="Meta Ads" width="600" height="400">
+              <img class="spray-badge-img" src="images/badge-meta-ads.webp" data-i18n-attr-alt="home.badgeMetaAds" alt="Meta-mainonta" width="600" height="400">
             </a>
           </div>
 
           <div class="orbit-item">
             <a href="services.html" class="spray-badge badge-google-ads">
-              <img class="spray-badge-img" src="images/badge-googleads.webp" alt="Google Ads" width="600" height="400">
+              <img class="spray-badge-img" src="images/badge-googleads.webp" data-i18n-attr-alt="home.badgeGoogleAds" alt="Google-mainonta" width="600" height="400">
             </a>
           </div>
 
           <div class="orbit-item">
             <a href="services.html" class="spray-badge badge-strategy">
-              <img class="spray-badge-img" src="images/badge-strategy.webp" alt="Strategy" width="600" height="400">
+              <img class="spray-badge-img" src="images/badge-strategy.webp" data-i18n-attr-alt="home.badgeStrategy" alt="Strategia" width="600" height="400">
             </a>
           </div>
 
           <div class="orbit-item">
             <a href="services.html" class="spray-badge badge-content-creation">
-              <img class="spray-badge-img" src="images/badge-content-creation.webp" alt="Content Creation" width="600" height="446">
+              <img class="spray-badge-img" src="images/badge-content-creation.webp" data-i18n-attr-alt="home.badgeContentCreation" alt="Sisällöntuotanto" width="600" height="446">
             </a>
           </div>
         </div>
@@ -125,7 +146,7 @@
   <!-- ===== WHAT WE DO ===== -->
   <section class="services what-we-do reveal-panel">
     <div class="container">
-      <p class="eyebrow">What we do</p>
+      <p class="eyebrow" data-i18n="home.whatWeDoEyebrow">Mitä teemme</p>
 
       <div class="icon-row" data-reveal-group>
         <div class="icon-col" data-reveal-item>
@@ -140,8 +161,8 @@
               <line x1="6" y1="16.5" x2="18" y2="16.5"/>
             </svg>
           </span>
-          <h3>Web Design</h3>
-          <p>Custom, responsive websites that look amazing and convert visitors.</p>
+          <h3 data-i18n="home.serviceWebDesignTitle">Verkkosivut</h3>
+          <p data-i18n="home.serviceWebDesignDesc">Räätälöityjä, responsiivisia verkkosivuja, jotka näyttävät upeilta ja muuttavat kävijät asiakkaiksi.</p>
         </div>
 
         <div class="icon-col" data-reveal-item>
@@ -151,8 +172,8 @@
               <circle class="icon-punch" cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/>
             </svg>
           </span>
-          <h3>Branding</h3>
-          <p>Memorable brands that connect with your audience and stand out.</p>
+          <h3 data-i18n="home.serviceBrandingTitle">Brändäys</h3>
+          <p data-i18n="home.serviceBrandingDesc">Mieleenpainuvia brändejä, jotka puhuttelevat yleisöäsi ja erottuvat joukosta.</p>
         </div>
 
         <div class="icon-col" data-reveal-item>
@@ -162,8 +183,8 @@
               <path class="icon-punch" d="M10 8.3l6.2 3.7-6.2 3.7z" fill="currentColor" stroke-linejoin="round"/>
             </svg>
           </span>
-          <h3>Ad Creation</h3>
-          <p>Scroll-stopping ads designed to capture attention and drive results.</p>
+          <h3 data-i18n="home.serviceAdCreationTitle">Mainosten Suunnittelu</h3>
+          <p data-i18n="home.serviceAdCreationDesc">Huomiota pysäyttäviä mainoksia, jotka on suunniteltu tuomaan tuloksia.</p>
         </div>
 
         <div class="icon-col" data-reveal-item>
@@ -174,8 +195,8 @@
               <path d="M18.3 5a8.5 8.5 0 0 1 0 14"/>
             </svg>
           </span>
-          <h3>Meta &amp; Google Ads</h3>
-          <p>We launch, manage, and optimize campaigns that get you seen.</p>
+          <h3 data-i18n="home.serviceMetaGoogleTitle">Meta &amp; Google -mainonta</h3>
+          <p data-i18n="home.serviceMetaGoogleDesc">Käynnistämme, hallinnoimme ja optimoimme kampanjoita, jotka tuovat sinut näkyville.</p>
         </div>
 
         <div class="icon-col" data-reveal-item>
@@ -186,8 +207,8 @@
               <rect x="16.8" y="3" width="4.2" height="18" rx="1" fill="currentColor"/>
             </svg>
           </span>
-          <h3>Strategy &amp; Growth</h3>
-          <p>Data-driven strategies to grow your brand and maximize your ROI.</p>
+          <h3 data-i18n="home.serviceStrategyTitle">Strategia &amp; Kasvu</h3>
+          <p data-i18n="home.serviceStrategyDesc">Datavetoisia strategioita, jotka kasvattavat brändiäsi ja maksimoivat tuottosi.</p>
         </div>
 
         <div class="icon-col" data-reveal-item>
@@ -197,8 +218,8 @@
               <path d="M13 7l4 4"/>
             </svg>
           </span>
-          <h3>Content Creation</h3>
-          <p>Engaging photo, video, and copy content that keeps your audience hooked.</p>
+          <h3 data-i18n="home.serviceContentCreationTitle">Sisällöntuotanto</h3>
+          <p data-i18n="home.serviceContentCreationDesc">Koukuttavaa kuva-, video- ja tekstisisältöä, joka pitää yleisösi otteessaan.</p>
         </div>
       </div>
     </div>
@@ -212,11 +233,11 @@
 
       <div class="section-header-row">
         <div class="section-header-text">
-          <p class="eyebrow">Our Work</p>
-          <h2>Our Work Speaks<br>For Itself.</h2>
-          <p class="section-sub">From clean e-commerce stores to bold brand launches, we've built websites that don't just look good — they get results. Every project below was designed, built, and launched by the Doulve team.</p>
+          <p class="eyebrow" data-i18n="home.ourWorkEyebrow">Työmme</p>
+          <h2 data-i18n="home.ourWorkHeading">Työmme Puhuu<br>Puolestaan.</h2>
+          <p class="section-sub" data-i18n="home.ourWorkSub">Selkeistä verkkokaupoista rohkeisiin brändilanseerauksiin — olemme rakentaneet verkkosivuja, jotka eivät vain näytä hyvältä, vaan myös tuottavat tuloksia. Jokainen alla oleva projekti on Doulve-tiimin suunnittelema, rakentama ja julkaisema.</p>
         </div>
-        <a href="work.html#website-portfolio" class="btn btn-primary btn-view-more">View More →</a>
+        <a href="work.html#website-portfolio" class="btn btn-primary btn-view-more" data-i18n="home.ourWorkViewMore">Katso lisää →</a>
       </div>
 
       <!-- FIXED 7-TILE GRID — this shape is permanently locked (see the
@@ -227,51 +248,51 @@
            other image appears exactly once. -->
       <div class="work-grid" data-reveal-group>
         <div class="work-card work-card--energy is-mint" data-reveal-item>
-          <span class="work-badge">Energy</span>
+          <span class="work-badge" data-i18n="home.workBadgeEnergy">Energia</span>
           <div class="work-card-media">
-            <img src="images/website-energy.webp" alt="Energy drink brand website" loading="lazy" width="1024" height="1536">
+            <img src="images/website-energy.webp" data-i18n-attr-alt="home.workAltEnergy" alt="Energiajuomabrändin verkkosivu" loading="lazy" width="1024" height="1536">
           </div>
         </div>
 
         <div class="work-card work-card--skate-top is-orange" data-reveal-item>
-          <span class="work-badge">Skate</span>
+          <span class="work-badge" data-i18n="home.workBadgeSkate">Skeitti</span>
           <div class="work-card-media">
-            <img src="images/website-skate.webp" alt="Skate shop website" loading="lazy" width="1024" height="1536">
+            <img src="images/website-skate.webp" data-i18n-attr-alt="home.workAltSkate" alt="Skeittikaupan verkkosivu" loading="lazy" width="1024" height="1536">
           </div>
         </div>
 
         <div class="work-card work-card--tattoo is-lime" data-reveal-item>
-          <span class="work-badge">Tattoo</span>
+          <span class="work-badge" data-i18n="home.workBadgeTattoo">Tatuointi</span>
           <div class="work-card-media">
-            <img src="images/website-tattoo.webp" alt="Tattoo studio website" loading="lazy" width="1024" height="1536">
+            <img src="images/website-tattoo.webp" data-i18n-attr-alt="home.workAltTattoo" alt="Tatuointistudion verkkosivu" loading="lazy" width="1024" height="1536">
           </div>
         </div>
 
         <div class="work-card work-card--auto-repair is-orange" data-reveal-item>
-          <span class="work-badge">Matcha</span>
+          <span class="work-badge" data-i18n="home.workBadgeMatcha">Matcha</span>
           <div class="work-card-media">
-            <img src="images/website-matcha.webp" alt="Matcha tea brand website" loading="lazy" width="864" height="1821">
+            <img src="images/website-matcha.webp" data-i18n-attr-alt="home.workAltMatcha" alt="Matchateebrändin verkkosivu" loading="lazy" width="864" height="1821">
           </div>
         </div>
 
         <div class="work-card work-card--skate-under is-lime" data-reveal-item>
-          <span class="work-badge">Skate</span>
+          <span class="work-badge" data-i18n="home.workBadgeSkate">Skeitti</span>
           <div class="work-card-media">
-            <img src="images/website-skate.webp" alt="Skate shop website" loading="lazy" width="1024" height="1536">
+            <img src="images/website-skate.webp" data-i18n-attr-alt="home.workAltSkate" alt="Skeittikaupan verkkosivu" loading="lazy" width="1024" height="1536">
           </div>
         </div>
 
         <div class="work-card work-card--matcha is-mint" data-reveal-item>
-          <span class="work-badge">Auto Repair</span>
+          <span class="work-badge" data-i18n="home.workBadgeAutoRepair">Autokorjaamo</span>
           <div class="work-card-media">
-            <img src="images/website-auto.webp" alt="Auto repair shop website" loading="lazy" width="1024" height="1536">
+            <img src="images/website-auto.webp" data-i18n-attr-alt="home.workAltAutoRepair" alt="Autokorjaamon verkkosivu" loading="lazy" width="1024" height="1536">
           </div>
         </div>
 
         <div class="work-card work-card--beauty is-mint" data-reveal-item>
-          <span class="work-badge">Beauty</span>
+          <span class="work-badge" data-i18n="home.workBadgeBeauty">Kauneus</span>
           <div class="work-card-media">
-            <img src="images/website-beauty.webp" alt="Beauty studio website" loading="lazy" width="1024" height="1536">
+            <img src="images/website-beauty.webp" data-i18n-attr-alt="home.workAltBeauty" alt="Kauneushoitolan verkkosivu" loading="lazy" width="1024" height="1536">
           </div>
         </div>
       </div>
@@ -281,13 +302,13 @@
            initWorkGridDots() in script.js. Invisible on desktop, where
            .work-grid stays a plain (non-scrollable) grid. -->
       <div class="work-grid-dots">
-        <button type="button" class="work-grid-dot is-active" aria-label="Go to Energy"></button>
-        <button type="button" class="work-grid-dot" aria-label="Go to Skate"></button>
-        <button type="button" class="work-grid-dot" aria-label="Go to Tattoo"></button>
-        <button type="button" class="work-grid-dot" aria-label="Go to Matcha"></button>
-        <button type="button" class="work-grid-dot" aria-label="Go to Skate"></button>
-        <button type="button" class="work-grid-dot" aria-label="Go to Auto Repair"></button>
-        <button type="button" class="work-grid-dot" aria-label="Go to Beauty"></button>
+        <button type="button" class="work-grid-dot is-active" data-i18n-attr-aria-label="home.workDotEnergy" aria-label="Siirry kohtaan Energia"></button>
+        <button type="button" class="work-grid-dot" data-i18n-attr-aria-label="home.workDotSkate" aria-label="Siirry kohtaan Skeitti"></button>
+        <button type="button" class="work-grid-dot" data-i18n-attr-aria-label="home.workDotTattoo" aria-label="Siirry kohtaan Tatuointi"></button>
+        <button type="button" class="work-grid-dot" data-i18n-attr-aria-label="home.workDotMatcha" aria-label="Siirry kohtaan Matcha"></button>
+        <button type="button" class="work-grid-dot" data-i18n-attr-aria-label="home.workDotSkate" aria-label="Siirry kohtaan Skeitti"></button>
+        <button type="button" class="work-grid-dot" data-i18n-attr-aria-label="home.workDotAutoRepair" aria-label="Siirry kohtaan Autokorjaamo"></button>
+        <button type="button" class="work-grid-dot" data-i18n-attr-aria-label="home.workDotBeauty" aria-label="Siirry kohtaan Kauneus"></button>
       </div>
     </div>
   </section>
@@ -300,11 +321,11 @@
 
       <div class="section-header-row">
         <div class="section-header-text">
-          <p class="eyebrow">Content Creation</p>
-          <h2>Scroll-Stopping Content,<br>Made To Convert.</h2>
-          <p class="section-sub">We design ad creative that actually gets clicked — bold visuals, sharp copy, built for Meta and Google from day one. Here's a taste of what we create.</p>
+          <p class="eyebrow" data-i18n="home.contentCreationEyebrow">Sisällöntuotanto</p>
+          <h2 data-i18n="home.contentCreationHeading">Huomiota Pysäyttävää Sisältöä,<br>Joka Konvertoi.</h2>
+          <p class="section-sub" data-i18n="home.contentCreationSub">Suunnittelemme mainossisältöä, joka oikeasti saa klikkauksia — rohkeita visuaaleja ja terävää copya, rakennettu Metalle ja Googlelle alusta asti. Tässä maistiainen siitä, mitä teemme.</p>
         </div>
-        <a href="work.html#ad-creation" class="btn btn-primary btn-view-more">View More →</a>
+        <a href="work.html#ad-creation" class="btn btn-primary btn-view-more" data-i18n="home.contentCreationViewMore">Katso lisää →</a>
       </div>
 
       <!-- Infinite scroll belt — each row is 6 unique tiles followed by
@@ -323,12 +344,12 @@
       <div class="content-belt" data-reveal-group>
         <div class="belt-row belt-row--left" data-reveal-item>
           <div class="belt-track">
-            <div class="belt-tile"><img src="images/ad-frosty1.webp" alt="Frosty snowboard brand ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-frosty2.webp" alt="Frosty ski goggles brand ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-icecream.webp" alt="Ice cream bar ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-matcha.webp" alt="Kissho Matcha tea brand ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-milkshake.webp" alt="Vintage-style milkshake ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-sushi.webp" alt="Japanese sushi restaurant ad" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-frosty1.webp" data-i18n-attr-alt="home.beltAltFrosty1" alt="Frosty-lumilautabrändin mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-frosty2.webp" data-i18n-attr-alt="home.beltAltFrosty2" alt="Frosty-laskettelulasien mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-icecream.webp" data-i18n-attr-alt="home.beltAltIcecream" alt="Jäätelöpatukan mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-matcha.webp" data-i18n-attr-alt="home.beltAltMatcha" alt="Kissho Matcha -teebrändin mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-milkshake.webp" data-i18n-attr-alt="home.beltAltMilkshake" alt="Retrohenkisen pirtelön mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-sushi.webp" data-i18n-attr-alt="home.beltAltSushi" alt="Japanilaisen sushiravintolan mainos" loading="lazy"></div>
             <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty1.webp" alt="" loading="lazy"></div>
             <div class="belt-tile" aria-hidden="true"><img src="images/ad-frosty2.webp" alt="" loading="lazy"></div>
             <div class="belt-tile" aria-hidden="true"><img src="images/ad-icecream.webp" alt="" loading="lazy"></div>
@@ -346,12 +367,12 @@
 
         <div class="belt-row belt-row--right" data-reveal-item>
           <div class="belt-track">
-            <div class="belt-tile"><img src="images/ad-plumbing.webp" alt="24/7 plumbing services ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-sunglasses.webp" alt="Näkö sunglasses brand ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-sushi.webp" alt="Japanese sushi restaurant ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-tracker.webp" alt="Trackr GPS dog collar ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-construction.webp" alt="Construction and home-building ad" loading="lazy"></div>
-            <div class="belt-tile"><img src="images/ad-matcha.webp" alt="Kissho Matcha tea brand ad" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-plumbing.webp" data-i18n-attr-alt="home.beltAltPlumbing" alt="Ympärivuorokautisen putkiliikkeen mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-sunglasses.webp" data-i18n-attr-alt="home.beltAltSunglasses" alt="Näkö-aurinkolasibrändin mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-sushi.webp" data-i18n-attr-alt="home.beltAltSushi" alt="Japanilaisen sushiravintolan mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-tracker.webp" data-i18n-attr-alt="home.beltAltTracker" alt="Trackr GPS-koiranpannan mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-construction.webp" data-i18n-attr-alt="home.beltAltConstruction" alt="Rakennus- ja talonrakennusalan mainos" loading="lazy"></div>
+            <div class="belt-tile"><img src="images/ad-matcha.webp" data-i18n-attr-alt="home.beltAltMatcha" alt="Kissho Matcha -teebrändin mainos" loading="lazy"></div>
             <div class="belt-tile" aria-hidden="true"><img src="images/ad-plumbing.webp" alt="" loading="lazy"></div>
             <div class="belt-tile" aria-hidden="true"><img src="images/ad-sunglasses.webp" alt="" loading="lazy"></div>
             <div class="belt-tile" aria-hidden="true"><img src="images/ad-sushi.webp" alt="" loading="lazy"></div>
@@ -378,11 +399,11 @@
     <div class="container">
       <a href="work.html#ads" class="ads-teaser-card" data-reveal-item>
         <div class="ads-teaser-text">
-          <p class="eyebrow">Ads</p>
-          <h3>We run your ads too.</h3>
-          <p>Meta and Google campaigns, managed end to end — strategy, creative, and optimization included.</p>
+          <p class="eyebrow" data-i18n="home.adsTeaserEyebrow">Mainonta</p>
+          <h3 data-i18n="home.adsTeaserHeading">Hoidamme mainontasikin.</h3>
+          <p data-i18n="home.adsTeaserBody">Meta- ja Google-kampanjat hoidettuna alusta loppuun — strategia, mainosmateriaali ja optimointi sisältyvät hintaan.</p>
         </div>
-        <span class="ads-teaser-link">See how <span class="service-cta-arrow" aria-hidden="true">→</span></span>
+        <span class="ads-teaser-link"><span data-i18n="home.adsTeaserLink">Katso miten</span> <span class="service-cta-arrow" aria-hidden="true">→</span></span>
       </a>
     </div>
   </section>
@@ -396,9 +417,9 @@
   <section class="stats-section reveal-panel">
     <div class="container">
       <div class="stats-top">
-        <p class="eyebrow">By The Numbers</p>
-        <h2>Creative that hits.<br><span class="accent">Results that stick.</span></h2>
-        <p>We combine creativity and strategy to deliver real impact for your business.</p>
+        <p class="eyebrow" data-i18n="home.statsEyebrow">Numeroina</p>
+        <h2><span data-i18n="home.statsHeading">Luovuutta, joka osuu.</span><br><span class="accent" data-i18n="home.statsHeadingAccent">Tuloksia, jotka jäävät.</span></h2>
+        <p data-i18n="home.statsSub">Yhdistämme luovuuden ja strategian tuodaksemme aitoa vaikutusta liiketoiminnallesi.</p>
       </div>
 
       <div class="stats-grid" data-reveal-group>
@@ -413,8 +434,8 @@
               <line x1="12" y1="18" x2="12" y2="21"/>
             </svg>
           </span>
-          <span class="stat-number">100+</span>
-          <span class="stat-label">Sites shipped by our lead designer</span>
+          <span class="stat-number" data-i18n="home.stat1Number">100+</span>
+          <span class="stat-label" data-i18n="home.stat1Label">Verkkosivua pääsuunnittelijamme toteuttamana</span>
         </div>
 
         <div class="stat-card" data-reveal-item>
@@ -426,8 +447,8 @@
               <circle cx="15" cy="10" r="0.8" fill="currentColor" stroke="none"/>
             </svg>
           </span>
-          <span class="stat-number">75+</span>
-          <span class="stat-label">Happy clients</span>
+          <span class="stat-number" data-i18n="home.stat2Number">75+</span>
+          <span class="stat-label" data-i18n="home.stat2Label">Tyytyväistä asiakasta</span>
         </div>
 
         <div class="stat-card" data-reveal-item>
@@ -438,8 +459,8 @@
               <path d="M18.3 5a8.5 8.5 0 0 1 0 14"/>
             </svg>
           </span>
-          <span class="stat-number">1,000s</span>
-          <span class="stat-label">Ads created</span>
+          <span class="stat-number" data-i18n="home.stat3Number">1000+</span>
+          <span class="stat-label" data-i18n="home.stat3Label">Mainosta luotu</span>
         </div>
 
         <div class="stat-card" data-reveal-item>
@@ -449,8 +470,8 @@
               <polyline points="15,7 21,7 21,13"/>
             </svg>
           </span>
-          <span class="stat-number">3x</span>
-          <span class="stat-label">Average ROI increase</span>
+          <span class="stat-number" data-i18n="home.stat4Number">3x</span>
+          <span class="stat-label" data-i18n="home.stat4Label">Keskimääräinen ROI-kasvu</span>
         </div>
       </div>
     </div>
@@ -465,32 +486,33 @@
     <div class="container footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+        <p class="footer-tagline" data-i18n="common.footerTagline">Brändijärjestelmiä, verkkosivuja ja Meta/Google-mainoskampanjoita yrityksille, jotka eivät halua sulautua joukkoon.</p>
       </div>
 
       <nav class="footer-sitemap" aria-label="Footer">
-        <p class="footer-col-title">Sitemap</p>
-        <a href="services.html">Services</a>
-        <a href="work.html">Work</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <p class="footer-col-title" data-i18n="common.footerSitemapTitle">Sivukartta</p>
+        <a href="services.html" data-i18n="common.navServices">Palvelut</a>
+        <a href="work.html" data-i18n="common.navWork">Työt</a>
+        <a href="pricing.html" data-i18n="pricing.kicker">Hinnoittelu</a>
+        <a href="about.html" data-i18n="common.navAbout">Meistä</a>
+        <a href="contact.html" data-i18n="common.navContact">Yhteystiedot</a>
       </nav>
 
       <div class="footer-cta-col">
-        <p class="footer-col-title">Ready When You Are</p>
-        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+        <p class="footer-col-title" data-i18n="common.footerCtaTitle">Valmiina kun sinä olet</p>
+        <a href="contact.html" class="btn btn-primary" data-i18n="common.footerCtaButton">Jutellaan →</a>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
-      <a href="#top" class="footer-top-link">Back to top ↑</a>
+      <p class="mono-label" data-i18n="common.footerCopyright">© 2026 Doulve — Brändi / Verkko / Media</p>
+      <a href="#top" class="footer-top-link" data-i18n="common.footerBackToTop">Takaisin ylös ↑</a>
     </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

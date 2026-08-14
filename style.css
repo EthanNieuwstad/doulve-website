@@ -212,10 +212,17 @@ a {
   border-bottom: 1px solid var(--hairline-dark);
 }
 
+/* justify-content: flex-start (not space-between) plus margin-left: auto
+   on .nav below — with the language switcher now a third visible child
+   between .nav and .nav-toggle, space-between would spread all three
+   evenly apart instead of clustering nav/switcher/toggle together on
+   the right. The auto-margin gets the identical "logo left, everything
+   else right" result space-between used to give for free when .nav was
+   the only other child. */
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 18px 0;
   gap: 24px;
 }
@@ -256,6 +263,7 @@ a {
 .nav {
   display: flex;
   gap: 32px;
+  margin-left: auto;
 }
 
 .nav a {
@@ -333,6 +341,145 @@ a {
 
 .site-header.nav-open .nav-toggle span:nth-child(3) {
   transform: translateY(-7.5px) rotate(-45deg);
+}
+
+
+/* ============================================
+   3b. LANGUAGE SWITCHER — sits between the nav and the hamburger in
+   header-inner (see the .header-inner markup in every page), so it's
+   never inside the collapsing mobile nav and stays reachable on every
+   breakpoint, not just desktop. A white bordered "sticker" card for the
+   popup rather than a dark one — the header itself is already dark
+   green, so a dark popup would blend straight into it; white reads as
+   a clearly distinct floating element while still pulling from the
+   site's own palette (lime tab underline, orange/mint used elsewhere
+   the same way) rather than Chrome's blue.
+   ============================================ */
+.lang-switcher {
+  position: relative;
+}
+
+.lang-switcher-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px solid var(--hairline-dark);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.lang-switcher-toggle:hover,
+.lang-switcher-toggle[aria-expanded="true"] {
+  border-color: var(--mint);
+}
+
+.lang-switcher-toggle svg {
+  width: 15px;
+  height: 15px;
+  color: var(--mint);
+  flex-shrink: 0;
+}
+
+.lang-switcher-code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--white);
+}
+
+.lang-switcher-popup {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 30;
+  width: 200px;
+  background: var(--white);
+  border: 2.5px solid var(--ink-dark);
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.35);
+  padding: 14px;
+}
+
+.lang-switcher-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  color: var(--text-muted-cream);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lang-switcher-close:hover {
+  background: var(--cream);
+  color: var(--ink-text);
+}
+
+.lang-switcher-close svg {
+  width: 13px;
+  height: 13px;
+}
+
+.lang-switcher-tabs {
+  display: flex;
+  gap: 18px;
+  padding-right: 20px;
+}
+
+.lang-switcher-tab {
+  background: none;
+  border: none;
+  padding: 4px 0 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-muted-cream);
+  cursor: pointer;
+  position: relative;
+}
+
+.lang-switcher-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--lime);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.lang-switcher-tab:hover {
+  color: var(--ink-text);
+}
+
+.lang-switcher-tab.is-active {
+  color: var(--ink-text);
+  font-weight: 800;
+}
+
+.lang-switcher-tab.is-active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 640px) {
+  .lang-switcher-popup {
+    right: -8px;
+  }
 }
 
 
@@ -3576,11 +3723,17 @@ a.service-card:focus-visible .service-cta-arrow {
     column-gap: 14px;
   }
 
-  /* Pushes the toggle flush to the right edge, leaving the logo alone
-     on the left — the same visual result as the old space-between,
-     without needing it. */
-  .nav-toggle {
+  /* Pushes the switcher (and .nav-toggle right after it, via the normal
+     column-gap) flush to the right edge, leaving the logo alone on the
+     left — the same visual result as the old space-between, without
+     needing it. On .lang-switcher rather than .nav-toggle specifically
+     since the switcher now comes first in source order on this row
+     (.nav has order: 3, pushed to its own row below). */
+  .lang-switcher {
     margin-left: auto;
+  }
+
+  .nav-toggle {
     display: flex;
   }
 

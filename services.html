@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services — Doulve</title>
-  <meta name="description" content="Website design, Meta/Google ad campaigns, and content creation from Doulve.">
+  <title data-i18n="meta.services.title">Palvelut — Doulve</title>
+  <meta name="description" data-i18n-attr-content="meta.services.description" content="Verkkosivusuunnittelu, Meta/Google-mainoskampanjat ja sisällöntuotanto Doulvelta.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     </style>
   </noscript>
 </head>
-<body>
+<body data-i18n-page="services">
 
   <!-- ===== HEADER ===== -->
   <header class="site-header">
@@ -34,12 +34,29 @@
         DOULVE<span class="logo-chip" aria-hidden="true"></span>
       </a>
       <nav class="nav" id="site-nav">
-        <a href="services.html" class="is-current"><span>Services</span></a>
-        <a href="work.html"><span>Work</span></a>
-        <a href="about.html"><span>About</span></a>
-        <a href="contact.html"><span>Contact</span></a>
+        <a href="services.html" class="is-current"><span data-i18n="common.navServices">Palvelut</span></a>
+        <a href="work.html"><span data-i18n="common.navWork">Työt</span></a>
+        <a href="about.html"><span data-i18n="common.navAbout">Meistä</span></a>
+        <a href="contact.html"><span data-i18n="common.navContact">Yhteystiedot</span></a>
       </nav>
-      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+
+      <div class="lang-switcher">
+        <button type="button" class="lang-switcher-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr-aria-label="langSwitcher.toggleAria" aria-label="Vaihda kieltä">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9s1.3-6.5 3.8-9z"/></svg>
+          <span class="lang-switcher-code">FI</span>
+        </button>
+        <div class="lang-switcher-popup" hidden>
+          <button type="button" class="lang-switcher-close" data-i18n-attr-aria-label="langSwitcher.closeAria" aria-label="Sulje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
+          <div class="lang-switcher-tabs" role="tablist">
+            <button type="button" class="lang-switcher-tab is-active" data-lang="fi" role="tab" aria-selected="true" data-i18n="langSwitcher.suomi">Suomi</button>
+            <button type="button" class="lang-switcher-tab" data-lang="en" role="tab" aria-selected="false" data-i18n="langSwitcher.english">English</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="nav-toggle" data-i18n-attr-aria-label="common.navToggleAria" aria-label="Avaa valikko" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -48,14 +65,14 @@
   <!-- ===== PAGE HERO ===== -->
   <section id="top" class="page-hero">
     <div class="container">
-      <p class="kicker">What we do</p>
+      <p class="kicker" data-i18n="services.kicker">Mitä teemme</p>
       <h1 class="hero-headline">
-        <span class="line">Services</span>
+        <span class="line" data-i18n="services.heading">Palvelut</span>
       </h1>
       <div class="hero-foot">
-        <p class="hero-sub">
-          Website design, Meta/Google ad campaigns, and content creation —
-          three disciplines, one team, built to work together.
+        <p class="hero-sub" data-i18n="services.sub">
+          Verkkosivusuunnittelu, Meta/Google-mainoskampanjat ja sisällöntuotanto —
+          kolme osaamisalaa, yksi tiimi, rakennettu toimimaan yhdessä.
         </p>
       </div>
     </div>
@@ -66,29 +83,29 @@
     <div class="container">
       <div class="service-grid" data-reveal-group>
         <a href="pricing.html" class="service-card service-card--matcha" data-reveal-item>
-          <img class="service-photo service-photo--top" src="images/website-matcha.webp" alt="Kissho Matcha tea brand website design" loading="lazy" width="640" height="480">
+          <img class="service-photo service-photo--top" src="images/website-matcha.webp" data-i18n-attr-alt="services.card1Alt" alt="Kissho Matcha -teebrändin verkkosivusuunnittelu" loading="lazy" width="640" height="480">
           <div class="service-card-body">
-            <h3><span class="service-dot is-lime" aria-hidden="true"></span>Website Design</h3>
-            <p>Custom, high-converting websites designed to turn visitors into customers.</p>
-            <span class="service-cta is-lime">See pricing <span class="service-cta-arrow" aria-hidden="true">→</span></span>
+            <h3><span class="service-dot is-lime" aria-hidden="true"></span><span data-i18n="services.card1Title">Verkkosivusuunnittelu</span></h3>
+            <p data-i18n="services.card1Desc">Räätälöityjä, korkeasti konvertoivia verkkosivuja, jotka muuttavat kävijät asiakkaiksi.</p>
+            <span class="service-cta is-lime"><span data-i18n="common.seePricing">Katso hinnat</span> <span class="service-cta-arrow" aria-hidden="true">→</span></span>
           </div>
         </a>
 
         <a href="pricing.html" class="service-card service-card--sunglasses" data-reveal-item>
-          <img class="service-photo" src="images/ad-sunglasses.webp" alt="Näkö sunglasses brand ad" loading="lazy" width="640" height="480">
+          <img class="service-photo" src="images/ad-sunglasses.webp" data-i18n-attr-alt="services.card2Alt" alt="Näkö-aurinkolasibrändin mainos" loading="lazy" width="640" height="480">
           <div class="service-card-body">
-            <h3><span class="service-dot is-ink" aria-hidden="true"></span>Meta &amp; Google Ads</h3>
-            <p>Meta and Google ad campaigns engineered to reach the right audience and prove their ROI.</p>
-            <span class="service-cta is-ink">See pricing <span class="service-cta-arrow" aria-hidden="true">→</span></span>
+            <h3><span class="service-dot is-ink" aria-hidden="true"></span><span data-i18n="services.card2Title">Meta &amp; Google -mainonta</span></h3>
+            <p data-i18n="services.card2Desc">Meta- ja Google-mainoskampanjoita, jotka tavoittavat oikean yleisön ja todistavat tuottonsa.</p>
+            <span class="service-cta is-ink"><span data-i18n="common.seePricing">Katso hinnat</span> <span class="service-cta-arrow" aria-hidden="true">→</span></span>
           </div>
         </a>
 
         <a href="pricing.html" class="service-card service-card--frosty" data-reveal-item>
-          <img class="service-photo" src="images/ad-frosty2.webp" alt="Frosty ski goggles brand ad" loading="lazy" width="640" height="480">
+          <img class="service-photo" src="images/ad-frosty2.webp" data-i18n-attr-alt="services.card3Alt" alt="Frosty-laskettelulasien mainos" loading="lazy" width="640" height="480">
           <div class="service-card-body">
-            <h3><span class="service-dot is-orange" aria-hidden="true"></span>Content Creation</h3>
-            <p>Scroll-stopping ad creative and digital posters designed to convert.</p>
-            <span class="service-cta is-orange">See pricing <span class="service-cta-arrow" aria-hidden="true">→</span></span>
+            <h3><span class="service-dot is-orange" aria-hidden="true"></span><span data-i18n="services.card3Title">Sisällöntuotanto</span></h3>
+            <p data-i18n="services.card3Desc">Huomiota pysäyttävää mainosmateriaalia ja digitaalisia julisteita, jotka on suunniteltu konvertoimaan.</p>
+            <span class="service-cta is-orange"><span data-i18n="common.seePricing">Katso hinnat</span> <span class="service-cta-arrow" aria-hidden="true">→</span></span>
           </div>
         </a>
       </div>
@@ -104,32 +121,33 @@
     <div class="container footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+        <p class="footer-tagline" data-i18n="common.footerTagline">Brändijärjestelmiä, verkkosivuja ja Meta/Google-mainoskampanjoita yrityksille, jotka eivät halua sulautua joukkoon.</p>
       </div>
 
       <nav class="footer-sitemap" aria-label="Footer">
-        <p class="footer-col-title">Sitemap</p>
-        <a href="services.html">Services</a>
-        <a href="work.html">Work</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <p class="footer-col-title" data-i18n="common.footerSitemapTitle">Sivukartta</p>
+        <a href="services.html" data-i18n="common.navServices">Palvelut</a>
+        <a href="work.html" data-i18n="common.navWork">Työt</a>
+        <a href="pricing.html" data-i18n="pricing.kicker">Hinnoittelu</a>
+        <a href="about.html" data-i18n="common.navAbout">Meistä</a>
+        <a href="contact.html" data-i18n="common.navContact">Yhteystiedot</a>
       </nav>
 
       <div class="footer-cta-col">
-        <p class="footer-col-title">Ready When You Are</p>
-        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+        <p class="footer-col-title" data-i18n="common.footerCtaTitle">Valmiina kun sinä olet</p>
+        <a href="contact.html" class="btn btn-primary" data-i18n="common.footerCtaButton">Jutellaan →</a>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
-      <a href="#top" class="footer-top-link">Back to top ↑</a>
+      <p class="mono-label" data-i18n="common.footerCopyright">© 2026 Doulve — Brändi / Verkko / Media</p>
+      <a href="#top" class="footer-top-link" data-i18n="common.footerBackToTop">Takaisin ylös ↑</a>
     </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

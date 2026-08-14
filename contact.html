@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — Doulve</title>
-  <meta name="description" content="Get in touch with Doulve about a website, branding, or Meta/Google ad project.">
+  <title data-i18n="meta.contact.title">Yhteystiedot — Doulve</title>
+  <meta name="description" data-i18n-attr-content="meta.contact.description" content="Ota yhteyttä Doulveen verkkosivu-, brändi- tai Meta/Google-mainosprojektista.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
     </style>
   </noscript>
 </head>
-<body>
+<body data-i18n-page="contact">
 
   <!-- ===== HEADER ===== -->
   <header class="site-header">
@@ -33,12 +33,29 @@
         DOULVE<span class="logo-chip" aria-hidden="true"></span>
       </a>
       <nav class="nav" id="site-nav">
-        <a href="services.html"><span>Services</span></a>
-        <a href="work.html"><span>Work</span></a>
-        <a href="about.html"><span>About</span></a>
-        <a href="contact.html" class="is-current"><span>Contact</span></a>
+        <a href="services.html"><span data-i18n="common.navServices">Palvelut</span></a>
+        <a href="work.html"><span data-i18n="common.navWork">Työt</span></a>
+        <a href="about.html"><span data-i18n="common.navAbout">Meistä</span></a>
+        <a href="contact.html" class="is-current"><span data-i18n="common.navContact">Yhteystiedot</span></a>
       </nav>
-      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+
+      <div class="lang-switcher">
+        <button type="button" class="lang-switcher-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr-aria-label="langSwitcher.toggleAria" aria-label="Vaihda kieltä">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9s1.3-6.5 3.8-9z"/></svg>
+          <span class="lang-switcher-code">FI</span>
+        </button>
+        <div class="lang-switcher-popup" hidden>
+          <button type="button" class="lang-switcher-close" data-i18n-attr-aria-label="langSwitcher.closeAria" aria-label="Sulje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
+          <div class="lang-switcher-tabs" role="tablist">
+            <button type="button" class="lang-switcher-tab is-active" data-lang="fi" role="tab" aria-selected="true" data-i18n="langSwitcher.suomi">Suomi</button>
+            <button type="button" class="lang-switcher-tab" data-lang="en" role="tab" aria-selected="false" data-i18n="langSwitcher.english">English</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="nav-toggle" data-i18n-attr-aria-label="common.navToggleAria" aria-label="Avaa valikko" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -47,13 +64,13 @@
   <!-- ===== PAGE HERO ===== -->
   <section id="top" class="page-hero">
     <div class="container">
-      <p class="kicker">Get In Touch</p>
+      <p class="kicker" data-i18n="contact.kicker">Ota Yhteyttä</p>
       <h1 class="hero-headline">
-        <span class="line">Let's build something.</span>
+        <span class="line" data-i18n="contact.heading">Rakennetaan jotain.</span>
       </h1>
       <div class="hero-foot">
-        <p class="hero-sub">
-          Tell us about your project below — no jargon, no 40-page brief required. We'll get back to you within 1-2 business days.
+        <p class="hero-sub" data-i18n="contact.sub">
+          Kerro meille projektistasi alla — ei ammattislangia, ei 40-sivuista briiffiä. Vastaamme sinulle 1–2 arkipäivän kuluessa.
         </p>
       </div>
     </div>
@@ -68,58 +85,61 @@
              itself instead of a separate alternative-contact block. -->
         <div class="contact-form-card" data-reveal-group>
           <div class="contact-form-wrap" data-reveal-item>
-            <p class="eyebrow">Get In Touch</p>
+            <p class="eyebrow" data-i18n="contact.formEyebrow">Ota Yhteyttä</p>
 
             <!-- action/method are a real Formspree endpoint so this still
                  works via a plain POST + redirect if JS never loads;
                  script.js's initContactForm() intercepts submit and does
                  an AJAX POST instead whenever JS is available, so the
-                 success state below shows in place with no page reload. -->
+                 success state below shows in place with no page reload.
+                 Validation/status strings are pulled from lang/*.json at
+                 runtime via window.doulveI18n.t() in script.js — see the
+                 contact.error*/sending/errorGeneric keys there. -->
             <form id="contact-form" class="contact-form" action="https://formspree.io/f/xrenwlgr" method="POST" novalidate>
               <div class="field">
-                <label for="name">Name</label>
+                <label for="name" data-i18n="contact.labelName">Nimi</label>
                 <input type="text" id="name" name="name" autocomplete="name" required>
                 <span class="field-error" id="error-name"></span>
               </div>
 
               <div class="field-row">
                 <div class="field">
-                  <label for="email">Email</label>
+                  <label for="email" data-i18n="contact.labelEmail">Sähköposti</label>
                   <input type="email" id="email" name="email" autocomplete="email" required>
                   <span class="field-error" id="error-email"></span>
                 </div>
 
                 <div class="field">
-                  <label for="company">Company / Business <span class="field-optional">(optional)</span></label>
+                  <label for="company"><span data-i18n="contact.labelCompany">Yritys</span> <span class="field-optional" data-i18n="contact.optionalTag">(valinnainen)</span></label>
                   <input type="text" id="company" name="company" autocomplete="organization">
                 </div>
               </div>
 
               <fieldset class="field">
-                <legend>Project Type</legend>
+                <legend data-i18n="contact.legendProjectType">Projektin Tyyppi</legend>
                 <div class="chip-group">
                   <span class="chip-option">
                     <input type="radio" class="chip-input" id="type-website" name="project_type" value="Website" required>
-                    <label for="type-website" class="chip">Website</label>
+                    <label for="type-website" class="chip" data-i18n="contact.chipWebsite">Verkkosivu</label>
                   </span>
                   <span class="chip-option">
                     <input type="radio" class="chip-input" id="type-branding" name="project_type" value="Branding">
-                    <label for="type-branding" class="chip">Branding</label>
+                    <label for="type-branding" class="chip" data-i18n="contact.chipBranding">Brändäys</label>
                   </span>
                   <span class="chip-option">
                     <input type="radio" class="chip-input" id="type-ads" name="project_type" value="Meta &amp; Google Ads">
-                    <label for="type-ads" class="chip">Meta &amp; Google Ads</label>
+                    <label for="type-ads" class="chip" data-i18n="contact.chipAds">Meta &amp; Google -mainonta</label>
                   </span>
                   <span class="chip-option">
                     <input type="radio" class="chip-input" id="type-unsure" name="project_type" value="Not sure yet">
-                    <label for="type-unsure" class="chip">Not Sure Yet</label>
+                    <label for="type-unsure" class="chip" data-i18n="contact.chipUnsure">En Vielä Tiedä</label>
                   </span>
                 </div>
                 <span class="field-error" id="error-project_type"></span>
               </fieldset>
 
               <div class="field">
-                <label for="message">Project Details</label>
+                <label for="message" data-i18n="contact.labelMessage">Projektin Kuvaus</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
                 <span class="field-error" id="error-message"></span>
               </div>
@@ -129,18 +149,18 @@
                    every field trip this; script.js silently drops the
                    submission if it's non-empty rather than sending it on. -->
               <div class="field-honeypot" aria-hidden="true">
-                <label for="website-url">Leave this field empty</label>
+                <label for="website-url" data-i18n="contact.honeypotLabel">Jätä tämä kenttä tyhjäksi</label>
                 <input type="text" id="website-url" name="website_url" tabindex="-1" autocomplete="off">
               </div>
 
-              <button type="submit" class="btn btn-primary">Send Message →</button>
+              <button type="submit" class="btn btn-primary" data-i18n="contact.submitButton">Lähetä Viesti →</button>
               <p class="form-status" id="form-status" role="alert"></p>
             </form>
 
             <div class="form-success" id="form-success" hidden>
               <svg class="form-success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="8,12.5 11,15.5 16,9"/></svg>
-              <h2>Message sent.</h2>
-              <p>Thanks for reaching out — we'll get back to you within 1-2 business days.</p>
+              <h2 data-i18n="contact.successHeading">Viesti lähetetty.</h2>
+              <p data-i18n="contact.successBody">Kiitos yhteydenotostasi — vastaamme sinulle 1–2 arkipäivän kuluessa.</p>
             </div>
           </div>
         </div>
@@ -157,32 +177,33 @@
     <div class="container footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+        <p class="footer-tagline" data-i18n="common.footerTagline">Brändijärjestelmiä, verkkosivuja ja Meta/Google-mainoskampanjoita yrityksille, jotka eivät halua sulautua joukkoon.</p>
       </div>
 
       <nav class="footer-sitemap" aria-label="Footer">
-        <p class="footer-col-title">Sitemap</p>
-        <a href="services.html">Services</a>
-        <a href="work.html">Work</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <p class="footer-col-title" data-i18n="common.footerSitemapTitle">Sivukartta</p>
+        <a href="services.html" data-i18n="common.navServices">Palvelut</a>
+        <a href="work.html" data-i18n="common.navWork">Työt</a>
+        <a href="pricing.html" data-i18n="pricing.kicker">Hinnoittelu</a>
+        <a href="about.html" data-i18n="common.navAbout">Meistä</a>
+        <a href="contact.html" data-i18n="common.navContact">Yhteystiedot</a>
       </nav>
 
       <div class="footer-cta-col">
-        <p class="footer-col-title">Ready When You Are</p>
-        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+        <p class="footer-col-title" data-i18n="common.footerCtaTitle">Valmiina kun sinä olet</p>
+        <a href="contact.html" class="btn btn-primary" data-i18n="common.footerCtaButton">Jutellaan →</a>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
-      <a href="#top" class="footer-top-link">Back to top ↑</a>
+      <p class="mono-label" data-i18n="common.footerCopyright">© 2026 Doulve — Brändi / Verkko / Media</p>
+      <a href="#top" class="footer-top-link" data-i18n="common.footerBackToTop">Takaisin ylös ↑</a>
     </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

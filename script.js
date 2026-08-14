@@ -624,15 +624,20 @@ if (navToggle && siteHeader) {
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  // Reads the active-language string from i18n.js (loaded before this file
+  // on every page — see the <script> order in contact.html). Falls back to
+  // the raw key only if i18n.js somehow isn't present, so this never throws.
+  const t = (key) => (window.doulveI18n ? window.doulveI18n.t(key) : key);
+
   const validators = {
-    name: (v) => (v.trim() ? '' : 'Enter your name.'),
+    name: (v) => (v.trim() ? '' : t('contact.errorName')),
     email: (v) => {
-      if (!v.trim()) return 'Enter your email.';
-      if (!EMAIL_RE.test(v.trim())) return 'Enter a valid email address.';
+      if (!v.trim()) return t('contact.errorEmail');
+      if (!EMAIL_RE.test(v.trim())) return t('contact.errorEmailInvalid');
       return '';
     },
-    project_type: () => (form.querySelector('input[name="project_type"]:checked') ? '' : 'Pick one option.'),
-    message: (v) => (v.trim() ? '' : 'Tell us a bit about the project.'),
+    project_type: () => (form.querySelector('input[name="project_type"]:checked') ? '' : t('contact.errorProjectType')),
+    message: (v) => (v.trim() ? '' : t('contact.errorMessage')),
   };
 
   function fieldWrap(name) {
@@ -670,7 +675,7 @@ if (navToggle && siteHeader) {
 
     const results = Object.keys(validators).map(validateField);
     if (results.includes(false)) {
-      statusEl.textContent = 'Please fix the highlighted fields above.';
+      statusEl.textContent = t('contact.errorFixFields');
       statusEl.classList.remove('is-pending');
       const firstInvalid = form.querySelector('.has-error input, .has-error textarea, .has-error .chip-input');
       if (firstInvalid) firstInvalid.focus();
@@ -688,7 +693,7 @@ if (navToggle && siteHeader) {
       return;
     }
 
-    statusEl.textContent = 'Sending…';
+    statusEl.textContent = t('contact.sending');
     statusEl.classList.add('is-pending');
     submitBtn.disabled = true;
 
@@ -704,7 +709,7 @@ if (navToggle && siteHeader) {
           successEl.setAttribute('tabindex', '-1');
           successEl.focus();
         } else {
-          statusEl.textContent = 'Something went wrong — please try again, or email us directly at doulve.studios@gmail.com.';
+          statusEl.textContent = t('contact.errorGeneric');
           statusEl.classList.remove('is-pending');
           submitBtn.disabled = false;
         }

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — Doulve</title>
-  <meta name="description" content="Why Doulve exists: one team across web, branding, and Meta/Google ads, built for real small-to-mid-size budgets, not enterprise ones.">
+  <title data-i18n="meta.about.title">Meistä — Doulve</title>
+  <meta name="description" data-i18n-attr-content="meta.about.description" content="Miksi Doulve on olemassa: yksi tiimi verkon, brändäyksen ja Meta/Google-mainonnan takana — rakennettu oikeille pienille ja keskisuurille budjeteille, ei suuryrityksille.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
     </style>
   </noscript>
 </head>
-<body>
+<body data-i18n-page="about">
 
   <!-- ===== HEADER ===== -->
   <header class="site-header">
@@ -33,12 +33,29 @@
         DOULVE<span class="logo-chip" aria-hidden="true"></span>
       </a>
       <nav class="nav" id="site-nav">
-        <a href="services.html"><span>Services</span></a>
-        <a href="work.html"><span>Work</span></a>
-        <a href="about.html" class="is-current"><span>About</span></a>
-        <a href="contact.html"><span>Contact</span></a>
+        <a href="services.html"><span data-i18n="common.navServices">Palvelut</span></a>
+        <a href="work.html"><span data-i18n="common.navWork">Työt</span></a>
+        <a href="about.html" class="is-current"><span data-i18n="common.navAbout">Meistä</span></a>
+        <a href="contact.html"><span data-i18n="common.navContact">Yhteystiedot</span></a>
       </nav>
-      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+
+      <div class="lang-switcher">
+        <button type="button" class="lang-switcher-toggle" aria-haspopup="true" aria-expanded="false" data-i18n-attr-aria-label="langSwitcher.toggleAria" aria-label="Vaihda kieltä">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9s1.3-6.5 3.8-9z"/></svg>
+          <span class="lang-switcher-code">FI</span>
+        </button>
+        <div class="lang-switcher-popup" hidden>
+          <button type="button" class="lang-switcher-close" data-i18n-attr-aria-label="langSwitcher.closeAria" aria-label="Sulje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
+          <div class="lang-switcher-tabs" role="tablist">
+            <button type="button" class="lang-switcher-tab is-active" data-lang="fi" role="tab" aria-selected="true" data-i18n="langSwitcher.suomi">Suomi</button>
+            <button type="button" class="lang-switcher-tab" data-lang="en" role="tab" aria-selected="false" data-i18n="langSwitcher.english">English</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="nav-toggle" data-i18n-attr-aria-label="common.navToggleAria" aria-label="Avaa valikko" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -47,18 +64,18 @@
   <!-- ===== ACT ONE: HERO / POINT OF VIEW ===== -->
   <section id="top" class="about-hero">
     <div class="container about-hero-inner">
-      <p class="kicker">Why Doulve</p>
+      <p class="kicker" data-i18n="about.kicker">Miksi Doulve</p>
       <h1 class="hero-headline about-hero-headline">
-        <span class="line">Most Agencies</span>
-        <span class="line">Overthink It.</span>
-        <span class="line">We Just Build It.</span>
+        <span class="line" data-i18n="about.heroLine1">Useimmat Toimistot</span>
+        <span class="line" data-i18n="about.heroLine2">Yliajattelevat Asian.</span>
+        <span class="line" data-i18n="about.heroLine3">Me Vain Rakennamme Sen.</span>
       </h1>
       <div class="hero-foot">
-        <p class="hero-sub">
-          One team — web, branding, and ad campaigns — run by people who've actually done the work, not just billed for it.
+        <p class="hero-sub" data-i18n="about.heroSub">
+          Yksi tiimi — verkkosivut, brändäys ja mainoskampanjat — ihmisten pyörittämänä, jotka ovat oikeasti tehneet työn, eivät vain laskuttaneet siitä.
         </p>
         <div class="hero-actions">
-          <a href="work.html" class="btn btn-primary">See Our Work →</a>
+          <a href="work.html" class="btn btn-primary" data-i18n="about.seeOurWork">Katso Töitämme →</a>
         </div>
       </div>
     </div>
@@ -72,14 +89,14 @@
     <div class="container">
       <div class="origin-panel">
         <div class="origin-photo-wrap">
-          <img class="origin-photo" src="images/ad-doulve.webp" alt="Doulve founder behind the scenes on set" loading="lazy" width="864" height="1217">
+          <img class="origin-photo" src="images/ad-doulve.webp" data-i18n-attr-alt="about.originPhotoAlt" alt="Doulven perustaja kuvauksissa kulissien takana" loading="lazy" width="864" height="1217">
         </div>
         <div class="origin-inner">
-          <p class="eyebrow">How This Started</p>
-          <h2>Built By Someone Who Was Already In The Trenches.</h2>
-          <p class="origin-lede">Doulve didn't start in a boardroom — it started behind a camera and inside an ads dashboard.</p>
-          <p class="origin-body">Five years before Doulve existed, its founder was already shooting content and running ad campaigns for other people's brands — freelance, agency-side, wherever the work was. That's five years of watching what actually moves the needle for a business, and what's just billable busywork.</p>
-          <p class="origin-body">Doulve exists because most small and mid-sized businesses get stuck choosing between agencies priced for enterprise budgets, or freelancers who can only hand you one piece of the puzzle. We built the thing we wished existed: one team, real production experience, and pricing that assumes you're an actual small business — not a Fortune 500 subsidiary.</p>
+          <p class="eyebrow" data-i18n="about.originEyebrow">Näin Tämä Alkoi</p>
+          <h2 data-i18n="about.originHeading">Rakennettu Jonkun Toimesta, Joka Oli Jo Rintamalla.</h2>
+          <p class="origin-lede" data-i18n="about.originLede">Doulve ei syntynyt neuvotteluhuoneessa — se syntyi kameran takana ja mainostilien sisällä.</p>
+          <p class="origin-body" data-i18n="about.originBody1">Viisi vuotta ennen Doulven syntyä sen perustaja kuvasi jo sisältöä ja pyöritti mainoskampanjoita muiden brändeille — freelancerina, toimistopuolella, missä ikinä työtä riitti. Viisi vuotta sen näkemistä, mikä oikeasti vie yritystä eteenpäin ja mikä on vain laskutettavaa puuhastelua.</p>
+          <p class="origin-body" data-i18n="about.originBody2">Doulve on olemassa, koska useimmat pienet ja keskisuuret yritykset jäävät valitsemaan suuryritysbudjeteille hinnoiteltujen toimistojen ja vain yhden palasen tarjoavien freelancerien väliltä. Rakensimme sen, mitä itse toivoimme olevan olemassa: yhden tiimin, aidon tuotantokokemuksen ja hinnoittelun, joka olettaa sinun olevan oikea pieni yritys — ei Fortune 500 -konsernin tytäryhtiö.</p>
 
           <!-- data-count-to's target matches the number already sitting in
                the element — script.js's initStatCounters() only replaces it
@@ -90,15 +107,15 @@
           <div class="origin-stats" data-reveal-group>
             <div class="origin-stat" data-reveal-item>
               <span class="origin-stat-number"><span data-count-to="5" data-count-duration="1.4">5</span>+</span>
-              <span class="origin-stat-label">Years in content &amp; ad campaigns</span>
+              <span class="origin-stat-label" data-i18n="about.originStat1Label">Vuotta sisällöntuotannossa ja mainoskampanjoissa</span>
             </div>
             <div class="origin-stat" data-reveal-item>
               <span class="origin-stat-number"><span data-count-to="100" data-count-duration="1.8">100</span>+</span>
-              <span class="origin-stat-label">Projects shipped</span>
+              <span class="origin-stat-label" data-i18n="about.originStat2Label">Julkaistua projektia</span>
             </div>
             <div class="origin-stat" data-reveal-item>
               <span class="origin-stat-number"><span data-count-to="3" data-count-duration="1.1">3</span></span>
-              <span class="origin-stat-label">Disciplines, one roof</span>
+              <span class="origin-stat-label" data-i18n="about.originStat3Label">Osaamisalaa, yksi katto</span>
             </div>
           </div>
         </div>
@@ -111,34 +128,34 @@
     <div class="container">
       <svg class="section-doodle" style="top: 6%; right: 8%; width: 24px; color: var(--mint);" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
 
-      <p class="eyebrow">Why Not Just Hire An Agency?</p>
-      <h2>Here's What Usually<br>Goes Wrong.</h2>
-      <p class="section-sub">Most agencies aren't broken on purpose. They're just built for a different kind of client than you.</p>
+      <p class="eyebrow" data-i18n="about.diffEyebrow">Mikset Vain Palkkaisi Toimistoa?</p>
+      <h2 data-i18n="about.diffHeading">Näin Yleensä<br>Käy Pieleen.</h2>
+      <p class="section-sub" data-i18n="about.diffSub">Useimmat toimistot eivät ole huonoja tarkoituksella. Ne on vain rakennettu erilaiselle asiakkaalle kuin sinä.</p>
 
       <div class="diff-table" data-reveal-group>
         <div class="diff-row diff-row--head" aria-hidden="true">
-          <span class="diff-label diff-label--old">The Old Way</span>
-          <span class="diff-label diff-label--new">The Doulve Way</span>
+          <span class="diff-label diff-label--old" data-i18n="about.diffOldLabel">Vanha Tapa</span>
+          <span class="diff-label diff-label--new" data-i18n="about.diffNewLabel">Doulve-tapa</span>
         </div>
 
         <div class="diff-row" data-reveal-item>
-          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>Three vendors for web, brand, and ads — none of them talking to each other.</p>
-          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg>One team across web, branding, and ads — one conversation, not three.</p>
+          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg><span data-i18n="about.diffRow1Old">Kolme eri toimittajaa verkolle, brändille ja mainonnalle — kukaan ei puhu toisilleen.</span></p>
+          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg><span data-i18n="about.diffRow1New">Yksi tiimi verkolle, brändäykselle ja mainonnalle — yksi keskustelu, ei kolmea.</span></p>
         </div>
 
         <div class="diff-row" data-reveal-item>
-          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>Pricing built for enterprise marketing budgets.</p>
-          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg>Pricing built for real small-to-mid-size budgets.</p>
+          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg><span data-i18n="about.diffRow2Old">Hinnoittelu rakennettu suuryritysten markkinointibudjeteille.</span></p>
+          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg><span data-i18n="about.diffRow2New">Hinnoittelu rakennettu oikeille pienten ja keskisuurten yritysten budjeteille.</span></p>
         </div>
 
         <div class="diff-row" data-reveal-item>
-          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>Weeks of back-and-forth for a single revision.</p>
-          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg>Direct feedback, fast turnarounds.</p>
+          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg><span data-i18n="about.diffRow3Old">Viikkoja edestakaista viestittelyä yhden muutoksen takia.</span></p>
+          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg><span data-i18n="about.diffRow3New">Suoraa palautetta, nopeita toimitusaikoja.</span></p>
         </div>
 
         <div class="diff-row" data-reveal-item>
-          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>Templates dressed up as "custom work."</p>
-          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg>Bold creative built from scratch, every time.</p>
+          <p class="diff-old"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg><span data-i18n="about.diffRow4Old">Valmispohjia naamioituna &quot;räätälöidyksi työksi.&quot;</span></p>
+          <p class="diff-new"><svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,13 9,18 20,6"/></svg><span data-i18n="about.diffRow4New">Rohkeaa mainosmateriaalia rakennettuna tyhjästä, joka kerta.</span></p>
         </div>
       </div>
     </div>
@@ -147,30 +164,30 @@
   <!-- ===== ACT FOUR: PROCESS ===== -->
   <section class="process-section reveal-panel">
     <div class="container">
-      <p class="eyebrow">How A Project Runs</p>
-      <h2>From First Call<br>To Launch Day.</h2>
-      <p class="section-sub">No 40-page discovery decks. No disappearing for six weeks. Here's what actually happens.</p>
+      <p class="eyebrow" data-i18n="about.processEyebrow">Näin Projekti Etenee</p>
+      <h2 data-i18n="about.processHeading">Ensipuhelusta<br>Julkaisupäivään.</h2>
+      <p class="section-sub" data-i18n="about.processSub">Ei 40-sivuisia esiselvityksiä. Ei kuuden viikon katoamisia. Näin oikeasti tapahtuu.</p>
 
       <div class="process-track" data-reveal-group>
         <div class="process-step" data-reveal-item>
           <span class="process-number">01</span>
-          <h3>Discover</h3>
-          <p>A real conversation about your business, your goals, and your budget — not a questionnaire.</p>
+          <h3 data-i18n="about.process1Title">Kartoitus</h3>
+          <p data-i18n="about.process1Desc">Oikea keskustelu liiketoiminnastasi, tavoitteistasi ja budjetistasi — ei kyselylomake.</p>
         </div>
         <div class="process-step" data-reveal-item>
           <span class="process-number">02</span>
-          <h3>Build</h3>
-          <p>Website, brand, and ad creative built in parallel, shared as it comes together — not hidden until "done."</p>
+          <h3 data-i18n="about.process2Title">Rakennus</h3>
+          <p data-i18n="about.process2Desc">Verkkosivu, brändi ja mainosmateriaali rakennetaan rinnakkain ja jaetaan sitä mukaa kun ne valmistuvat — ei piilotella &quot;valmiiksi&quot; asti.</p>
         </div>
         <div class="process-step" data-reveal-item>
           <span class="process-number">03</span>
-          <h3>Launch</h3>
-          <p>Site, brand, and campaigns go live together, not staggered over months.</p>
+          <h3 data-i18n="about.process3Title">Julkaisu</h3>
+          <p data-i18n="about.process3Desc">Sivusto, brändi ja kampanjat julkaistaan yhdessä — ei kuukausien mittaan pätkittäin.</p>
         </div>
         <div class="process-step" data-reveal-item>
           <span class="process-number">04</span>
-          <h3>Grow</h3>
-          <p>Ongoing optimization and reporting you can actually understand — no jargon required.</p>
+          <h3 data-i18n="about.process4Title">Kasvu</h3>
+          <p data-i18n="about.process4Desc">Jatkuvaa optimointia ja raportointia, jota oikeasti ymmärrät — ei ammattislangia.</p>
         </div>
       </div>
     </div>
@@ -184,12 +201,12 @@
           <img class="founder-photo" src="https://picsum.photos/seed/doulve-founder/700/840" alt="" loading="lazy" width="700" height="840">
         </div>
         <div class="founder-inner">
-          <p class="eyebrow">Who's Behind This</p>
-          <h2>One Team. One Point Of Contact. Every Time.</h2>
-          <blockquote class="founder-quote">
-            "I spent five years making other people's campaigns work. Doulve is what happens when that experience gets pointed at your business instead of someone else's."
+          <p class="eyebrow" data-i18n="about.founderEyebrow">Kuka Tämän Takana On</p>
+          <h2 data-i18n="about.founderHeading">Yksi Tiimi. Yksi Yhteyshenkilö. Joka Kerta.</h2>
+          <blockquote class="founder-quote" data-i18n="about.founderQuote">
+            &quot;Vietin viisi vuotta saaden muiden kampanjat toimimaan. Doulve syntyy, kun se kokemus suunnataan sinun liiketoimintaasi jonkun toisen sijaan.&quot;
           </blockquote>
-          <p class="founder-attribution">— Founder, Doulve</p>
+          <p class="founder-attribution" data-i18n="about.founderAttribution">— Perustaja, Doulve</p>
         </div>
       </div>
     </div>
@@ -204,32 +221,33 @@
     <div class="container footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo logo--small">DOULVE<span class="logo-chip" aria-hidden="true"></span></a>
-        <p class="footer-tagline">Brand systems, websites, and Meta/Google ad campaigns for companies who'd rather not blend in.</p>
+        <p class="footer-tagline" data-i18n="common.footerTagline">Brändijärjestelmiä, verkkosivuja ja Meta/Google-mainoskampanjoita yrityksille, jotka eivät halua sulautua joukkoon.</p>
       </div>
 
       <nav class="footer-sitemap" aria-label="Footer">
-        <p class="footer-col-title">Sitemap</p>
-        <a href="services.html">Services</a>
-        <a href="work.html">Work</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <p class="footer-col-title" data-i18n="common.footerSitemapTitle">Sivukartta</p>
+        <a href="services.html" data-i18n="common.navServices">Palvelut</a>
+        <a href="work.html" data-i18n="common.navWork">Työt</a>
+        <a href="pricing.html" data-i18n="pricing.kicker">Hinnoittelu</a>
+        <a href="about.html" data-i18n="common.navAbout">Meistä</a>
+        <a href="contact.html" data-i18n="common.navContact">Yhteystiedot</a>
       </nav>
 
       <div class="footer-cta-col">
-        <p class="footer-col-title">Ready When You Are</p>
-        <a href="contact.html" class="btn btn-primary">Let's Talk →</a>
+        <p class="footer-col-title" data-i18n="common.footerCtaTitle">Valmiina kun sinä olet</p>
+        <a href="contact.html" class="btn btn-primary" data-i18n="common.footerCtaButton">Jutellaan →</a>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <p class="mono-label">© 2026 Doulve — Brand / Web / Media</p>
-      <a href="#top" class="footer-top-link">Back to top ↑</a>
+      <p class="mono-label" data-i18n="common.footerCopyright">© 2026 Doulve — Brändi / Verkko / Media</p>
+      <a href="#top" class="footer-top-link" data-i18n="common.footerBackToTop">Takaisin ylös ↑</a>
     </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

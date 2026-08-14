@@ -295,11 +295,6 @@ a {
   transform: scaleX(1);
 }
 
-.header-inner .btn {
-  padding: 12px 26px;
-  font-size: 0.85rem;
-}
-
 /* Hamburger — hidden entirely on desktop (display:none removes it from the
    header-inner flex layout completely, so it has zero effect on the
    logo/nav/button space-between arrangement above this breakpoint). Only
@@ -1906,34 +1901,6 @@ a.service-card:focus-visible .service-cta-arrow {
 }
 
 
-/* Homepage-style contact TEASER — single-column, centered, no form. Still
-   used by the inner pages' closing CTA sections (services/work/about). */
-.contact-teaser {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 80px 64px;
-  text-align: center;
-}
-
-.contact-teaser .eyebrow {
-  display: block;
-}
-
-.contact-teaser h2 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  margin: 4px 0 20px;
-  color: var(--white);
-}
-
-.contact-teaser .contact-note {
-  margin: 0 auto 32px;
-}
-
-.contact-teaser .btn-primary {
-  display: inline-block;
-}
-
-
 /* ============================================
    8b. PRICING
    ============================================ */
@@ -2719,38 +2686,6 @@ a.service-card:focus-visible .service-cta-arrow {
   line-height: 1.4;
 }
 
-.stats-cta-row {
-  margin-top: 44px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.stats-cta {
-  background: var(--mint);
-  color: var(--ink-dark);
-  border-radius: 20px;
-  padding: 22px 30px;
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 1rem;
-  line-height: 1.3;
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-.stats-cta:hover {
-  transform: translateY(-2px);
-}
-
-.stats-cta .accent {
-  font-family: var(--font-marker);
-  color: var(--orange);
-  text-transform: none;
-  font-weight: 400;
-}
-
-
 /* ============================================
    10. FOOTER — a distinct cool near-black (--footer-ink, NOT the
    green --ink-dark the rest of the dark sections share), so it reads
@@ -2891,7 +2826,6 @@ a.service-card:focus-visible .service-cta-arrow {
 .motion-disabled [data-reveal-item],
 .motion-disabled .about-inner > *,
 .motion-disabled .about-photo,
-.motion-disabled .contact-intro > *,
 .motion-disabled .contact-form .field,
 .motion-disabled .contact-form button {
   opacity: 1 !important;
@@ -3157,27 +3091,7 @@ a.service-card:focus-visible .service-cta-arrow {
   transform: scale(1.35);
 }
 
-/* ---- Section 3: ads — scroll-stopping ad creative belt + close ---- */
-
-.ads-cta {
-  margin-top: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-  padding-top: 36px;
-  border-top: 1px solid var(--hairline-dark);
-}
-
-.ads-cta p {
-  font-family: var(--font-display);
-  font-weight: 800;
-  color: var(--white);
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  max-width: 22ch;
-}
+/* ---- Section 3: ads — scroll-stopping ad creative belt ---- */
 
 @media (prefers-reduced-motion: reduce) {
   .web-showcase-track {
@@ -3634,19 +3548,13 @@ a.service-card:focus-visible .service-cta-arrow {
     gap: 20px;
   }
 
-  .ads-cta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .ads-teaser-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
   }
 
-  .contact-inner,
-  .contact-teaser {
+  .contact-inner {
     padding: 56px 0;
   }
 
@@ -3655,17 +3563,12 @@ a.service-card:focus-visible .service-cta-arrow {
     gap: 24px;
   }
 
-  .header-inner .btn {
-    padding: 10px 18px;
-    font-size: 0.75rem;
-  }
-
-  /* Logo + CTA no longer fit on one row with the full nav at this width
-     (logo + nav + button was overflowing the viewport horizontally).
-     Collapse the nav behind a hamburger instead of forcing every link
-     onto a cramped single line: .nav-toggle becomes visible, .nav is
-     hidden by default and only reappears (as a full-width column below
-     row 1) once .site-header gets the .nav-open class from script.js. */
+  /* Logo + full nav no longer fit on one row at this width (logo + nav
+     was overflowing the viewport horizontally). Collapse the nav behind
+     a hamburger instead of forcing every link onto a cramped single
+     line: .nav-toggle becomes visible, .nav is hidden by default and
+     only reappears (as a full-width column below row 1) once
+     .site-header gets the .nav-open class from script.js. */
   .header-inner {
     flex-wrap: wrap;
     row-gap: 10px;
@@ -3673,24 +3576,11 @@ a.service-card:focus-visible .service-cta-arrow {
     column-gap: 14px;
   }
 
-  /* Pushes whichever is the first "right-side" control (the CTA button
-     on the homepage, or the toggle itself on pages with no header CTA)
-     flush to the right edge, leaving the logo alone on the left — the
-     same visual result as the old space-between, without needing it. */
-  .header-inner .btn,
+  /* Pushes the toggle flush to the right edge, leaving the logo alone
+     on the left — the same visual result as the old space-between,
+     without needing it. */
   .nav-toggle {
     margin-left: auto;
-  }
-
-  /* When both the CTA button and the toggle are present (homepage only),
-     the button already claims the auto-margin above; this keeps the
-     toggle snug right next to it instead of also grabbing free space and
-     splitting the two apart. */
-  .header-inner .btn + .nav-toggle {
-    margin-left: 14px;
-  }
-
-  .nav-toggle {
     display: flex;
   }
 

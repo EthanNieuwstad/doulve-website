@@ -837,22 +837,6 @@ function initScrollReveals() {
     );
   }
 
-  // Contact intro copy (appears in both the homepage teaser and the real
-  // contact page, always inside a .contact-intro wrapper either way)
-  if (document.querySelector('.contact-intro')) {
-    gsap.fromTo('.contact-intro > *',
-      { opacity: 0, y: 24 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '.contact-intro', start: 'top 85%', toggleActions: 'play none none none' },
-      }
-    );
-  }
-
   // Contact form fields — only present on contact.html
   if (document.querySelector('.contact-form')) {
     gsap.fromTo('.contact-form .field, .contact-form button',

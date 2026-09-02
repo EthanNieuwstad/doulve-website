@@ -284,13 +284,13 @@
     "heroLine3": "me rakennamme.",
     "heroSub": "Yksi tiimi — verkkosivut, brändäys ja mainoskampanjat — sellaisten ihmisten pyörittämänä, jotka ovat oikeasti tehneet työn, eivätkä vain laskuttaneet siitä.",
     "seeOurWork": "Katso Töitämme →",
-    "originPhotoAlt": "Doulven perustaja kuvauksissa kulissien takana",
+    "originPhotoAlt": "Doulven tekijät kuvauksissa kulissien takana",
 
     "originEyebrow": "Näin Tämä Alkoi",
-    "originHeading": "Rakennettu ihmisen toimesta, joka tuntee alan ruohonjuuritasolta asti.",
-    "originLede": "Doulve ei syntynyt neuvotteluhuoneessa — se syntyi kameran takana ja mainosten hallintapaneelin sisällä",
-    "originBody1": "Viisi vuotta ennen Doulven syntyä sen perustaja kuvasi jo sisältöä ja pyöritti mainoskampanjoita muiden brändeille — freelancerina, toimistopuolella, missä ikinä työtä riitti. Viisi vuotta sen näkemistä, mikä oikeasti vie yritystä eteenpäin ja mikä on vain laskutettavaa puuhastelua.",
-    "originBody2": "Doulve on olemassa, koska useimmat pienet ja keskisuuret yritykset jäävät valitsemaan suuryritysbudjeteille hinnoiteltujen toimistojen ja vain yhtä osa-aluetta tarjoavien freelancerien väliltä Rakensimme sen, mitä itse toivoimme olevan olemassa: yhden tiimin, aidon tuotantokokemuksen ja hinnoittelun, joka olettaa sinun olevan oikea pieni yritys — ei Fortune 500 -konsernin tytäryhtiö.",
+    "originHeading": "Rakennettu kokemuksella, joka tulee suoraan kentältä.",
+    "originLede": "Doulve ei syntynyt neuvotteluhuoneessa — se syntyi kameran takana ja mainospaneelien sisällä.",
+    "originBody1": "Ennen Doulven perustamista sen tekijät olivat jo vuosia kuvanneet sisältöä ja pyörittäneet mainoskampanjoita muille brändeille — freelancereina, toimistoissa, siellä missä työtä riitti. Vuosien varrella opimme, mikä oikeasti vie yritystä eteenpäin ja mikä on vain laskutettavaa näpertelyä.",
+    "originBody2": "Doulve on olemassa, koska useimmat pienet ja keskisuuret yritykset joutuvat valitsemaan suuryritysten budjeteille hinnoiteltujen toimistojen ja vain yhteen osa-alueeseen erikoistuneiden freelancereiden väliltä. Rakensimme sen, mitä itse toivoimme olevan olemassa: yhden tiimin, aidon tuotantokokemuksen ja hinnoittelun, joka olettaa sinun olevan oikea pk-yritys — ei Fortune 500 -konsernin tytäryhtiö.",
     "originStat1Label": "Vuotta sisällöntuotannossa ja mainoskampanjoissa",
     "originStat2Label": "Julkaistua projektia",
     "originStat3Label": "Osaamisalaa, yksi katto",
@@ -321,10 +321,10 @@
     "process4Title": "Kasvu",
     "process4Desc": "Jatkuvaa optimointia ja raportointia, jota oikeasti ymmärrät — ei ammattislangia.",
 
-    "founderEyebrow": "Kuka Tämän Takana On",
+    "founderEyebrow": "Ketkä Tämän Takana Ovat",
     "founderHeading": "Yksi Tiimi. Yksi Yhteyshenkilö. Joka Kerta.",
-    "founderQuote": "\"Vietin viisi vuotta muiden menestyksen rakentamiseen. Doulvessa se osaaminen käännetään sinun hyväksesi.\"",
-    "founderAttribution": "— Perustaja, Doulve"
+    "founderQuote": "\"Vietimme vuosia muiden menestyksen rakentamiseen. Doulvessa se osaaminen käännetään sinun hyväksesi.\"",
+    "founderAttribution": "— Perustajat, Doulve"
   },
 
   "contact": {

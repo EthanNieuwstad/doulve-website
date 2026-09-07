@@ -1116,10 +1116,6 @@ a {
   background: var(--white);
   border: 3px solid var(--ink-dark);
   box-shadow: 6px 6px 0 rgba(16, 32, 26, 0.85);
-  /* #website-design and #content-creation are hero-badge scroll targets
-     from the homepage — offset so the sticky header doesn't cover the
-     card on arrival, same pattern as .page-hero etc. above. */
-  scroll-margin-top: calc(var(--header-h) + 16px);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -2096,10 +2092,6 @@ a.service-card:focus-visible .service-cta-arrow {
   border: 3px solid var(--ink-dark);
   box-shadow: 6px 6px 0 rgba(16, 32, 26, 0.85);
   padding: 22px 18px;
-  /* #meta-ads and #google-ads are hero-badge scroll targets from the
-     homepage — offset so the sticky header doesn't cover the card on
-     arrival, same pattern as .page-hero etc. above. */
-  scroll-margin-top: calc(var(--header-h) + 16px);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 

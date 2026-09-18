@@ -212,6 +212,7 @@
     "sub": "Five ways to work with us, from a single build to running your whole marketing.",
 
     "websiteTitle": "Website",
+    "websitePricePrefix": "from",
     "websitePrice": "€1,800",
     "websitePriceUnit": "one-time",
     "websiteNote": "Custom-designed, built to convert. Yours outright when we're done.",
@@ -221,6 +222,7 @@
     "websiteFeature4": "30-day post-launch support",
 
     "metaTitle": "Meta Ads Management",
+    "metaPricePrefix": "from",
     "metaPrice": "€300",
     "metaPriceUnit": "/mo",
     "metaSetupFee": "+ €300 setup fee (one-time)",
@@ -234,6 +236,7 @@
     "metaTier3Price": "€600",
 
     "googleTitle": "Google Ads Management",
+    "googlePricePrefix": "from",
     "googlePrice": "€350",
     "googlePriceUnit": "/mo",
     "googleSetupFee": "+ €350 setup fee (one-time)",
@@ -269,6 +272,7 @@
     "allInSetupFee": "+ €1,200/mo ongoing",
     "allInNote": "Website build plus ongoing Meta and Google ads management and ad creation, all under one invoice.",
     "allInAdSpendNote": "Excludes ad spend.",
+    "allInRenegotiationNote": "After 6 months, pricing can be renegotiated, since the website will already be paid off by then.",
     "allInSavingsCallout": "Save €650 in setup fees",
     "allInFeature1": "Website build",
     "allInFeature2": "Ongoing Meta + Google ads management",
